@@ -30,7 +30,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ userLocation, items, onItem
         <body>
           <div id="map"></div>
           <script>
-            const map = L.map('map').setView([${userLocation.latitude}, ${userLocation.longitude}], 15);
+            const map = L.map('map').setView([${userLocation.latitude}, ${userLocation.longitude}], 17);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
               attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
               tileSize: 256,
@@ -44,7 +44,13 @@ const MapComponent: React.FC<MapComponentProps> = ({ userLocation, items, onItem
 
             const items = ${JSON.stringify(items)};
             items.forEach(item => {
-              L.marker([item.coords.latitude, item.coords.longitude])
+              L.marker([item.coords.latitude, item.coords.longitude], {
+                icon: L.icon({
+                  iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+                  iconSize: [25, 41],
+                  iconAnchor: [12, 41],
+                })
+              })
                 .addTo(map)
                 .on('click', () => {
                   window.ReactNativeWebView.postMessage(JSON.stringify(item));

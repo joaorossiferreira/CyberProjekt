@@ -1,14 +1,17 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Coords, Item } from '../types';
 
-export function generateRandomItems(center: Coords, count: number): Item[] {
+export function generateRandomItems(center: Coords, count: number, currentItems: Item[]): Item[] {
   const items: Item[] = [];
-  for (let i = 0; i < count; i++) {
-    const offsetLat = (Math.random() - 0.5) * 0.01; // ±0.005 graus (~500m)
-    const offsetLng = (Math.random() - 0.5) * 0.01;
+  const maxItems = 6;
+  const itemsToGenerate = Math.min(count, maxItems - currentItems.length);
+
+  for (let i = 0; i < itemsToGenerate; i++) {
+    const offsetLat = (Math.random() - 0.5) * 0.001; // ~100m
+    const offsetLng = (Math.random() - 0.5) * 0.001;
     items.push({
-      id: `item-${i}`,
-      name: `Item ${i + 1}`,
+      id: `item-${Date.now()}-${i}`,
+      name: `Brecha ${i + 1}`,
       coords: {
         latitude: center.latitude + offsetLat,
         longitude: center.longitude + offsetLng,
