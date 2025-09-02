@@ -1,5 +1,5 @@
 import React from 'react';
-import { CyberpunkEffect } from '../../components/CyberpunkEffect';
+import { CyberpunkEffect } from '../components/CyberpunkEffect';
 import { useRouter } from 'expo-router';
 
 export default function Home() {
