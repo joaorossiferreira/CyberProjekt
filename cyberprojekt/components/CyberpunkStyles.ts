@@ -1,9 +1,9 @@
 import { StyleSheet, Dimensions, Platform } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
-const isSmallDevice = width < 375; // iPhone SE e menores
-const isMediumDevice = width >= 375 && width < 414; // iPhone 6/7/8
-const isLargeDevice = width >= 414; // iPhone 6/7/8 Plus, X, etc.
+const isSmallDevice = width < 375;
+const isMediumDevice = width >= 375 && width < 414;
+const isLargeDevice = width >= 414;
 
 // Tamanhos responsivos
 const getResponsiveSize = {
@@ -26,8 +26,8 @@ export const CyberpunkStyles = StyleSheet.create({
   },
   titleContainer: {
     alignItems: 'center',
-    zIndex: 2,
-    marginTop: height * 0.35, // 🔥 Subiu de 10% para 5%
+    zIndex: 10,
+    marginTop: height * 0.35,
     maxWidth: '90%',
   },
   title: {
@@ -37,7 +37,7 @@ export const CyberpunkStyles = StyleSheet.create({
     textShadowColor: '#000',
     textShadowOffset: { width: -1, height: -1 },
     textShadowRadius: 1,
-    marginBottom: 10,
+    marginBottom: 5,
     textAlign: 'center',
     includeFontPadding: false,
   },
@@ -64,22 +64,25 @@ export const CyberpunkStyles = StyleSheet.create({
     includeFontPadding: false,
   },
   button: {
-    position: 'absolute',
-    bottom: height * 0.15, // 🔥 Subiu de 10% para 15%
     paddingVertical: getResponsiveSize.buttonPaddingVertical,
     paddingHorizontal: getResponsiveSize.buttonPaddingHorizontal,
     backgroundColor: '#fcee09',
     borderWidth: 2,
     borderColor: '#000',
-    borderRadius: 0,
-    zIndex: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 3, height: 3 },
-    shadowOpacity: 1,
-    shadowRadius: 0,
+    borderRadius: 8,
+    zIndex: 15,
+    shadowColor: '#fcee09',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.8,
+    shadowRadius: 8,
     elevation: 5,
     minWidth: 150,
     alignSelf: 'center',
+  },
+  buttonContainer: {
+    position: 'absolute',
+    bottom: height * 0.15,
+    zIndex: 10,
   },
   buttonPressed: {
     transform: [{ scale: 0.95 }],
@@ -91,8 +94,8 @@ export const CyberpunkStyles = StyleSheet.create({
   },
   buttonHover: {
     backgroundColor: '#000',
+    borderColor: '#fcee09',
     shadowColor: '#fcee09',
-    shadowOffset: { width: 3, height: 3 },
   },
   buttonText: {
     fontFamily: 'Cyberpunk',
@@ -125,8 +128,75 @@ export const CyberpunkStyles = StyleSheet.create({
   contentWrapper: {
     flex: 1,
     width: '100%',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     paddingVertical: 40,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.95)',
+    zIndex: 1000,
+  },
+  modalContent: {
+    width: '90%',
+    backgroundColor: '#000',
+    borderWidth: 3,
+    borderColor: '#fcee09',
+    padding: 20,
+    alignItems: 'center',
+    shadowColor: '#fcee09',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.8,
+    shadowRadius: 10,
+    elevation: 10,
+    borderRadius: 15, // Mais arredondado
+  },
+  modalTitle: {
+    fontFamily: 'Cyberpunk',
+    fontSize: getResponsiveSize.title - 4,
+    color: '#fcee09',
+    textShadowColor: '#000',
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 8,
+    marginBottom: 20,
+    textAlign: 'center',
+    textTransform: 'uppercase',
+  },
+  input: {
+    width: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.9)',
+    borderColor: '#fcee09',
+    borderWidth: 2,
+    color: '#fcee09',
+    padding: 12,
+    marginVertical: 10,
+    fontSize: getResponsiveSize.buttonText - 2,
+    textAlign: 'center',
+    zIndex: 15,
+    shadowColor: '#fcee09',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    borderRadius: 8, // Arredondado
+  },
+  switchText: {
+    color: '#fcee09',
+    marginTop: 15,
+    fontFamily: 'Cyberpunk',
+    fontSize: getResponsiveSize.subtitle,
+    textTransform: 'uppercase',
+    textAlign: 'center',
+    zIndex: 15,
+    textShadowColor: '#000',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 3,
+  },
+  modalParticle: {
+    position: 'absolute',
+    borderRadius: 50,
+    backgroundColor: '#fcee09',
+    opacity: 0.2, // Menos visível
   },
 });
