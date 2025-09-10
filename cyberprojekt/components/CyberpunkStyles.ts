@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions, Platform } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 const isSmallDevice = width < 375;
@@ -37,7 +37,7 @@ export const CyberpunkStyles = StyleSheet.create({
     textShadowColor: '#000',
     textShadowOffset: { width: -1, height: -1 },
     textShadowRadius: 1,
-    marginBottom: 5,
+    marginBottom: 10,
     textAlign: 'center',
     includeFontPadding: false,
   },
@@ -136,7 +136,7 @@ export const CyberpunkStyles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.95)',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Fundo com baixa opacidade
     zIndex: 1000,
   },
   modalContent: {
@@ -151,7 +151,7 @@ export const CyberpunkStyles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowRadius: 10,
     elevation: 10,
-    borderRadius: 15, // Mais arredondado
+    borderRadius: 15,
   },
   modalTitle: {
     fontFamily: 'Cyberpunk',
@@ -179,7 +179,7 @@ export const CyberpunkStyles = StyleSheet.create({
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.5,
     shadowRadius: 5,
-    borderRadius: 8, // Arredondado
+    borderRadius: 8,
   },
   switchText: {
     color: '#fcee09',
@@ -197,6 +197,12 @@ export const CyberpunkStyles = StyleSheet.create({
     position: 'absolute',
     borderRadius: 50,
     backgroundColor: '#fcee09',
-    opacity: 0.2, // Menos visível
+    opacity: 0.2,
+  },
+  closeButton: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    zIndex: 20,
   },
 });

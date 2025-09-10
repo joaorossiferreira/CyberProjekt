@@ -49,11 +49,11 @@ export const CyberpunkEffect: React.FC = () => {
   const [password, setPassword] = useState('');
   const [isRegister, setIsRegister] = useState(true);
   const [isBiometricAvailable, setIsBiometricAvailable] = useState(false);
-  const [modalVisible, setModalVisible] = useState(true);
+  const [modalVisible, setModalVisible] = useState(true); // Inicia true para modal se biometria falhar
   const [settingsModalVisible, setSettingsModalVisible] = useState(false);
 
   // BASE_URL para dev - Mude para URL de produção no APK
-  const BASE_URL = 'http://192.168.0.21:3000';
+  const BASE_URL = 'http://192.168.12.94:3000';
 
   // Inicializar partículas e checar biometria/token
   useEffect(() => {
@@ -123,50 +123,59 @@ export const CyberpunkEffect: React.FC = () => {
 
     // Checar biometria e login automático
     (async () => {
-      const compatible = await LocalAuthentication.hasHardwareAsync();
-      setIsBiometricAvailable(compatible);
-      const token = await SecureStore.getItemAsync('userToken');
-      const biometricEnabled = await SecureStore.getItemAsync('biometricEnabled');
-      
-      if (token) {
-        try {
-          console.log('Verificando token:', token);
+      try {
+        const compatible = await LocalAuthentication.hasHardwareAsync();
+        setIsBiometricAvailable(compatible);
+        if (!compatible) {
+          setModalVisible(true);
+          setIsRegister(true);
+          return;
+        }
+
+        const enrolled = await LocalAuthentication.isEnrolledAsync();
+        if (!enrolled) {
+          setModalVisible(true);
+          setIsRegister(true);
+          return;
+        }
+
+        const token = await SecureStore.getItemAsync('userToken');
+        if (token) {
           const res = await fetch(`${BASE_URL}/verify`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ token }),
           });
-          console.log('Resposta do /verify:', res.status);
           const data = await res.json();
-          console.log('Dados do /verify:', data);
+
           if (data.auth) {
-            if (biometricEnabled === 'true' && compatible) {
-              const enrolled = await LocalAuthentication.isEnrolledAsync();
-              if (enrolled) {
-                const result = await LocalAuthentication.authenticateAsync({
-                  promptMessage: 'Use sua digital para entrar',
-                  fallbackLabel: 'Use senha',
-                });
-                if (result.success) {
-                  console.log('Biometria bem-sucedida');
-                  setModalVisible(false);
-                  return;
-                }
-              }
+            // Tenta biometria sempre que há token válido e biometria disponível
+            const result = await LocalAuthentication.authenticateAsync({
+              promptMessage: 'Use sua digital para entrar',
+              fallbackLabel: 'Use senha',
+              disableDeviceFallback: false,
+            });
+            if (result.success) {
+              setModalVisible(false);
+              return;
+            } else {
+              setModalVisible(true);
+              setIsRegister(false); // Modo login
+              return;
             }
-            setIsRegister(false); // Modo login
           } else {
-            console.log('Token inválido, removendo');
             await SecureStore.deleteItemAsync('userToken');
+            await SecureStore.deleteItemAsync('biometricEnabled');
+            setModalVisible(true);
             setIsRegister(true);
+            return;
           }
-        } catch (err) {
-          console.log('Erro ao verificar token:', err);
-          Alert.alert('Erro de conexão');
+        } else {
+          setModalVisible(true);
           setIsRegister(true);
         }
-      } else {
-        console.log('Nenhum token encontrado');
+      } catch (err) {
+        setModalVisible(true);
         setIsRegister(true);
       }
     })();
@@ -260,7 +269,6 @@ export const CyberpunkEffect: React.FC = () => {
   };
 
   const handleSubmit = async () => {
-    console.log('handleSubmit chamado', { isRegister, name, email, password });
     fullScreenGlitch();
     const url = isRegister ? '/register' : '/login';
     const body = isRegister ? { 
@@ -272,40 +280,53 @@ export const CyberpunkEffect: React.FC = () => {
       password 
     };
     try {
-      console.log('Enviando requisição para:', `${BASE_URL}${url}`);
-      console.log('Corpo da requisição:', body);
       const res = await fetch(`${BASE_URL}${url}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });
-      console.log('Resposta do servidor:', res.status);
       const data = await res.json();
-      console.log('Dados recebidos:', data);
       if (!res.ok) {
         Alert.alert(data.msg || 'Erro ao processar');
         return;
       }
       await SecureStore.setItemAsync('userToken', data.token);
-      console.log('Token salvo:', data.token);
-      setModalVisible(false); // Fecha o modal e volta para tela principal
       if (isBiometricAvailable && isRegister) {
         Alert.alert(
           'Ativar Biometria',
           'Quer usar digital para logins futuros?',
           [
-            { text: 'Não' },
+            { text: 'Não', onPress: () => setModalVisible(false) },
             {
               text: 'Sim',
               onPress: async () => {
-                await SecureStore.setItemAsync('biometricEnabled', 'true');
+                const enrolled = await LocalAuthentication.isEnrolledAsync();
+                if (!enrolled) {
+                  Alert.alert('Biometria', 'Nenhuma biometria cadastrada no dispositivo.');
+                  setModalVisible(false);
+                  return;
+                }
+                const result = await LocalAuthentication.authenticateAsync({
+                  promptMessage: 'Confirme sua digital para ativar biometria',
+                  fallbackLabel: 'Use senha',
+                  disableDeviceFallback: false,
+                });
+                if (result.success) {
+                  await SecureStore.setItemAsync('biometricEnabled', 'true');
+                  Alert.alert('Biometria', 'Biometria ativada com sucesso!');
+                  setModalVisible(false);
+                } else {
+                  Alert.alert('Biometria', 'Falha ao ativar biometria. Use email e senha.');
+                  setModalVisible(false);
+                }
               },
             },
           ]
         );
+      } else {
+        setModalVisible(false);
       }
     } catch (err) {
-      console.log('Erro no fetch:', err);
       Alert.alert('Erro de conexão com o servidor');
     }
   };
@@ -357,7 +378,7 @@ export const CyberpunkEffect: React.FC = () => {
       {particles.map(particle => (
         <View
           key={particle.id}
-          style={[
+          style={[ // Corrigido: array de estilos completo
             CyberpunkStyles.particle,
             {
               left: particle.x,
@@ -398,10 +419,10 @@ export const CyberpunkEffect: React.FC = () => {
           <Text style={CyberpunkStyles.subtitle}>NETRUNNER</Text>
         </View>
 
-        {/* Botão de engrenagem (settings) no topo */}
+        {/* Botão de engrenagem (settings) no topo - mais à direita */}
         {!modalVisible && (
           <TouchableOpacity
-            style={{ position: 'absolute', top: 40, right: 20, zIndex: 20 }}
+            style={{ position: 'absolute', top: 40, right: 5, zIndex: 20 }}
             onPress={() => setSettingsModalVisible(true)}
           >
             <Ionicons name="settings-outline" size={30} color="#fcee09" />
@@ -467,13 +488,13 @@ export const CyberpunkEffect: React.FC = () => {
         <View style={CyberpunkStyles.modalContainer}>
           <Animated.View style={[
             CyberpunkStyles.modalContent,
-            { transform: [{ scale: modalScale }] }
+            { transform: [{ scale: modalScale }], pointerEvents: 'box-none' }
           ]}>
             {/* Partículas do modal */}
             {modalParticles.map(particle => (
               <View
                 key={particle.id}
-                style={[
+                style={[ // Corrigido: array de estilos completo
                   CyberpunkStyles.modalParticle,
                   {
                     left: particle.x,
@@ -503,10 +524,7 @@ export const CyberpunkEffect: React.FC = () => {
                 style={{ ...CyberpunkStyles.input, fontFamily: undefined }}
                 placeholder="NOME"
                 value={name}
-                onChangeText={(text) => {
-                  console.log('Valor real digitado (nome):', text);
-                  setName(text.toLowerCase().trim());
-                }}
+                onChangeText={(text) => setName(text.toLowerCase().trim())}
                 placeholderTextColor="#fcee0944"
                 autoFocus={true}
                 returnKeyType="next"
@@ -520,10 +538,7 @@ export const CyberpunkEffect: React.FC = () => {
               style={{ ...CyberpunkStyles.input, fontFamily: undefined }}
               placeholder="EMAIL"
               value={email}
-              onChangeText={(text) => {
-                console.log('Valor real digitado (email):', text);
-                setEmail(text.toLowerCase().trim());
-              }}
+              onChangeText={(text) => setEmail(text.toLowerCase().trim())}
               keyboardType="email-address"
               autoCapitalize="none"
               placeholderTextColor="#fcee0944"
@@ -536,10 +551,7 @@ export const CyberpunkEffect: React.FC = () => {
               style={{ ...CyberpunkStyles.input, fontFamily: undefined }}
               placeholder="SENHA"
               value={password}
-              onChangeText={(text) => {
-                console.log('Valor real digitado (senha):', text);
-                setPassword(text);
-              }}
+              onChangeText={(text) => setPassword(text)}
               secureTextEntry
               placeholderTextColor="#fcee0944"
               returnKeyType="done"
@@ -557,7 +569,6 @@ export const CyberpunkEffect: React.FC = () => {
             ]}>
               <Pressable
                 onPress={() => {
-                  console.log('Botão REGISTRAR/ENTRAR pressionado');
                   setIsButtonPressed(true);
                   Animated.sequence([
                     Animated.timing(buttonScale, {
@@ -591,10 +602,7 @@ export const CyberpunkEffect: React.FC = () => {
             </Animated.View>
             <TouchableOpacity
               hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
-              onPress={() => {
-                console.log('Switch para', isRegister ? 'login' : 'registro');
-                setIsRegister(!isRegister);
-              }}
+              onPress={() => setIsRegister(!isRegister)}
             >
               <Text style={CyberpunkStyles.switchText}>
                 {isRegister ? 'JÁ TEM CONTA? LOGIN' : 'CRIAR NOVA CONTA'}
@@ -611,20 +619,63 @@ export const CyberpunkEffect: React.FC = () => {
         visible={settingsModalVisible}
         onRequestClose={() => setSettingsModalVisible(false)}
       >
-        <View style={CyberpunkStyles.modalContainer}>
+        <TouchableOpacity
+          style={CyberpunkStyles.modalContainer}
+          activeOpacity={1}
+          onPress={() => setSettingsModalVisible(false)}
+        >
           <Animated.View style={[
             CyberpunkStyles.modalContent,
-            { transform: [{ scale: modalScale }] }
+            { transform: [{ scale: modalScale }], pointerEvents: 'auto' }
           ]}>
+            <TouchableOpacity
+              style={CyberpunkStyles.closeButton}
+              onPress={() => setSettingsModalVisible(false)}
+            >
+              <Ionicons name="close-outline" size={24} color="#fcee09" />
+            </TouchableOpacity>
             <Text style={CyberpunkStyles.modalTitle}>CONFIGURAÇÕES</Text>
-            <TouchableOpacity onPress={handleLogout}>
-              <Text style={CyberpunkStyles.switchText}>DESLOGAR</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => setSettingsModalVisible(false)}>
-              <Text style={CyberpunkStyles.switchText}>FECHAR</Text>
-            </TouchableOpacity>
+            <Animated.View style={[
+              CyberpunkStyles.button,
+              isButtonPressed && CyberpunkStyles.buttonPressed,
+              isButtonHovered && CyberpunkStyles.buttonHover,
+              { transform: [{ scale: buttonScale }], marginTop: 20 }
+            ]}>
+              <Pressable
+                onPress={() => {
+                  setIsButtonPressed(true);
+                  Animated.sequence([
+                    Animated.timing(buttonScale, {
+                      toValue: 0.95,
+                      duration: 100,
+                      easing: Easing.linear,
+                      useNativeDriver: true,
+                    }),
+                    Animated.timing(buttonScale, {
+                      toValue: 1,
+                      duration: 100,
+                      easing: Easing.linear,
+                      useNativeDriver: true,
+                    }),
+                  ]).start(() => setIsButtonPressed(false));
+                  handleLogout();
+                }}
+                onHoverIn={() => setIsButtonHovered(true)}
+                onHoverOut={() => setIsButtonHovered(false)}
+                onPressIn={() => setIsButtonPressed(true)}
+                onPressOut={() => setIsButtonPressed(false)}
+                hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
+              >
+                <Text style={[
+                  CyberpunkStyles.buttonText,
+                  isButtonHovered && CyberpunkStyles.buttonTextHover
+                ]}>
+                  DESLOGAR
+                </Text>
+              </Pressable>
+            </Animated.View>
           </Animated.View>
-        </View>
+        </TouchableOpacity>
       </Modal>
     </View>
   );

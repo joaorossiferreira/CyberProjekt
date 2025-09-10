@@ -15,7 +15,10 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSFaceIDUsageDescription": "Permitir autenticação com Face ID."
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -24,7 +27,9 @@
       },
       "permissions": [
         "ACCESS_FINE_LOCATION",
-        "ACCESS_COARSE_LOCATION"
+        "ACCESS_COARSE_LOCATION",
+        "USE_BIOMETRIC",
+        "USE_FINGERPRINT"
       ]
     },
     "web": {
@@ -33,7 +38,12 @@
     "plugins": [
       "expo-location",
       "expo-font",
-      "expo-local-authentication",
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Permitir autenticação com Face ID."
+        }
+      ],
       "expo-secure-store"
     ]
   }
