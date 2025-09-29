@@ -47,7 +47,6 @@ Proporcionar uma experiência de jogo envolvente que mescle deslocamento físico
 | RANK | SPRINT | PRIORIDADE | ESTIMATIVA | USER STORY | STATUS |
 |------|--------|------------|------------|------------|--------|
 | 1    | 1      | Alta       | 8          | Como usuário, quero criar um perfil com nome, email e avatar personalizado, para me identificar no universo do jogo. | ✅ |
-| 2    | 1      | Alta       | 5          | Como usuário, quero fazer login seguro com JWT, para proteger meus dados. | ✅ |
 | 3    | 1      | Alta       | 8          | Como usuário, quero visualizar um mapa interativo com pontos de interesse virtuais ou reais (GPS), para navegar e encontrar missões. | ✅ |
 | 4    | 1      | Alta       | 8          | Como usuário, quero desbloquear missões ao alcançar pontos no mapa, para iniciar puzzles ou tarefas. | 🔄 |
 | 5    | 2      | Alta       | 8          | Como usuário, quero resolver puzzles lógicos simples (e.g., sequências numéricas), para progredir no jogo. | 🔄 |
