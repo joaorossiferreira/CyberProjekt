@@ -40,7 +40,6 @@ Proporcionar uma experiência de jogo envolvente que mescle deslocamento físico
 - **TypeScript 5.8.3** - Linguagem de programação  
 - **Expo Location** - Geolocalização para mapas  
 - **Expo Notifications** - Sistema de notificações  
-- **SQLite** - Banco de dados local para modo offline  
 
 ## 📜 Product Backlog  
 
@@ -77,7 +76,7 @@ Proporcionar uma experiência de jogo envolvente que mescle deslocamento físico
 
 ### Backend (Node.js/Express)  
 ```bash
-cd backend
+cd cyberprojekt/backend
 npm install
 npm start
 ```
