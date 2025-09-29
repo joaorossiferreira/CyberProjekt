@@ -47,7 +47,8 @@ Proporcionar uma experiência de jogo envolvente que mescle deslocamento físico
 | RANK | SPRINT | PRIORIDADE | ESTIMATIVA | USER STORY | STATUS |
 |------|--------|------------|------------|------------|--------|
 | 1    | 1      | Alta       | 8          | Como usuário, quero criar um perfil com nome, email e avatar personalizado, para me identificar no universo do jogo. | ✅ |
-| 3    | 1      | Alta       | 8          | Como usuário, quero visualizar um mapa interativo com pontos de interesse virtuais ou reais (GPS), para navegar e encontrar missões. | ✅ |
+| 2    | 1      | Alta       | 8          | Como usuário, quero visualizar um mapa interativo com pontos de interesse virtuais ou reais (GPS), para navegar e encontrar missões. | ✅ |
+| 3    | 3      | Média      | 5          | Como usuário, quero usar autenticação biométrica, para maior segurança e praticidade. | ✅ |
 | 4    | 1      | Alta       | 8          | Como usuário, quero desbloquear missões ao alcançar pontos no mapa, para iniciar puzzles ou tarefas. | 🔄 |
 | 5    | 2      | Alta       | 8          | Como usuário, quero resolver puzzles lógicos simples (e.g., sequências numéricas), para progredir no jogo. | 🔄 |
 | 6    | 2      | Baixa      | 5          | Como usuário, quero ganhar pontos de experiência (XP) ao concluir missões, para subir de nível. | ❌ |
@@ -59,8 +60,7 @@ Proporcionar uma experiência de jogo envolvente que mescle deslocamento físico
 | 12   | 2      | Média      | 8          | Como usuário, quero jogar em modo offline e sincronizar progresso ao reconectar, para rejogar puzzles sem internet. | ❌ |
 | 13   | 3      | Alta       | 13         | Como usuário, quero participar de missões colaborativas com outros jogadores, para uma experiência social. | ❌ |
 | 14   | 3      | Média      | 8          | Como usuário, quero acessar eventos sazonais com puzzles temáticos, para manter o jogo atualizado. | ❌ |
-| 15   | 3      | Média      | 5          | Como usuário, quero usar autenticação biométrica, para maior segurança e praticidade. | ✅ |
-| 16   | 3      | Baixa      | 5          | Como usuário, quero personalizar configurações (volume, idioma), para uma experiência adaptada. | ❌ |
+| 15   | 3      | Baixa      | 5          | Como usuário, quero personalizar configurações (volume, idioma), para uma experiência adaptada. | ❌ |
 
 **Legenda de Status**:  
 - ✅ **Implementado**: Funcionalidade completamente desenvolvida e funcional.  
