@@ -11,9 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["assets/**/*"],
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
@@ -30,10 +28,12 @@
         "ACCESS_COARSE_LOCATION",
         "USE_BIOMETRIC",
         "USE_FINGERPRINT"
-      ]
+      ],
+      "package": "com.anonymous.cyberprojekt"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
     },
     "plugins": [
       "expo-location",

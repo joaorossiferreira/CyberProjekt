@@ -1,22 +1,23 @@
-import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
 import { useEffect } from 'react';
+import { useFonts } from '../hooks/useFonts';
 
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const [fontsLoaded, fontError] = useFonts({
-    'Cyberpunk': require('../assets/fonts/Cyberpunk.ttf'),
-  });
+  const fontsLoaded = useFonts();
 
   useEffect(() => {
-    if (fontsLoaded || fontError) {
-      // Esconde a splash screen mesmo se a fonte falhar
+    if (fontsLoaded) {
       SplashScreen.hideAsync();
     }
-  }, [fontsLoaded, fontError]);
+  }, [fontsLoaded]);
 
-  // Não segura a renderização - deixa carregar mesmo sem fonte
+  if (!fontsLoaded) {
+    // Pode customizar o loading se quiser
+    return null;
+  }
+
   return (
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="index" />
