@@ -1,5 +1,6 @@
 import React from 'react';
 import { Modal, Text, TouchableOpacity, View, StyleSheet } from 'react-native';
+import { useOverlay } from './OverlayContext';
 
 interface OptionModalProps {
   visible: boolean;
@@ -10,7 +11,7 @@ interface OptionModalProps {
 const OptionModal: React.FC<OptionModalProps> = ({ visible, option, onClose }) => {
   return (
     <Modal visible={visible} animationType="slide" transparent>
-      <View style={styles.modalContainer}>
+      <View style={[styles.modalContainer, { backgroundColor: useOverlay().suppressOverlay ? 'transparent' : 'rgba(0, 0, 0, 0.5)' }]}>
         <View style={styles.modalContent}>
           <Text style={styles.modalText}>
             {option ? `${option} aberto! (Modal temporário)` : 'Carregando...'}

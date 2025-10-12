@@ -45,6 +45,7 @@
         }
       ],
       "expo-secure-store"
-    ]
+    ],
+    "scheme": "cyberprojekt"
   }
 }

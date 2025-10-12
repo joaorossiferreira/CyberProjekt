@@ -1,5 +1,6 @@
 import React from 'react';
 import { Modal, Text, TouchableOpacity, View, StyleSheet } from 'react-native';
+import { useOverlay } from './OverlayContext';
 
 interface MenuModalProps {
   visible: boolean;
@@ -10,7 +11,7 @@ interface MenuModalProps {
 const MenuModal: React.FC<MenuModalProps> = ({ visible, onClose, onOptionSelect }) => {
   return (
     <Modal visible={visible} animationType="fade" transparent>
-      <View style={styles.modalContainer}>
+      <View style={[styles.modalContainer, { backgroundColor: useOverlay().suppressOverlay ? 'transparent' : 'rgba(0, 0, 0, 0.5)' }]}>
         <View style={styles.modalContent}>
           <Text style={styles.title}>Menu</Text>
           <TouchableOpacity style={styles.button} onPress={() => onOptionSelect('Inventário')}>

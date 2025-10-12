@@ -6,6 +6,8 @@ import * as LocalAuthentication from 'expo-local-authentication';
 import { useRouter } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import React, { useEffect, useRef, useState } from 'react';
+import { useOverlay } from './OverlayContext';
+import * as Font from 'expo-font';
 import {
   Animated,
   Dimensions,
@@ -20,7 +22,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { useFonts } from '../hooks/useFonts';
 
 interface Particle {
   id: number;
@@ -148,6 +149,7 @@ const CyberpunkStyles = StyleSheet.create({
     backgroundColor: '#000000cc',
     justifyContent: 'center',
     alignItems: 'center',
+    zIndex: 1000, // Abaixo do toast
   },
   modalContent: {
     backgroundColor: '#1a1a1acc',
@@ -186,6 +188,14 @@ const CyberpunkStyles = StyleSheet.create({
     marginVertical: 10,
     fontSize: 16,
     textTransform: 'lowercase',
+  },
+  errorText: {
+    color: '#ff3366',
+    fontSize: 12,
+    fontFamily: 'ChakraPetch-Regular',
+    marginTop: 4,
+    textTransform: 'uppercase',
+    letterSpacing: 1,
   },
   switchText: {
     color: '#00ffcc',
@@ -259,35 +269,68 @@ const CyberpunkStyles = StyleSheet.create({
     letterSpacing: 1,
     marginBottom: 10,
   },
+  // TOAST ESTILOS (CENTRALIZADO NO TOPO)
   toastContainer: {
     position: 'absolute',
-    bottom: 50,
+    top: 20,
     alignSelf: 'center',
     backgroundColor: '#1a1a1a',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 20,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 10,
     borderWidth: 2,
     borderColor: '#fcee09',
-    zIndex: 1000,
+    zIndex: 2000,
     shadowColor: '#fcee09',
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.8,
     shadowRadius: 10,
-    elevation: 5,
+    elevation: 10,
+    minWidth: 200,
+    maxWidth: '80%',
   },
   toastText: {
     color: '#fcee09',
-    fontSize: 16,
-    fontFamily: 'ChakraPetch-Bold',
+    fontSize: 14,
+    fontFamily: 'ChakraPetch-Bold, monospace',
     fontWeight: '700',
     textTransform: 'uppercase',
+    letterSpacing: 1.2,
+    textShadowColor: '#fcee09',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 5,
+    textAlign: 'center',
+  },
+  toastParticle: {
+    position: 'absolute',
+    borderRadius: 50,
   },
 });
 
 export const CyberpunkEffect: React.FC = () => {
   const router = useRouter();
-  const fontsLoaded = useFonts();
+  const [localFontsLoaded, setLocalFontsLoaded] = useState(false);
+
+  useEffect(() => {
+    let mounted = true;
+    const loadLocalFont = async () => {
+      try {
+        await Font.loadAsync({
+          Cyberpunk: require('../assets/fonte/Cyberpunk.ttf'),
+        });
+        if (mounted) setLocalFontsLoaded(true);
+      } catch (err) {
+        console.error('Erro ao carregar fonte Cyberpunk localmente:', err);
+        if (mounted) setLocalFontsLoaded(true);
+      }
+    };
+
+    loadLocalFont();
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
   const { width, height } = Dimensions.get('window');
 
   // Refs para animações e áudio
@@ -304,12 +347,14 @@ export const CyberpunkEffect: React.FC = () => {
   const [particles, setParticles] = useState<Particle[]>([]);
   const [modalParticles, setModalParticles] = useState<Particle[]>([]);
   const [settingsParticles, setSettingsParticles] = useState<Particle[]>([]);
+  const [toastParticles, setToastParticles] = useState<Particle[]>([]); // Partículas do toast
   const [isButtonHovered, setIsButtonHovered] = useState(false);
   const [isButtonPressed, setIsButtonPressed] = useState(false);
   const [showFullGlitch, setShowFullGlitch] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  // inline error states removed — errors are shown only via toast notifications
   const [isRegister, setIsRegister] = useState(true);
   const [isBiometricAvailable, setIsBiometricAvailable] = useState(false);
   const [biometricEnabled, setBiometricEnabled] = useState(false);
@@ -319,8 +364,11 @@ export const CyberpunkEffect: React.FC = () => {
   const [dontShowAgain, setDontShowAgain] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
   const [showToast, setShowToast] = useState(false);
+  const [toastMounted, setToastMounted] = useState(false);
+  const { setSuppressOverlay } = useOverlay();
   const [musicVolume, setMusicVolume] = useState(0.5);
   const [uiSoundVolume, setUiSoundVolume] = useState(0.5);
+  const [audioInitialized, setAudioInitialized] = useState(false);
 
   const BASE_URL = 'https://backend-psi-fawn-77.vercel.app';
 
@@ -406,6 +454,15 @@ export const CyberpunkEffect: React.FC = () => {
         const hasPermission = await requestAudioPermissions();
         if (!hasPermission) return;
 
+        // Load saved volumes first so initial creation respects persisted values
+        const savedMusicVolume = await getSecureItem('musicVolume');
+        const savedUiSoundVolume = await getSecureItem('uiSoundVolume');
+        const initialMusicVolume = savedMusicVolume ? parseFloat(savedMusicVolume) : musicVolume;
+        const initialUiVolume = savedUiSoundVolume ? parseFloat(savedUiSoundVolume) : uiSoundVolume;
+        // apply to state so UI reflects it
+        if (savedMusicVolume) setMusicVolume(initialMusicVolume);
+        if (savedUiSoundVolume) setUiSoundVolume(initialUiVolume);
+
         await Audio.setAudioModeAsync({
           allowsRecordingIOS: false,
           playsInSilentModeIOS: true,
@@ -413,32 +470,23 @@ export const CyberpunkEffect: React.FC = () => {
           shouldDuckAndroid: true,
         });
 
+        // create background music with the initial (possibly saved) volume
         const { sound } = await Audio.Sound.createAsync(
           require('../assets/songs/cyberpunk-theme.mp3'),
-          { shouldPlay: true, isLooping: true, volume: musicVolume }
+          { shouldPlay: initialMusicVolume > 0, isLooping: true, volume: initialMusicVolume }
         );
         backgroundMusic.current = sound;
         console.log('Música de fundo carregada');
 
+        // create click/UI sound
         const { sound: click } = await Audio.Sound.createAsync(
           require('../assets/sounds/click.mp3'),
-          { shouldPlay: false, volume: uiSoundVolume }
+          { shouldPlay: false, volume: initialUiVolume }
         );
         clickSound.current = click;
         console.log('Som de clique carregado');
 
-        const savedMusicVolume = await getSecureItem('musicVolume');
-        const savedUiSoundVolume = await getSecureItem('uiSoundVolume');
-        if (savedMusicVolume) {
-          const volume = parseFloat(savedMusicVolume);
-          setMusicVolume(volume);
-          await backgroundMusic.current?.setVolumeAsync(volume);
-        }
-        if (savedUiSoundVolume) {
-          const volume = parseFloat(savedUiSoundVolume);
-          setUiSoundVolume(volume);
-          await clickSound.current?.setVolumeAsync(volume);
-        }
+        setAudioInitialized(true);
       } catch (error) {
         console.error('Erro ao inicializar áudio:', error);
         showToastNotification('ERRO AO CARREGAR ÁUDIO');
@@ -490,6 +538,24 @@ export const CyberpunkEffect: React.FC = () => {
       });
     }
     setSettingsParticles(settingsParticlesInit);
+
+    // Inicializar partículas do toast
+    const toastParticleCount = 10;
+    const toastParticlesInit: Particle[] = [];
+    const toastWidth = width * 0.6;
+    const toastHeight = 50;
+    for (let i = 0; i < toastParticleCount; i++) {
+      toastParticlesInit.push({
+        id: i + 3000,
+        x: Math.random() * toastWidth,
+        y: Math.random() * toastHeight,
+        size: Math.random() * 1 + 0.3,
+        speed: Math.random() * 0.5 + 0.2,
+        color: Math.random() > 0.5 ? '#fcee09' : '#00ffcc',
+        opacity: Math.random() * 0.3 + 0.1,
+      });
+    }
+    setToastParticles(toastParticlesInit);
 
     Animated.loop(
       Animated.sequence([
@@ -618,9 +684,9 @@ export const CyberpunkEffect: React.FC = () => {
       backgroundMusic.current?.unloadAsync().catch(err => console.error('Erro ao descarregar música:', err));
       clickSound.current?.unloadAsync().catch(err => console.error('Erro ao descarregar som de clique:', err));
     };
-  }, []);
+  }, [width, height]);
 
-  // Animação das partículas
+  // Animação das partículas (incluindo toast)
   useEffect(() => {
     const particleInterval = setInterval(() => {
       setParticles(prev =>
@@ -644,6 +710,13 @@ export const CyberpunkEffect: React.FC = () => {
           x: p.x + (Math.random() - 0.5) * 0.2,
         }))
       );
+      setToastParticles(prev =>
+        prev.map(p => ({
+          ...p,
+          y: (p.y + p.speed) % 50,
+          x: p.x + (Math.random() - 0.5) * 0.2,
+        }))
+      );
     }, 70);
 
     return () => clearInterval(particleInterval);
@@ -651,19 +724,44 @@ export const CyberpunkEffect: React.FC = () => {
 
   // Atualizar volume da música
   useEffect(() => {
-    if (backgroundMusic.current) {
-      backgroundMusic.current.setVolumeAsync(musicVolume).catch(err => console.error('Erro ao ajustar volume da música:', err));
-      setSecureItem('musicVolume', musicVolume.toString());
-    }
-  }, [musicVolume]);
+    // persist volume preference
+    setSecureItem('musicVolume', musicVolume.toString());
+  if (!audioInitialized) return;
+    (async () => {
+      try {
+        if (backgroundMusic.current) {
+          await backgroundMusic.current.setVolumeAsync(musicVolume);
+          if (musicVolume <= 0) {
+            // pause if effectively muted
+            await backgroundMusic.current.pauseAsync();
+          } else {
+            // resume or ensure playing
+            const status: any = await backgroundMusic.current.getStatusAsync();
+            if (status && status.isLoaded && !status.isPlaying) {
+              await backgroundMusic.current.playAsync();
+            }
+          }
+        }
+      } catch (err) {
+        console.error('Erro ao ajustar volume da música:', err);
+      }
+    })();
+  }, [musicVolume, audioInitialized]);
 
   // Atualizar volume do som da UI
   useEffect(() => {
-    if (clickSound.current) {
-      clickSound.current.setVolumeAsync(uiSoundVolume).catch(err => console.error('Erro ao ajustar volume do som da UI:', err));
-      setSecureItem('uiSoundVolume', uiSoundVolume.toString());
-    }
-  }, [uiSoundVolume]);
+    setSecureItem('uiSoundVolume', uiSoundVolume.toString());
+  if (!audioInitialized) return;
+    (async () => {
+      try {
+        if (clickSound.current) {
+          await clickSound.current.setVolumeAsync(uiSoundVolume);
+        }
+      } catch (err) {
+        console.error('Erro ao ajustar volume do som da UI:', err);
+      }
+    })();
+  }, [uiSoundVolume, audioInitialized]);
 
   const fullScreenGlitch = () => {
     setShowFullGlitch(true);
@@ -702,7 +800,7 @@ export const CyberpunkEffect: React.FC = () => {
       Animated.timing(toastAnim, {
         toValue: 1,
         duration: 300,
-        easing: Easing.out(Easing.ease),
+        easing: Easing.elastic(1),
         useNativeDriver: true,
       }),
       Animated.timing(toastAnim, {
@@ -719,15 +817,72 @@ export const CyberpunkEffect: React.FC = () => {
     ]).start(() => setShowToast(false));
   };
 
+  // Gerencia montagem do Modal do toast para garantir que ele seja criado depois de outros Modals
+  useEffect(() => {
+    let mountTimer: any = null;
+    let unmountTimer: any = null;
+    if (showToast) {
+      // monta pouco depois para garantir ordenação nativa (faz o toast ficar acima)
+      mountTimer = setTimeout(() => setToastMounted(true), 20);
+      // suprimir overlay escuro em outros modals para evitar que cubram o toast
+      setSuppressOverlay(true);
+    } else {
+      // espera a animação de saída terminar antes de desmontar
+      unmountTimer = setTimeout(() => setToastMounted(false), 400);
+      // restaurar overlay após toast sumir
+      setTimeout(() => setSuppressOverlay(false), 400);
+    }
+    return () => {
+      if (mountTimer) clearTimeout(mountTimer);
+      if (unmountTimer) clearTimeout(unmountTimer);
+    };
+  }, [showToast, setSuppressOverlay]);
+
   const handleSubmit = async () => {
     await playClickSound();
     fullScreenGlitch();
+
+    const trimmedName = name.toLowerCase().trim();
+    const trimmedEmail = email.toLowerCase().trim();
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (isRegister) {
+      if (!trimmedName) {
+        showToastNotification('NÉO-ALERTA: NOME OBRIGATÓRIO');
+        return;
+      }
+      if (!trimmedEmail) {
+        showToastNotification('NÉO-ALERTA: EMAIL OBRIGATÓRIO');
+        return;
+      }
+      if (!emailRegex.test(trimmedEmail)) {
+        showToastNotification('NÉO-ERROR: EMAIL INVÁLIDO');
+        return;
+      }
+      if (!password || password.length < 6) {
+        showToastNotification('SENHA FRACA: MÍNIMO 6 CARACTERES');
+        return;
+      }
+    } else {
+      if (!trimmedEmail) {
+        showToastNotification('NÉO-ALERTA: EMAIL OBRIGATÓRIO');
+        return;
+      }
+      if (!password) {
+        showToastNotification('NÉO-ALERTA: SENHA OBRIGATÓRIA');
+        return;
+      }
+    }
+
     try {
       const url = isRegister ? '/register' : '/login';
       const body = isRegister
-        ? { name: name.toLowerCase().trim(), email: email.toLowerCase().trim(), password }
-        : { email: email.toLowerCase().trim(), password };
-      console.log('Enviando para:', `${BASE_URL}${url}`, 'Payload:', body);
+        ? { name: trimmedName, email: trimmedEmail, password }
+        : { email: trimmedEmail, password };
+
+      console.log('Enviando para:', `${BASE_URL}${url}`, 'Payload:', { ...body, password: '***' });
+
       const res = await fetch(`${BASE_URL}${url}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -736,15 +891,17 @@ export const CyberpunkEffect: React.FC = () => {
       const data = await res.json();
       console.log('Resposta do servidor:', data, 'Status:', res.status);
 
+  // inline errors removed — rely on toast notifications only
+
       if (res.ok) {
         if (isRegister) {
-          showToastNotification('REGISTRO OK, BEM-VINDO NETRUNNER!');
+          showToastNotification('REGISTRO OK — BEM-VINDO, NETRUNNER!');
           setIsRegister(false);
           setName('');
           setEmail('');
           setPassword('');
         } else {
-          showToastNotification('BEM-VINDO DE VOLTA, NETRUNNER!');
+          showToastNotification('ACESSO CONCEDIDO — BEM-VINDO DE VOLTA, NETRUNNER!');
           setEmail('');
           setPassword('');
           await setSecureItem('userToken', data.token);
@@ -754,11 +911,29 @@ export const CyberpunkEffect: React.FC = () => {
           }
         }
       } else {
-        showToastNotification(data.msg || 'ERRO AO PROCESSAR');
+        const msg = (data?.msg || data?.message || '').toString();
+        const code = msg.toUpperCase();
+        if (res.status === 409 || code.includes('EMAIL_ALREADY') || code.includes('ALREADY_REGISTERED')) {
+          showToastNotification('NÉO-ALERTA: EMAIL JÁ EM USO');
+        } else if (code.includes('NAME_ALREADY')) {
+          showToastNotification('NÉO-ALERTA: NOME JÁ EM USO');
+        } else if (code.includes('PASSWORD_TOO_SHORT')) {
+          showToastNotification('SENHA FRACA: MÍNIMO 6 CARACTERES');
+        } else if (code.includes('EMAIL_INVALID')) {
+          showToastNotification('NÉO-ERROR: EMAIL INVÁLIDO');
+        } else if (res.status === 401 && (code.includes('USER_NOT_FOUND') || code.includes('NOT_FOUND'))) {
+          showToastNotification('NÉO-ALERTA: USUÁRIO NÃO ENCONTRADO');
+        } else if (res.status === 401 && code.includes('INVALID_PASSWORD')) {
+          showToastNotification('SENHA INCORRETA — TENTE NOVAMENTE');
+        } else if (res.status === 400 && code.includes('MISSING_FIELDS')) {
+          showToastNotification('NÉO-ALERTA: CAMPOS OBRIGATÓRIOS');
+        } else {
+          showToastNotification(msg ? `SISTEMA: ${msg.toUpperCase()}` : 'ERRO AO PROCESSAR — REDE NÓSFERA');
+        }
       }
     } catch (err: any) {
       console.error('Erro de fetch:', err);
-      showToastNotification(err.message === 'Network request failed' ? 'FALHA NA CONEXÃO COM O SERVIDOR' : 'ERRO INESPERADO');
+      showToastNotification(err.message === 'Network request failed' ? 'FALHA NA CONEXÃO COM O SERVIDOR' : 'ERRO INESPERADO — NEXUS OFFLINE');
     }
   };
 
@@ -859,7 +1034,7 @@ export const CyberpunkEffect: React.FC = () => {
     outputRange: [50, 0],
   });
 
-  if (!fontsLoaded) {
+  if (!localFontsLoaded) {
     return (
       <View style={CyberpunkStyles.container}>
         <Text style={{ color: '#fcee09', fontSize: 18, fontFamily: 'monospace' }}>
@@ -895,12 +1070,27 @@ export const CyberpunkEffect: React.FC = () => {
       <View style={CyberpunkStyles.contentWrapper}>
         <View style={CyberpunkStyles.titleContainer}>
           <Animated.Text
-            style={[CyberpunkStyles.title, { transform: [{ translateX: glitchTranslateX }, { translateY: glitchTranslateY }] }]}
+            style={[
+              CyberpunkStyles.title,
+              {
+                transform: [{ translateX: glitchTranslateX }, { translateY: glitchTranslateY }],
+                fontFamily: 'Cyberpunk',
+                fontWeight: '400',
+                fontSize: 26,
+              },
+            ]}
           >
             CYBERPROJEKT:
           </Animated.Text>
-          <Text style={CyberpunkStyles.titleShadow}>CYBERPROJEKT:</Text>
-          <Text style={CyberpunkStyles.subtitle}>NETRUNNER</Text>
+          <Text
+            style={[
+              CyberpunkStyles.titleShadow,
+              { fontFamily: 'Cyberpunk', fontWeight: '400', fontSize: 26 },
+            ]}
+          >
+            CYBERPROJEKT:
+          </Text>
+          <Text style={[CyberpunkStyles.subtitle, { fontFamily: 'Cyberpunk', fontWeight: '400', fontSize: 20 }]}>NETRUNNER</Text>
         </View>
         {!modalVisible && (
           <TouchableOpacity
@@ -965,6 +1155,7 @@ export const CyberpunkEffect: React.FC = () => {
                   style={[
                     CyberpunkStyles.buttonText,
                     isButtonHovered && CyberpunkStyles.buttonTextHover,
+                    { fontFamily: 'Cyberpunk', fontWeight: '400' },
                   ]}
                 >
                   INICIAR
@@ -1000,47 +1191,62 @@ export const CyberpunkEffect: React.FC = () => {
               {isRegister ? 'ACESSO: REGISTRO' : 'ACESSO: LOGIN'}
             </Animated.Text>
             {isRegister && (
+              <>
+                  <TextInput
+                    style={CyberpunkStyles.input}
+                    placeholder="NOME"
+                    value={name}
+                    onChangeText={text => {
+                      setName(text.toLowerCase().trim());
+                    }}
+                  placeholderTextColor="#fcee0944"
+                  autoFocus={true}
+                  returnKeyType="next"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  spellCheck={false}
+                  selectTextOnFocus={false}
+                />
+                
+              </>
+            )}
+            <>
               <TextInput
                 style={CyberpunkStyles.input}
-                placeholder="NOME"
-                value={name}
-                onChangeText={text => setName(text.toLowerCase().trim())}
+                placeholder="EMAIL"
+                value={email}
+                onChangeText={text => {
+                  setEmail(text.toLowerCase().trim());
+                }}
+                keyboardType="email-address"
+                autoCapitalize="none"
                 placeholderTextColor="#fcee0944"
-                autoFocus={true}
                 returnKeyType="next"
+                autoCorrect={false}
+                spellCheck={false}
+                selectTextOnFocus={false}
+              />
+              
+            </>
+            <>
+              <TextInput
+                style={CyberpunkStyles.input}
+                placeholder="SENHA"
+                value={password}
+                onChangeText={text => {
+                  setPassword(text);
+                }}
+                secureTextEntry
+                placeholderTextColor="#fcee0944"
+                returnKeyType="done"
+                onSubmitEditing={handleSubmit}
                 autoCapitalize="none"
                 autoCorrect={false}
                 spellCheck={false}
                 selectTextOnFocus={false}
               />
-            )}
-            <TextInput
-              style={CyberpunkStyles.input}
-              placeholder="EMAIL"
-              value={email}
-              onChangeText={text => setEmail(text.toLowerCase().trim())}
-              keyboardType="email-address"
-              autoCapitalize="none"
-              placeholderTextColor="#fcee0944"
-              returnKeyType="next"
-              autoCorrect={false}
-              spellCheck={false}
-              selectTextOnFocus={false}
-            />
-            <TextInput
-              style={CyberpunkStyles.input}
-              placeholder="SENHA"
-              value={password}
-              onChangeText={text => setPassword(text)}
-              secureTextEntry
-              placeholderTextColor="#fcee0944"
-              returnKeyType="done"
-              onSubmitEditing={handleSubmit}
-              autoCapitalize="none"
-              autoCorrect={false}
-              spellCheck={false}
-              selectTextOnFocus={false}
-            />
+              
+            </>
             <Animated.View
               style={[
                 CyberpunkStyles.button,
@@ -1252,15 +1458,55 @@ export const CyberpunkEffect: React.FC = () => {
           </Animated.View>
         </TouchableOpacity>
       </Modal>
-      {showToast && (
-        <Animated.View style={[CyberpunkStyles.toastContainer, { opacity: toastOpacity, transform: [{ translateY: toastTranslateY }] }]}>
-          <Animated.Text
-            style={[CyberpunkStyles.toastText, { transform: [{ translateX: glitchTranslateX }, { translateY: glitchTranslateY }] }]}
+      {/* TOAST: usar Modal transparente para ficar acima dos overlays de outros Modals */}
+      {/** Toast Modal: usar overFullScreen e tornar visível somente quando showToast === true. */}
+      <Modal
+        transparent
+        animationType="none"
+        presentationStyle="overFullScreen"
+        visible={toastMounted}
+        statusBarTranslucent={true}
+        onRequestClose={() => {}}
+      >
+        <View style={{ flex: 1, backgroundColor: 'transparent', justifyContent: 'flex-start', alignItems: 'center' }} pointerEvents="box-none">
+          <Animated.View
+            pointerEvents="auto"
+            style={[
+              CyberpunkStyles.toastContainer,
+              {
+                opacity: toastOpacity,
+                transform: [{ translateY: toastTranslateY }],
+              },
+            ]}
           >
-            {toastMessage}
-          </Animated.Text>
-        </Animated.View>
-      )}
+              {toastParticles.map(particle => (
+                <View
+                  key={particle.id}
+                  style={[
+                    CyberpunkStyles.toastParticle,
+                    {
+                      left: particle.x,
+                      top: particle.y,
+                      width: particle.size * 2,
+                      height: particle.size * 2,
+                      backgroundColor: particle.color,
+                      opacity: particle.opacity,
+                      borderRadius: particle.size,
+                    },
+                  ]}
+                />
+              ))}
+              <Animated.Text
+                style={[
+                  CyberpunkStyles.toastText,
+                  { transform: [{ translateX: glitchTranslateX }, { translateY: glitchTranslateY }] },
+                ]}
+              >
+                {toastMessage}
+              </Animated.Text>
+            </Animated.View>
+          </View>
+        </Modal>
     </View>
   );
 };

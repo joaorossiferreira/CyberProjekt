@@ -66,15 +66,27 @@ app.post('/register', async (req, res) => {
   console.log('Requisição /register:', { name, email });
 
   try {
-    const existingEmail = await User.findOne({ email });
-    if (existingEmail) return res.status(400).json({ msg: 'Email já registrado' });
+    // Server-side validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!name || !email || !password) {
+      return res.status(400).json({ msg: 'MISSING_FIELDS' });
+    }
+    if (!emailRegex.test(String(email).toLowerCase())) {
+      return res.status(400).json({ msg: 'EMAIL_INVALID' });
+    }
+    if (String(password).length < 6) {
+      return res.status(400).json({ msg: 'PASSWORD_TOO_SHORT' });
+    }
+
+    const existingEmail = await User.findOne({ email: String(email).toLowerCase() });
+    if (existingEmail) return res.status(409).json({ msg: 'EMAIL_ALREADY_REGISTERED' });
     const existingName = await User.findOne({ name });
-    if (existingName) return res.status(400).json({ msg: 'Nome já registrado' });
+    if (existingName) return res.status(409).json({ msg: 'NAME_ALREADY_REGISTERED' });
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const user = new User({ name, email, password: hashedPassword });
+    const user = new User({ name, email: String(email).toLowerCase(), password: hashedPassword });
     await user.save();
 
     const token = jwt.sign({ id: user._id }, jwtSecret, { expiresIn: '7d' });
@@ -91,11 +103,12 @@ app.post('/login', async (req, res) => {
   console.log('Requisição /login:', { email });
 
   try {
-    const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ msg: 'Usuário não encontrado' });
+    if (!email || !password) return res.status(400).json({ msg: 'MISSING_FIELDS' });
+    const user = await User.findOne({ email: String(email).toLowerCase() });
+    if (!user) return res.status(401).json({ msg: 'USER_NOT_FOUND' });
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ msg: 'Senha incorreta' });
+    if (!isMatch) return res.status(401).json({ msg: 'INVALID_PASSWORD' });
 
     const token = jwt.sign({ id: user._id }, jwtSecret, { expiresIn: '7d' });
     res.json({ token });

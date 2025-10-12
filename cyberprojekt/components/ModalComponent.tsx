@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, Text, TouchableOpacity, View, StyleSheet } from 'react-native';
 import { Item } from '../types';
+import { useOverlay } from './OverlayContext';
 
 interface ModalComponentProps {
   visible: boolean;
@@ -11,7 +12,7 @@ interface ModalComponentProps {
 const ModalComponent: React.FC<ModalComponentProps> = ({ visible, item, onClose }) => {
   return (
     <Modal visible={visible} animationType="slide" transparent>
-      <View style={styles.modalContainer}>
+      <View style={[styles.modalContainer, { backgroundColor: useOverlay().suppressOverlay ? 'transparent' : 'rgba(0, 0, 0, 0.5)' }]}>
         <View style={styles.modalContent}>
           <Text style={styles.modalText}>
             {item ? `Você clicou em ${item.name}! Funcionando!` : 'Carregando...'}
