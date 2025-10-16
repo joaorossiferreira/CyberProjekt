@@ -1,6 +1,8 @@
+// components/MenuModal.tsx
 import React from 'react';
 import { Modal, Text, TouchableOpacity, View, StyleSheet } from 'react-native';
 import { useOverlay } from './OverlayContext';
+import { useAudio } from './AudioManager';
 
 interface MenuModalProps {
   visible: boolean;
@@ -9,22 +11,54 @@ interface MenuModalProps {
 }
 
 const MenuModal: React.FC<MenuModalProps> = ({ visible, onClose, onOptionSelect }) => {
+  const { playUISound } = useAudio();
+
+  const handleOptionSelect = async (option: string) => {
+    await playUISound();
+    onOptionSelect(option);
+  };
+
+  const handleClose = async () => {
+    await playUISound();
+    onClose();
+  };
+
   return (
     <Modal visible={visible} animationType="fade" transparent>
-      <View style={[styles.modalContainer, { backgroundColor: useOverlay().suppressOverlay ? 'transparent' : 'rgba(0, 0, 0, 0.5)' }]}>
+      <View style={[styles.modalContainer]}>
         <View style={styles.modalContent}>
-          <Text style={styles.title}>Menu</Text>
-          <TouchableOpacity style={styles.button} onPress={() => onOptionSelect('Inventário')}>
-            <Text style={styles.buttonText}>Inventário</Text>
+          <Text style={styles.title}>Configuracoes</Text>
+          
+          <TouchableOpacity 
+            style={styles.menuButton} 
+            onPress={() => handleOptionSelect('Inventário')}
+          >
+            <Text style={styles.menuButtonText}>📦 INVENTÁRIO</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => onOptionSelect('Perfil')}>
-            <Text style={styles.buttonText}>Perfil</Text>
+          
+          <TouchableOpacity 
+            style={styles.menuButton} 
+            onPress={() => handleOptionSelect('Perfil')}
+          >
+            <Text style={styles.menuButtonText}>👤 PERFIL</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => onOptionSelect('Histórico')}>
-            <Text style={styles.buttonText}>Histórico</Text>
+          
+          <TouchableOpacity 
+            style={styles.menuButton} 
+            onPress={() => handleOptionSelect('Histórico')}
+          >
+            <Text style={styles.menuButtonText}>📊 HISTÓRICO</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.closeButton} onPress={onClose}>
-            <Text style={styles.closeButtonText}>Fechar</Text>
+
+          <TouchableOpacity 
+            style={styles.menuButton} 
+            onPress={() => handleOptionSelect('Configurações')}
+          >
+            <Text style={styles.menuButtonText}>⚙️ CONFIGURAÇÕES</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.closeButton} onPress={handleClose}>
+            <Text style={styles.closeButtonText}>Voltar</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -37,43 +71,63 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    padding: 20,
   },
   modalContent: {
-    backgroundColor: 'white',
+    backgroundColor: '#1a1a1a',
     padding: 20,
-    borderRadius: 10,
-    width: 250,
-    alignItems: 'center',
+    borderRadius: 12,
+    width: '90%',
+    maxWidth: 400,
+    borderWidth: 2,
+    borderColor: '#fcee09',
+    shadowColor: '#fcee09',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.8,
+    shadowRadius: 15,
   },
   title: {
     fontSize: 22,
-    fontWeight: 'bold',
+    fontFamily: 'Cyberpunk',
+    color: '#fcee09',
+    textAlign: 'center',
     marginBottom: 20,
+    textShadowColor: '#fcee09',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 10,
   },
-  button: {
-    backgroundColor: '#4CAF50',
-    padding: 10,
-    borderRadius: 5,
-    marginVertical: 5,
-    width: '100%',
+  menuButton: {
+    backgroundColor: '#00000066',
+    padding: 15,
+    borderRadius: 8,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: '#fcee0944',
     alignItems: 'center',
   },
-  buttonText: {
-    color: 'white',
+  menuButtonText: {
+    color: '#fcee09',
     fontSize: 16,
+    fontFamily: 'ChakraPetch-Bold',
+    textTransform: 'uppercase',
+    letterSpacing: 1,
   },
   closeButton: {
-    backgroundColor: '#FF5722',
-    padding: 10,
-    borderRadius: 5,
+    backgroundColor: '#fcee09',
+    padding: 15,
+    borderRadius: 8,
     marginTop: 10,
-    width: '100%',
+    borderWidth: 2,
+    borderColor: '#fcee0944',
     alignItems: 'center',
   },
   closeButtonText: {
-    color: 'white',
+    color: '#000000',
     fontSize: 16,
+    fontFamily: 'Cyberpunk',
+    textTransform: 'uppercase',
+    letterSpacing: 1,
   },
 });
 

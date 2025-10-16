@@ -5,7 +5,7 @@ export default function TabsLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarStyle: styles.tabBar,
+        tabBarStyle: { display: 'none' }, // ESCONDE COMPLETAMENTE A TAB BAR
         headerShown: false,
       }}
     >
@@ -13,7 +13,6 @@ export default function TabsLayout() {
         name="index"
         options={{
           title: 'Home',
-          tabBarStyle: { display: 'none' },
         }}
       />
       <Tabs.Screen
@@ -25,11 +24,3 @@ export default function TabsLayout() {
     </Tabs>
   );
 }
-
-const styles = StyleSheet.create({
-  tabBar: {
-    backgroundColor: '#000',
-    borderTopColor: '#fcee09',
-    borderTopWidth: 2,
-  },
-});

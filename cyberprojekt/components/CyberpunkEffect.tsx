@@ -1,5 +1,6 @@
 // components/CyberpunkEffect.tsx
 import { Ionicons } from '@expo/vector-icons';
+import { useImmersiveMode } from '../hooks/useImmersiveMode';
 import Slider from '@react-native-community/slider';
 import { Audio } from 'expo-av';
 import * as LocalAuthentication from 'expo-local-authentication';
@@ -369,6 +370,9 @@ export const CyberpunkEffect: React.FC = () => {
   const [musicVolume, setMusicVolume] = useState(0.5);
   const [uiSoundVolume, setUiSoundVolume] = useState(0.5);
   const [audioInitialized, setAudioInitialized] = useState(false);
+
+    // Ativa modo imersivo também na tela de missão
+    useImmersiveMode(true);
 
   const BASE_URL = 'https://backend-psi-fawn-77.vercel.app';
 
