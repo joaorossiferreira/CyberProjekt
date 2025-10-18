@@ -1,6 +1,5 @@
-// app/(tabs)/explore.tsx
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, TouchableOpacity, Image } from 'react-native';
+import React, { useEffect, useState, useRef } from 'react';
+import { StyleSheet, View, TouchableOpacity, Image, Animated, Easing, Text } from 'react-native';
 import MapComponent from '../../components/MapComponent';
 import MissionScreen from '../../components/MissionScreen';
 import MenuModal from '../../components/MenuModal';
@@ -9,6 +8,9 @@ import { getUserLocation } from '../../services/location';
 import { generateRandomItems, saveItems, loadItems } from '../../services/map';
 import { Coords, Item } from '../../types';
 import { useAudio } from '../../components/AudioManager';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const BASE_URL = 'https://backend-psi-fawn-77.vercel.app';
 
 export default function Explore() {
   const [userLocation, setUserLocation] = useState<Coords | null>(null);
@@ -18,6 +20,9 @@ export default function Explore() {
   const [menuVisible, setMenuVisible] = useState(false);
   const [optionModalVisible, setOptionModalVisible] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [toastMessage, setToastMessage] = useState('');
+  const [showToast, setShowToast] = useState(false);
+  const toastAnim = useRef(new Animated.Value(0)).current;
   const { playUISound, playBackgroundMusic, stopBackgroundMusic } = useAudio();
 
   useEffect(() => {
@@ -41,6 +46,9 @@ export default function Explore() {
       } catch (error) {
         console.error('Erro ao tocar música do mapa:', error);
       }
+
+      const token = await AsyncStorage.getItem('userToken');
+      console.log('explore.tsx: Token inicial:', token);
     }
     fetchLocationAndPlayMusic();
 
@@ -72,13 +80,74 @@ export default function Explore() {
 
   const handleMissionComplete = async (itemId: string) => {
     await playUISound(require('../../assets/sounds/success.mp3'));
-    console.log('Removendo item:', itemId);
+    console.log('explore.tsx: Removendo item:', itemId);
+    const completedItem = items.find(item => item.id === itemId);
+    if (completedItem && completedItem.mission) {
+      try {
+        const token = await AsyncStorage.getItem('userToken');
+        console.log('explore.tsx: Token para update-progress:', token);
+        if (!token) {
+          console.warn('explore.tsx: Usuário não logado, progresso não enviado');
+          showToastNotification('Missão concluída, mas conecte-se para salvar progresso!');
+        } else {
+          const boostedXP = completedItem.mission.xp * 2; // Dobrar XP para nivelamento mais rápido
+          console.log(`explore.tsx: Enviando ${boostedXP} XP e ${completedItem.mission.gold} gold`);
+          const response = await fetch(`${BASE_URL}/update-progress`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              exp: boostedXP,
+              gold: completedItem.mission.gold,
+            }),
+          });
+          if (response.ok) {
+            const data = await response.json();
+            console.log('explore.tsx: Progresso atualizado:', data);
+            showToastNotification(`+${boostedXP} XP! Nível: ${data.level} • +${completedItem.mission.gold} ₵! Total: ${data.gold}`);
+          } else {
+            console.error('explore.tsx: Erro ao enviar progresso:', response.status);
+            showToastNotification('Erro ao salvar progresso. Tente novamente.');
+          }
+        }
+      } catch (err) {
+        console.error('explore.tsx: Erro de rede:', err);
+        showToastNotification('Erro de conexão com o servidor.');
+      }
+    }
+
     setItems(prevItems => {
       const updatedItems = prevItems.filter(item => item.id !== itemId);
-      console.log('Itens antes:', prevItems.length, 'depois:', updatedItems.length);
+      console.log('explore.tsx: Itens antes:', prevItems.length, 'depois:', updatedItems.length);
       saveItems(updatedItems);
       return updatedItems;
     });
+  };
+
+  const showToastNotification = (message: string) => {
+    setToastMessage(message);
+    setShowToast(true);
+    Animated.sequence([
+      Animated.timing(toastAnim, {
+        toValue: 1,
+        duration: 300,
+        easing: Easing.elastic(1),
+        useNativeDriver: true,
+      }),
+      Animated.timing(toastAnim, {
+        toValue: 1,
+        duration: 3000,
+        useNativeDriver: true,
+      }),
+      Animated.timing(toastAnim, {
+        toValue: 0,
+        duration: 300,
+        easing: Easing.in(Easing.ease),
+        useNativeDriver: true,
+      }),
+    ]).start(() => setShowToast(false));
   };
 
   const handleCloseMissionScreen = async () => {
@@ -92,11 +161,6 @@ export default function Explore() {
     setMenuVisible(false);
     setSelectedOption(option);
     setOptionModalVisible(true);
-  };
-
-  const handleResetModal = () => {
-    setOptionModalVisible(false);
-    setSelectedOption(null);
   };
 
   return (
@@ -129,7 +193,10 @@ export default function Explore() {
           await playUISound();
           setOptionModalVisible(false);
         }} 
-        onReset={handleResetModal} // PASSAR FUNÇÃO DE RESET
+        onReset={() => {
+          setOptionModalVisible(false);
+          setSelectedOption(null);
+        }} 
       />
       <TouchableOpacity 
         style={styles.fabButton} 
@@ -140,6 +207,18 @@ export default function Explore() {
       >
         <Image source={require('../../assets/images/edgerunners.png')} style={styles.fabImage} />
       </TouchableOpacity>
+      {showToast && (
+        <Animated.View
+          style={[
+            styles.toastContainer,
+            {
+              opacity: toastAnim,
+            },
+          ]}
+        >
+          <Text style={styles.toastText}>{toastMessage}</Text>
+        </Animated.View>
+      )}
     </View>
   );
 }
@@ -162,5 +241,21 @@ const styles = StyleSheet.create({
   fabImage: {
     width: 70,
     height: 70,
+  },
+  toastContainer: {
+    position: 'absolute',
+    top: 50,
+    alignSelf: 'center',
+    backgroundColor: '#1a1a1a',
+    padding: 10,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#fcee09',
+    zIndex: 1000,
+  },
+  toastText: {
+    color: '#fcee09',
+    fontSize: 14,
+    textAlign: 'center',
   },
 });

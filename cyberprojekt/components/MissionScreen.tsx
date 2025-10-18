@@ -1,4 +1,3 @@
-// components/MissionScreen.tsx
 import React, { useState, useEffect } from 'react';
 import {
   View,
@@ -6,16 +5,16 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  Dimensions,
-  TextInput
+  Dimensions
 } from 'react-native';
 import { MissionSystem } from './MissionSystem';
 import { Mission } from '../types';
 import CodeMission from './CodeMission';
-import { useImmersiveMode } from '../hooks/useImmersiveMode';
-import { useAudio } from './AudioManager'; // NOVO IMPORT
+import { useAudio } from './AudioManager';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const { width, height } = Dimensions.get('window');
+const BASE_URL = 'https://backend-psi-fawn-77.vercel.app';
 
 interface MissionScreenProps {
   missionId: string;
@@ -30,22 +29,48 @@ export default function MissionScreen({ missionId, itemId, onClose, onMissionCom
   const [showResult, setShowResult] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
   const [mission, setMission] = useState<Mission | null>(null);
-  const { playUISound } = useAudio(); // USAR AUDIO MANAGER
-
-  useImmersiveMode(true);
+  const [userStats, setUserStats] = useState<{ level: number; currentExp: number; gold: number } | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const { playUISound } = useAudio();
 
   useEffect(() => {
     const allMissions = MissionSystem.getAllMissions();
     const foundMission = allMissions.find(m => m.id === missionId);
     setMission(foundMission || null);
+
+    const fetchUserStats = async () => {
+      try {
+        const token = await AsyncStorage.getItem('userToken');
+        console.log('MissionScreen: Verificando token:', token);
+        if (!token) {
+          setError('Usuário não logado. Conecte-se para ver suas stats.');
+          return;
+        }
+        const response = await fetch(`${BASE_URL}/user-stats`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          console.log('MissionScreen: Stats recebidas:', data);
+          setUserStats(data);
+          setError(null);
+        } else {
+          console.error('MissionScreen: Erro ao buscar stats:', response.status);
+          setError('Erro ao carregar suas stats. Tente novamente.');
+        }
+      } catch (err) {
+        console.error('MissionScreen: Erro de rede ao buscar stats:', err);
+        setError('Erro de conexão com o servidor.');
+      }
+    };
+    fetchUserStats();
   }, [missionId]);
 
   const handleSubmit = async () => {
-    await playUISound(); // SOM NO SUBMIT
+    await playUISound();
     if (!mission) return;
 
     let correct = false;
-
     switch (mission.type) {
       case 'math':
         correct = mission.data.answer === Number(selectedAnswer);
@@ -90,7 +115,7 @@ export default function MissionScreen({ missionId, itemId, onClose, onMissionCom
               selectedAnswer === answer.toString() && styles.answerSelected
             ]}
             onPress={async () => {
-              await playUISound(); // SOM AO SELECIONAR RESPOSTA
+              await playUISound();
               setSelectedAnswer(answer.toString());
             }}
           >
@@ -124,7 +149,7 @@ export default function MissionScreen({ missionId, itemId, onClose, onMissionCom
               selectedAnswer === option && styles.optionSelected
             ]}
             onPress={async () => {
-              await playUISound(); // SOM AO SELECIONAR OPÇÃO
+              await playUISound();
               setSelectedAnswer(option);
             }}
           >
@@ -141,7 +166,7 @@ export default function MissionScreen({ missionId, itemId, onClose, onMissionCom
         <View style={styles.errorContainer}>
           <Text style={styles.errorText}>MISSÃO CORROMPIDA</Text>
           <TouchableOpacity style={styles.backButton} onPress={async () => {
-            await playUISound(); // SOM NO BOTÃO DE ERRO
+            await playUISound();
             onClose();
           }}>
             <Text style={styles.backButtonText}>VOLTAR AO MAPA</Text>
@@ -168,7 +193,6 @@ export default function MissionScreen({ missionId, itemId, onClose, onMissionCom
 
   const canSubmit = () => {
     if (!mission) return false;
-
     switch (mission.type) {
       case 'math':
         return selectedAnswer !== '';
@@ -193,7 +217,7 @@ export default function MissionScreen({ missionId, itemId, onClose, onMissionCom
       <View style={styles.resultButtons}>
         {isCorrect ? (
           <TouchableOpacity style={styles.continueButton} onPress={async () => {
-            await playUISound(); // SOM NO BOTÃO DE CONTINUAR
+            await playUISound();
             onClose();
           }}>
             <Text style={styles.continueButtonText}>VOLTAR AO MAPA</Text>
@@ -201,7 +225,7 @@ export default function MissionScreen({ missionId, itemId, onClose, onMissionCom
         ) : (
           <>
             <TouchableOpacity style={styles.tryAgainButton} onPress={async () => {
-              await playUISound(); // SOM NO BOTÃO TENTAR NOVAMENTE
+              await playUISound();
               setShowResult(false);
               setSelectedAnswer('');
               setCodeAnswer('');
@@ -209,7 +233,7 @@ export default function MissionScreen({ missionId, itemId, onClose, onMissionCom
               <Text style={styles.tryAgainText}>TENTAR NOVAMENTE</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.abortButton} onPress={async () => {
-              await playUISound(); // SOM NO BOTÃO ABORTAR
+              await playUISound();
               onClose();
             }}>
               <Text style={styles.abortButtonText}>VOLTAR AO MAPA</Text>
@@ -223,7 +247,6 @@ export default function MissionScreen({ missionId, itemId, onClose, onMissionCom
   return (
     <View style={styles.overlayContainer}>
       <View style={styles.container}>
-        {/* HEADER */}
         <View style={styles.header}>
           <View style={styles.headerContent}>
             <Text style={styles.title}>
@@ -240,14 +263,13 @@ export default function MissionScreen({ missionId, itemId, onClose, onMissionCom
           </View>
 
           <TouchableOpacity style={styles.closeButton} onPress={async () => {
-            await playUISound(); // SOM NO BOTÃO FECHAR
+            await playUISound();
             onClose();
           }}>
             <Text style={styles.closeButtonText}>✕</Text>
           </TouchableOpacity>
         </View>
 
-        {/* CONTEÚDO */}
         <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
           {showResult ? renderResultScreen() : (
             <>
@@ -272,12 +294,22 @@ export default function MissionScreen({ missionId, itemId, onClose, onMissionCom
           )}
         </ScrollView>
 
-        {/* FOOTER */}
         {!showResult && mission && (
           <View style={styles.footer}>
             <Text style={styles.footerText}>
               XP: {mission?.xp} • ₵: {mission?.gold}
             </Text>
+            {error ? (
+              <Text style={styles.errorText}>{error}</Text>
+            ) : userStats ? (
+              <Text style={styles.footerText}>
+                Seu nível: {userStats.level} (XP: {userStats.currentExp}) • ₵: {userStats.gold}
+              </Text>
+            ) : (
+              <Text style={styles.footerText}>
+                Carregando stats...
+              </Text>
+            )}
           </View>
         )}
       </View>
@@ -285,7 +317,6 @@ export default function MissionScreen({ missionId, itemId, onClose, onMissionCom
   );
 }
 
-// ... (os estilos permanecem EXATAMENTE iguais)
 const styles = StyleSheet.create({
   overlayContainer: {
     position: 'absolute',
@@ -319,7 +350,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 22,
-    fontFamily: 'Cyberpunk',
+    fontFamily: 'ChakraPetch',
     color: '#fcee09',
     marginBottom: 8,
     textShadowColor: '#fcee09',
@@ -405,41 +436,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'ChakraPetch-Regular',
     color: '#ffffff',
-  },
-  codeContainer: {
-    backgroundColor: '#00000066',
-    padding: 15,
-    borderRadius: 8,
-    marginBottom: 20,
-    borderWidth: 1,
-    borderColor: '#00ffcc44',
-  },
-  codeText: {
-    fontFamily: 'monospace',
-    fontSize: 12,
-    color: '#00ffcc',
-    lineHeight: 16,
-  },
-  codeLabel: {
-    fontSize: 14,
-    fontFamily: 'ChakraPetch-Bold',
-    color: '#00ffcc',
-    marginBottom: 8,
-    textTransform: 'uppercase',
-    letterSpacing: 1,
-  },
-  codeInput: {
-    borderWidth: 1,
-    borderColor: '#00ffcc',
-    borderRadius: 8,
-    padding: 12,
-    marginBottom: 20,
-    backgroundColor: '#00000066',
-    color: '#00ffcc',
-    fontFamily: 'monospace',
-    fontSize: 14,
-    minHeight: 120,
-    textAlignVertical: 'top',
   },
   optionsContainer: {
     marginBottom: 20,

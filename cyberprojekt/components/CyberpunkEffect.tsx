@@ -5,6 +5,7 @@ import Slider from '@react-native-community/slider';
 import { Audio } from 'expo-av';
 import * as LocalAuthentication from 'expo-local-authentication';
 import { useRouter } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as SecureStore from 'expo-secure-store';
 import React, { useEffect, useRef, useState } from 'react';
 import { useOverlay } from './OverlayContext';
@@ -371,45 +372,38 @@ export const CyberpunkEffect: React.FC = () => {
   const [uiSoundVolume, setUiSoundVolume] = useState(0.5);
   const [audioInitialized, setAudioInitialized] = useState(false);
 
-    // Ativa modo imersivo também na tela de missão
-    useImmersiveMode(true);
+  // Ativa modo imersivo também na tela de missão
+  useImmersiveMode(true);
 
   const BASE_URL = 'https://backend-psi-fawn-77.vercel.app';
 
-  // Funções auxiliares para storage
+  // Funções auxiliares para AsyncStorage
   const getSecureItem = async (key: string): Promise<string | null> => {
     try {
-      if (Platform.OS === 'web') {
-        return localStorage.getItem(key);
-      }
-      return await SecureStore.getItemAsync(key);
+      const value = await AsyncStorage.getItem(key);
+      console.log(`CyberpunkEffect: Lendo ${key} do AsyncStorage:`, value);
+      return value;
     } catch (error) {
-      console.error(`Erro ao acessar ${key} no storage:`, error);
+      console.error(`Erro ao acessar ${key} no AsyncStorage:`, error);
       return null;
     }
   };
 
   const setSecureItem = async (key: string, value: string): Promise<void> => {
     try {
-      if (Platform.OS === 'web') {
-        localStorage.setItem(key, value);
-      } else {
-        await SecureStore.setItemAsync(key, value);
-      }
+      await AsyncStorage.setItem(key, value);
+      console.log(`CyberpunkEffect: Salvando ${key} no AsyncStorage:`, value);
     } catch (error) {
-      console.error(`Erro ao salvar ${key} no storage:`, error);
+      console.error(`Erro ao salvar ${key} no AsyncStorage:`, error);
     }
   };
 
   const deleteSecureItem = async (key: string): Promise<void> => {
     try {
-      if (Platform.OS === 'web') {
-        localStorage.removeItem(key);
-      } else {
-        await SecureStore.deleteItemAsync(key);
-      }
+      await AsyncStorage.removeItem(key);
+      console.log(`CyberpunkEffect: Deletando ${key} do AsyncStorage`);
     } catch (error) {
-      console.error(`Erro ao deletar ${key} do storage:`, error);
+      console.error(`Erro ao deletar ${key} do AsyncStorage:`, error);
     }
   };
 
@@ -730,7 +724,7 @@ export const CyberpunkEffect: React.FC = () => {
   useEffect(() => {
     // persist volume preference
     setSecureItem('musicVolume', musicVolume.toString());
-  if (!audioInitialized) return;
+    if (!audioInitialized) return;
     (async () => {
       try {
         if (backgroundMusic.current) {
@@ -755,7 +749,7 @@ export const CyberpunkEffect: React.FC = () => {
   // Atualizar volume do som da UI
   useEffect(() => {
     setSecureItem('uiSoundVolume', uiSoundVolume.toString());
-  if (!audioInitialized) return;
+    if (!audioInitialized) return;
     (async () => {
       try {
         if (clickSound.current) {
@@ -895,7 +889,7 @@ export const CyberpunkEffect: React.FC = () => {
       const data = await res.json();
       console.log('Resposta do servidor:', data, 'Status:', res.status);
 
-  // inline errors removed — rely on toast notifications only
+      // inline errors removed — rely on toast notifications only
 
       if (res.ok) {
         if (isRegister) {
@@ -1169,7 +1163,7 @@ export const CyberpunkEffect: React.FC = () => {
           </View>
         )}
       </View>
-      <Modal animationType="none" transparent={true} visible={modalVisible} onRequestClose={() => {}}>
+      <Modal animationType="none" transparent={true} visible={modalVisible} onRequestClose={() => { }}>
         <View style={CyberpunkStyles.modalContainer}>
           <Animated.View style={[CyberpunkStyles.modalContent, { transform: [{ scale: modalScale }] }]}>
             {modalParticles.map(particle => (
@@ -1196,13 +1190,13 @@ export const CyberpunkEffect: React.FC = () => {
             </Animated.Text>
             {isRegister && (
               <>
-                  <TextInput
-                    style={CyberpunkStyles.input}
-                    placeholder="NOME"
-                    value={name}
-                    onChangeText={text => {
-                      setName(text.toLowerCase().trim());
-                    }}
+                <TextInput
+                  style={CyberpunkStyles.input}
+                  placeholder="NOME"
+                  value={name}
+                  onChangeText={text => {
+                    setName(text.toLowerCase().trim());
+                  }}
                   placeholderTextColor="#fcee0944"
                   autoFocus={true}
                   returnKeyType="next"
@@ -1211,7 +1205,7 @@ export const CyberpunkEffect: React.FC = () => {
                   spellCheck={false}
                   selectTextOnFocus={false}
                 />
-                
+
               </>
             )}
             <>
@@ -1230,7 +1224,7 @@ export const CyberpunkEffect: React.FC = () => {
                 spellCheck={false}
                 selectTextOnFocus={false}
               />
-              
+
             </>
             <>
               <TextInput
@@ -1249,7 +1243,7 @@ export const CyberpunkEffect: React.FC = () => {
                 spellCheck={false}
                 selectTextOnFocus={false}
               />
-              
+
             </>
             <Animated.View
               style={[
@@ -1470,7 +1464,7 @@ export const CyberpunkEffect: React.FC = () => {
         presentationStyle="overFullScreen"
         visible={toastMounted}
         statusBarTranslucent={true}
-        onRequestClose={() => {}}
+        onRequestClose={() => { }}
       >
         <View style={{ flex: 1, backgroundColor: 'transparent', justifyContent: 'flex-start', alignItems: 'center' }} pointerEvents="box-none">
           <Animated.View
@@ -1483,34 +1477,34 @@ export const CyberpunkEffect: React.FC = () => {
               },
             ]}
           >
-              {toastParticles.map(particle => (
-                <View
-                  key={particle.id}
-                  style={[
-                    CyberpunkStyles.toastParticle,
-                    {
-                      left: particle.x,
-                      top: particle.y,
-                      width: particle.size * 2,
-                      height: particle.size * 2,
-                      backgroundColor: particle.color,
-                      opacity: particle.opacity,
-                      borderRadius: particle.size,
-                    },
-                  ]}
-                />
-              ))}
-              <Animated.Text
+            {toastParticles.map(particle => (
+              <View
+                key={particle.id}
                 style={[
-                  CyberpunkStyles.toastText,
-                  { transform: [{ translateX: glitchTranslateX }, { translateY: glitchTranslateY }] },
+                  CyberpunkStyles.toastParticle,
+                  {
+                    left: particle.x,
+                    top: particle.y,
+                    width: particle.size * 2,
+                    height: particle.size * 2,
+                    backgroundColor: particle.color,
+                    opacity: particle.opacity,
+                    borderRadius: particle.size,
+                  },
                 ]}
-              >
-                {toastMessage}
-              </Animated.Text>
-            </Animated.View>
-          </View>
-        </Modal>
+              />
+            ))}
+            <Animated.Text
+              style={[
+                CyberpunkStyles.toastText,
+                { transform: [{ translateX: glitchTranslateX }, { translateY: glitchTranslateY }] },
+              ]}
+            >
+              {toastMessage}
+            </Animated.Text>
+          </Animated.View>
+        </View>
+      </Modal>
     </View>
   );
 };
