@@ -47,21 +47,20 @@ Proporcionar uma experiência de jogo envolvente que mescle deslocamento físico
 | RANK | SPRINT | PRIORIDADE | ESTIMATIVA | USER STORY | STATUS |
 |------|--------|------------|------------|------------|--------|
 | 1    | 1      | Alta       | 8          | Como usuário, quero criar um perfil com nome, email e avatar personalizado, para me identificar no universo do jogo. | ✅ |
-| 2    | 1      | Alta       | 5          | Como usuário, quero fazer login seguro com JWT, para proteger meus dados. | ✅ |
-| 3    | 1      | Alta       | 8          | Como usuário, quero visualizar um mapa interativo com pontos de interesse virtuais ou reais (GPS), para navegar e encontrar missões. | ✅ |
-| 4    | 1      | Alta       | 8          | Como usuário, quero desbloquear missões ao alcançar pontos no mapa, para iniciar puzzles ou tarefas. | 🔄 |
-| 5    | 2      | Alta       | 8          | Como usuário, quero resolver puzzles lógicos simples (e.g., sequências numéricas), para progredir no jogo. | 🔄 |
-| 6    | 2      | Alta       | 5          | Como usuário, quero ganhar pontos de experiência (XP) ao concluir missões, para subir de nível. | ❌ |
-| 7    | 2      | Média      | 5          | Como usuário, quero acessar um inventário para gerenciar itens coletados, para organizar recompensas. | 🔄 |
-| 8    | 2      | Média      | 5          | Como usuário, quero consultar o histórico de missões concluídas, para revisar meu progresso. | ❌ |
-| 9    | 2      | Alta       | 8          | Como usuário, quero resolver puzzles variados (matemáticos, memória, visuais), para maior diversidade de desafios. | ❌ |
-| 10   | 2      | Alta       | 5          | Como usuário, quero realizar missões temporizadas, para aumentar o desafio. | ❌ |
-| 11   | 2      | Média      | 8          | Como usuário, quero participar de rankings online, para comparar meu desempenho com outros jogadores. | ❌ |
-| 12   | 2      | Média      | 8          | Como usuário, quero jogar em modo offline e sincronizar progresso ao reconectar, para rejogar puzzles sem internet. | ❌ |
-| 13   | 3      | Alta       | 13         | Como usuário, quero participar de missões colaborativas com outros jogadores, para uma experiência social. | ❌ |
-| 14   | 3      | Média      | 8          | Como usuário, quero acessar eventos sazonais com puzzles temáticos, para manter o jogo atualizado. | ❌ |
-| 15   | 3      | Média      | 5          | Como usuário, quero usar autenticação biométrica, para maior segurança e praticidade. | ❌ |
-| 16   | 3      | Baixa      | 5          | Como usuário, quero personalizar configurações (volume, idioma), para uma experiência adaptada. | ❌ |
+| 2    | 1      | Alta       | 8          | Como usuário, quero visualizar um mapa interativo com pontos de interesse virtuais ou reais (GPS), para navegar e encontrar missões. | ✅ |
+| 3    | 1      | Alta       | 8          | Como usuário, quero desbloquear missões ao alcançar pontos no mapa, para iniciar puzzles ou tarefas. | ✅ |
+| 4    | 2      | Alta       | 8          | Como usuário, quero resolver puzzles lógicos simples (e.g., sequências numéricas), para progredir no jogo. | ✅ |
+| 5    | 2      | Alta       | 5          | Como usuário, quero ganhar pontos de experiência (XP) ao concluir missões, para subir de nível. | ✅ |
+| 6    | 2      | Média      | 5          | Como usuário, quero acessar um inventário para gerenciar itens coletados, para organizar recompensas. | 🔄 |
+| 7    | 2      | Média      | 5          | Como usuário, quero consultar o histórico de missões concluídas, para revisar meu progresso. | ❌ |
+| 8    | 2      | Alta       | 8          | Como usuário, quero resolver puzzles variados (matemáticos, memória, visuais), para maior diversidade de desafios. | ❌ |
+| 9    | 2      | Alta       | 5          | Como usuário, quero realizar missões temporizadas, para aumentar o desafio. | ❌ |
+| 10   | 2      | Média      | 8          | Como usuário, quero participar de rankings online, para comparar meu desempenho com outros jogadores. | ✅ |
+| 11   | 2      | Média      | 8          | Como usuário, quero jogar em modo offline e sincronizar progresso ao reconectar, para rejogar puzzles sem internet. | ❌ |
+| 12   | 3      | Alta       | 13         | Como usuário, quero participar de missões colaborativas com outros jogadores, para uma experiência social. | ❌ |
+| 13   | 3      | Média      | 8          | Como usuário, quero acessar eventos sazonais com puzzles temáticos, para manter o jogo atualizado. | ❌ |
+| 14   | 3      | Média      | 5          | Como usuário, quero usar autenticação biométrica, para maior segurança e praticidade. | ✅ |
+| 15   | 3      | Baixa      | 5          | Como usuário, quero personalizar configurações (volume, idioma), para uma experiência adaptada. | 🔄 |
 
 **Legenda de Status**:  
 - ✅ **Implementado**: Funcionalidade completamente desenvolvida e funcional.  
