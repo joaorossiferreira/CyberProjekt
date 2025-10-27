@@ -1,0 +1,387 @@
+// app/(tabs)/inventory.tsx
+import React, { useEffect, useState, useRef } from 'react';
+import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Animated, Easing } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useRouter, useFocusEffect } from 'expo-router';
+import { useAudio } from '../../components/AudioManager';
+import { jwtDecode } from 'jwt-decode';
+
+const BASE_URL = 'https://backend-psi-fawn-77.vercel.app';
+
+interface ItemStats {
+  strength: number;
+  speed: number;
+  damage: number;
+  resistance: number;
+}
+
+interface InventoryItem {
+  itemId: string;
+  name: string;
+  category: string;
+  rarity: string;
+  stats: ItemStats;
+  passive: string;
+  equipped?: boolean;
+}
+
+export default function InventoryScreen() {
+  const [inventory, setInventory] = useState<InventoryItem[]>([]);
+  const { playUISound } = useAudio();
+  const router = useRouter();
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const slideAnim = useRef(new Animated.Value(50)).current;
+
+  useEffect(() => {
+    checkAuthAndFetch();
+    Animated.parallel([
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 600,
+        easing: Easing.out(Easing.cubic),
+        useNativeDriver: true,
+      }),
+      Animated.spring(slideAnim, {
+        toValue: 0,
+        tension: 50,
+        friction: 8,
+        useNativeDriver: true,
+      }),
+    ]).start();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      checkAuthAndFetch();
+    }, [])
+  );
+
+  const checkAuthAndFetch = async () => {
+    try {
+      const token = await AsyncStorage.getItem('userToken');
+      if (!token) {
+        router.push('/login');
+        return;
+      }
+      await fetchInventory(token);
+    } catch (err) {
+      console.error('Erro ao verificar autenticação:', err);
+      router.push('/login');
+    }
+  };
+
+  const fetchInventory = async (token: string) => {
+    try {
+      const decoded: any = jwtDecode(token);
+      const userId = decoded.id;
+      const response = await fetch(`${BASE_URL}/inventory/${userId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setInventory(data);
+      } else {
+        console.error('Erro ao buscar inventário:', response.status);
+      }
+    } catch (err) {
+      console.error('Erro de rede ao buscar inventário:', err);
+    }
+  };
+
+  const handleEquip = async (item: InventoryItem) => {
+    try {
+      const token = await AsyncStorage.getItem('userToken');
+      const response = await fetch(`${BASE_URL}/inventory/equip`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ itemId: item.itemId }),
+      });
+      const data = await response.json();
+      if (data.message) {
+        setInventory(inventory.map(i =>
+          i.itemId === item.itemId ? { ...i, equipped: true } :
+          i.category === item.category ? { ...i, equipped: false } : i
+        ));
+        await playUISound();
+      } else {
+        alert(data.msg);
+      }
+    } catch (err) {
+      console.error('Erro ao equipar item:', err);
+      alert('Erro ao equipar item.');
+    }
+  };
+
+  const getRarityColor = (rarity: string): string => {
+    switch (rarity?.toLowerCase()) {
+      case 'legendary': return '#fcee09';
+      case 'epic': return '#d4be00';
+      case 'rare': return '#a69200';
+      case 'uncommon': return '#786900';
+      default: return '#4a4100';
+    }
+  };
+
+  const renderItem = ({ item }: { item: InventoryItem }) => (
+    <Animated.View 
+      style={[
+        styles.itemCard, 
+        { 
+          opacity: fadeAnim,
+          transform: [{ translateY: slideAnim }],
+          borderColor: getRarityColor(item.rarity),
+          backgroundColor: '#000',
+        }
+      ]}
+    >
+      <View
+        style={[styles.itemGradient, { borderLeftColor: getRarityColor(item.rarity) }]}
+      >
+        <View style={styles.itemHeader}>
+          <Text style={[styles.itemName, { color: getRarityColor(item.rarity) }]}>
+            {item.name}
+          </Text>
+          <Text style={[styles.rarityBadge, { backgroundColor: getRarityColor(item.rarity) }]}>
+            {item.rarity}
+          </Text>
+        </View>
+        
+        <Text style={styles.categoryText}>📦 {item.category}</Text>
+        
+        <View style={styles.statsContainer}>
+          <View style={styles.statRow}>
+            <Text style={styles.statLabel}>💪 Força:</Text>
+            <Text style={styles.statValue}>{item.stats.strength}</Text>
+          </View>
+          <View style={styles.statRow}>
+            <Text style={styles.statLabel}>⚡ Velocidade:</Text>
+            <Text style={styles.statValue}>{item.stats.speed}</Text>
+          </View>
+          <View style={styles.statRow}>
+            <Text style={styles.statLabel}>⚔️ Dano:</Text>
+            <Text style={styles.statValue}>{item.stats.damage}</Text>
+          </View>
+          <View style={styles.statRow}>
+            <Text style={styles.statLabel}>🛡️ Resistência:</Text>
+            <Text style={styles.statValue}>{item.stats.resistance}</Text>
+          </View>
+        </View>
+        
+        <Text style={styles.passiveText}>✨ {item.passive}</Text>
+        
+        <TouchableOpacity
+          style={[
+            styles.equipButton, 
+            { backgroundColor: item.equipped ? '#00ffcc' : '#fcee09' }
+          ]}
+          onPress={() => handleEquip(item)}
+          disabled={item.equipped}
+          activeOpacity={0.8}
+        >
+          <Text style={styles.equipButtonText}>
+            {item.equipped ? '✓ EQUIPADO' : 'EQUIPAR'}
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </Animated.View>
+  );
+
+  return (
+    <View style={[styles.container, { backgroundColor: '#000' }]}>
+      <View style={styles.header}>
+        <Text style={styles.title}>⚡ INVENTÁRIO ⚡</Text>
+        <Text style={styles.subtitle}>{inventory.length} itens</Text>
+      </View>
+      
+      <ScrollView 
+        style={styles.scrollView}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        {inventory.length === 0 ? (
+          <View style={styles.emptyContainer}>
+            <Text style={styles.emptyText}>📦</Text>
+            <Text style={styles.emptySubtext}>Nenhum item no inventário</Text>
+          </View>
+        ) : (
+          inventory.map(item => (
+            <View key={item.itemId}>{renderItem({ item })}</View>
+          ))
+        )}
+      </ScrollView>
+      
+      <TouchableOpacity
+        style={styles.backButton}
+        onPress={async () => {
+          await playUISound();
+          router.push(`/explore?openMenu=${Date.now()}`);
+        }}
+        activeOpacity={0.8}
+      >
+        <View style={styles.backButtonGradient}>
+          <Text style={styles.backButtonText}>VOLTAR</Text>
+        </View>
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  header: {
+    paddingTop: 50,
+    paddingHorizontal: 20,
+    paddingBottom: 20,
+    borderBottomWidth: 2,
+    borderBottomColor: '#fcee09',
+    backgroundColor: 'rgba(0,0,0,0.8)',
+  },
+  title: {
+    fontSize: 28,
+    fontFamily: 'Cyberpunk',
+    color: '#fcee09',
+    textAlign: 'center',
+    textShadowColor: '#fcee09',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 20,
+    marginBottom: 8,
+    letterSpacing: 4,
+    textTransform: 'uppercase',
+  },
+  subtitle: {
+    fontSize: 14,
+    fontFamily: 'ChakraPetch-Regular',
+    color: '#fcee09',
+    textAlign: 'center',
+  },
+  scrollView: {
+    flex: 1,
+  },
+  scrollContent: {
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    paddingBottom: 100,
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 100,
+  },
+  emptyText: {
+    fontSize: 80,
+    marginBottom: 20,
+  },
+  emptySubtext: {
+    fontSize: 18,
+    fontFamily: 'ChakraPetch-Regular',
+    color: '#666',
+  },
+  itemCard: {
+    marginBottom: 16,
+    borderWidth: 2,
+    overflow: 'hidden',
+    backgroundColor: '#000',
+  },
+  itemGradient: {
+    padding: 16,
+    borderLeftWidth: 4,
+  },
+  itemHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  itemName: {
+    fontSize: 20,
+    fontFamily: 'ChakraPetch-Bold',
+    flex: 1,
+    textShadowColor: 'rgba(252,238,9,0.5)',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 8,
+    textTransform: 'uppercase',
+  },
+  rarityBadge: {
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    marginLeft: 8,
+    borderWidth: 2,
+    borderColor: '#000',
+    fontFamily: 'ChakraPetch-Bold',
+    fontSize: 10,
+    color: '#000',
+    textTransform: 'uppercase',
+  },
+  categoryText: {
+    fontSize: 14,
+    fontFamily: 'ChakraPetch-Regular',
+    color: '#fcee09',
+    marginBottom: 12,
+  },
+  statsContainer: {
+    backgroundColor: 'rgba(252,238,9,0.05)',
+    padding: 12,
+    borderWidth: 1,
+    borderColor: '#fcee0944',
+    marginBottom: 12,
+  },
+  statRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 6,
+  },
+  statLabel: {
+    fontSize: 14,
+    fontFamily: 'ChakraPetch-Regular',
+    color: '#fcee09',
+  },
+  statValue: {
+    fontSize: 14,
+    fontFamily: 'ChakraPetch-Bold',
+    color: '#fcee09',
+  },
+  passiveText: {
+    fontSize: 13,
+    fontFamily: 'ChakraPetch-Regular',
+    color: '#fcee09',
+    marginBottom: 12,
+    fontStyle: 'italic',
+  },
+  equipButton: {
+    padding: 12,
+    alignItems: 'center',
+    borderWidth: 2,
+  },
+  equipButtonText: {
+    fontSize: 16,
+    fontFamily: 'ChakraPetch-Bold',
+    color: '#000',
+    letterSpacing: 1,
+    textTransform: 'uppercase',
+  },
+  backButton: {
+    position: 'absolute',
+    bottom: 20,
+    left: 20,
+    right: 20,
+    overflow: 'hidden',
+    borderRadius: 8,
+    backgroundColor: '#fcee09',
+  },
+  backButtonGradient: {
+    padding: 16,
+    alignItems: 'center',
+    backgroundColor: '#fcee09',
+  },
+  backButtonText: {
+    fontSize: 18,
+    fontFamily: 'Cyberpunk',
+    color: '#000',
+    letterSpacing: 2,
+    textTransform: 'uppercase',
+  },
+});

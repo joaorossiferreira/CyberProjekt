@@ -9,10 +9,12 @@ import { generateRandomItems, saveItems, loadItems } from '../../services/map';
 import { Coords, Item } from '../../types';
 import { useAudio } from '../../components/AudioManager';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useLocalSearchParams } from 'expo-router';
 
 const BASE_URL = 'https://backend-psi-fawn-77.vercel.app';
 
 export default function Explore() {
+  const { openMenu } = useLocalSearchParams();
   const [userLocation, setUserLocation] = useState<Coords | null>(null);
   const [items, setItems] = useState<Item[]>([]);
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
@@ -23,6 +25,7 @@ export default function Explore() {
   const [toastMessage, setToastMessage] = useState('');
   const [showToast, setShowToast] = useState(false);
   const toastAnim = useRef(new Animated.Value(0)).current;
+  const musicInitialized = useRef(false);
   const { playUISound, playBackgroundMusic, stopBackgroundMusic } = useAudio();
 
   useEffect(() => {
@@ -39,12 +42,16 @@ export default function Explore() {
         setItems(cachedItems);
       }
 
-      try {
-        await stopBackgroundMusic();
-        await playBackgroundMusic(require('../../assets/songs/map-theme.mp3'));
-        console.log('explore.tsx: Música do mapa iniciada');
-      } catch (error) {
-        console.error('Erro ao tocar música do mapa:', error);
+      // Só toca a música se não foi inicializada ainda
+      if (!musicInitialized.current) {
+        try {
+          await stopBackgroundMusic();
+          await playBackgroundMusic(require('../../assets/songs/map-theme.mp3'));
+          console.log('explore.tsx: Música do mapa iniciada');
+          musicInitialized.current = true;
+        } catch (error) {
+          console.error('Erro ao tocar música do mapa:', error);
+        }
       }
 
       const token = await AsyncStorage.getItem('userToken');
@@ -54,11 +61,17 @@ export default function Explore() {
 
     return () => {
       console.log('explore.tsx: Desmontando tela, resetando estado...');
-      stopBackgroundMusic();
+      // NÃO para a música no unmount, deixa tocando
       setOptionModalVisible(false);
       setSelectedOption(null);
     };
   }, []);
+
+  useEffect(() => {
+    if (openMenu) {
+      setMenuVisible(true);
+    }
+  }, [openMenu]);
 
   useEffect(() => {
     if (!userLocation) return;

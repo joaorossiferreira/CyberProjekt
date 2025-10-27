@@ -18,7 +18,8 @@
     ],
     "types": [
       "react",
-      "react-native"
+      "react-native",
+      "node"
     ]
   },
   "include": [

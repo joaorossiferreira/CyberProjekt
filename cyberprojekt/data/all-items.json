@@ -1,0 +1,5074 @@
+[
+  {
+    "itemId": "weapon_common_1",
+    "name": "Pistola Básica",
+    "category": "Arma",
+    "rarity": "Comum",
+    "levelRequired": 1,
+    "price": 50,
+    "stats": {
+      "strength": 5,
+      "speed": 10,
+      "damage": 15,
+      "resistance": 0
+    },
+    "passive": "Disparo simples sem efeitos especiais",
+    "type": "fixed"
+  },
+  {
+    "itemId": "weapon_common_2",
+    "name": "Faca de Combate",
+    "category": "Arma",
+    "rarity": "Comum",
+    "levelRequired": 1,
+    "price": 40,
+    "stats": {
+      "strength": 10,
+      "speed": 15,
+      "damage": 10,
+      "resistance": 0
+    },
+    "passive": "Ataque corpo a corpo rápido",
+    "type": "fixed"
+  },
+  {
+    "itemId": "weapon_common_3",
+    "name": "Bastão Elétrico",
+    "category": "Arma",
+    "rarity": "Comum",
+    "levelRequired": 2,
+    "price": 60,
+    "stats": {
+      "strength": 8,
+      "speed": 12,
+      "damage": 12,
+      "resistance": 0
+    },
+    "passive": "Causa pequeno atordoamento",
+    "type": "fixed"
+  },
+  {
+    "itemId": "weapon_common_4",
+    "name": "Revólver Antigo",
+    "category": "Arma",
+    "rarity": "Comum",
+    "levelRequired": 2,
+    "price": 55,
+    "stats": {
+      "strength": 6,
+      "speed": 8,
+      "damage": 18,
+      "resistance": 0
+    },
+    "passive": "Alto dano, baixa cadência",
+    "type": "fixed"
+  },
+  {
+    "itemId": "weapon_common_5",
+    "name": "Taser Portátil",
+    "category": "Arma",
+    "rarity": "Comum",
+    "levelRequired": 3,
+    "price": 70,
+    "stats": {
+      "strength": 5,
+      "speed": 20,
+      "damage": 8,
+      "resistance": 0
+    },
+    "passive": "Paralisa por 1 segundo",
+    "type": "fixed"
+  },
+  {
+    "itemId": "weapon_common_6",
+    "name": "Estilingue Reforçado",
+    "category": "Arma",
+    "rarity": "Comum",
+    "levelRequired": 1,
+    "price": 35,
+    "stats": {
+      "strength": 12,
+      "speed": 18,
+      "damage": 5,
+      "resistance": 0
+    },
+    "passive": "Ataque à distância silencioso",
+    "type": "fixed"
+  },
+  {
+    "itemId": "weapon_common_7",
+    "name": "Soco Inglês",
+    "category": "Arma",
+    "rarity": "Comum",
+    "levelRequired": 1,
+    "price": 45,
+    "stats": {
+      "strength": 15,
+      "speed": 10,
+      "damage": 12,
+      "resistance": 5
+    },
+    "passive": "Aumenta dano de socos",
+    "type": "fixed"
+  },
+  {
+    "itemId": "weapon_common_8",
+    "name": "Arco Improvisado",
+    "category": "Arma",
+    "rarity": "Comum",
+    "levelRequired": 3,
+    "price": 65,
+    "stats": {
+      "strength": 10,
+      "speed": 12,
+      "damage": 16,
+      "resistance": 0
+    },
+    "passive": "Ataque silencioso de longa distância",
+    "type": "fixed"
+  },
+  {
+    "itemId": "weapon_common_9",
+    "name": "Machado de Mão",
+    "category": "Arma",
+    "rarity": "Comum",
+    "levelRequired": 2,
+    "price": 50,
+    "stats": {
+      "strength": 14,
+      "speed": 8,
+      "damage": 14,
+      "resistance": 0
+    },
+    "passive": "Dano pesado corpo a corpo",
+    "type": "fixed"
+  },
+  {
+    "itemId": "weapon_common_10",
+    "name": "Granada de Mão",
+    "category": "Arma",
+    "rarity": "Comum",
+    "levelRequired": 4,
+    "price": 80,
+    "stats": {
+      "strength": 5,
+      "speed": 15,
+      "damage": 25,
+      "resistance": 0
+    },
+    "passive": "Dano em área (uso único)",
+    "type": "fixed"
+  },
+  {
+    "itemId": "weapon_rare_1",
+    "name": "Pistola Plasma",
+    "category": "Arma",
+    "rarity": "Rara",
+    "levelRequired": 5,
+    "price": 150,
+    "stats": {
+      "strength": 8,
+      "speed": 15,
+      "damage": 25,
+      "resistance": 5
+    },
+    "passive": "Disparo de energia que atravessa armaduras leves",
+    "type": "fixed"
+  },
+  {
+    "itemId": "weapon_rare_2",
+    "name": "Katana Monofilamento",
+    "category": "Arma",
+    "rarity": "Rara",
+    "levelRequired": 6,
+    "price": 180,
+    "stats": {
+      "strength": 15,
+      "speed": 25,
+      "damage": 20,
+      "resistance": 0
+    },
+    "passive": "Cortes precisos com chance de sangramento",
+    "type": "fixed"
+  },
+  {
+    "itemId": "weapon_rare_3",
+    "name": "Rifle de Precisão",
+    "category": "Arma",
+    "rarity": "Rara",
+    "levelRequired": 7,
+    "price": 200,
+    "stats": {
+      "strength": 10,
+      "speed": 12,
+      "damage": 35,
+      "resistance": 0
+    },
+    "passive": "Headshot causa dano crítico",
+    "type": "fixed"
+  },
+  {
+    "itemId": "weapon_rare_4",
+    "name": "Martelo Cinético",
+    "category": "Arma",
+    "rarity": "Rara",
+    "levelRequired": 6,
+    "price": 175,
+    "stats": {
+      "strength": 25,
+      "speed": 10,
+      "damage": 28,
+      "resistance": 10
+    },
+    "passive": "Impacto causa onda de choque",
+    "type": "fixed"
+  },
+  {
+    "itemId": "weapon_rare_5",
+    "name": "SMG Inteligente",
+    "category": "Arma",
+    "rarity": "Rara",
+    "levelRequired": 8,
+    "price": 220,
+    "stats": {
+      "strength": 8,
+      "speed": 30,
+      "damage": 18,
+      "resistance": 5
+    },
+    "passive": "Mira assistida aumenta precisão",
+    "type": "fixed"
+  },
+  {
+    "itemId": "weapon_rare_6",
+    "name": "Lança-Chamas Portátil",
+    "category": "Arma",
+    "rarity": "Rara",
+    "levelRequired": 7,
+    "price": 195,
+    "stats": {
+      "strength": 12,
+      "speed": 15,
+      "damage": 22,
+      "resistance": 8
+    },
+    "passive": "Causa dano contínuo de queimadura",
+    "type": "fixed"
+  },
+  {
+    "itemId": "weapon_rare_7",
+    "name": "Arco Composto Tech",
+    "category": "Arma",
+    "rarity": "Rara",
+    "levelRequired": 6,
+    "price": 165,
+    "stats": {
+      "strength": 18,
+      "speed": 20,
+      "damage": 24,
+      "resistance": 0
+    },
+    "passive": "Flechas explosivas",
+    "type": "fixed"
+  },
+  {
+    "itemId": "weapon_rare_8",
+    "name": "Chicote Neural",
+    "category": "Arma",
+    "rarity": "Rara",
+    "levelRequired": 8,
+    "price": 210,
+    "stats": {
+      "strength": 10,
+      "speed": 28,
+      "damage": 20,
+      "resistance": 5
+    },
+    "passive": "Desabilita implantes cibernéticos temporariamente",
+    "type": "fixed"
+  },
+  {
+    "itemId": "weapon_epic_1",
+    "name": "Desert Eagle Tech",
+    "category": "Arma",
+    "rarity": "Épica",
+    "levelRequired": 10,
+    "price": 350,
+    "stats": {
+      "strength": 15,
+      "speed": 20,
+      "damage": 40,
+      "resistance": 10
+    },
+    "passive": "Tiros causam pequenas explosões",
+    "type": "fixed"
+  },
+  {
+    "itemId": "weapon_epic_2",
+    "name": "Espada Térmica",
+    "category": "Arma",
+    "rarity": "Épica",
+    "levelRequired": 11,
+    "price": 400,
+    "stats": {
+      "strength": 25,
+      "speed": 30,
+      "damage": 35,
+      "resistance": 15
+    },
+    "passive": "Lâmina aquecida corta armaduras médias",
+    "type": "fixed"
+  },
+  {
+    "itemId": "weapon_epic_3",
+    "name": "Rifle Gauss",
+    "category": "Arma",
+    "rarity": "Épica",
+    "levelRequired": 12,
+    "price": 450,
+    "stats": {
+      "strength": 18,
+      "speed": 18,
+      "damage": 50,
+      "resistance": 10
+    },
+    "passive": "Projéteis eletromagnéticos perfurantes",
+    "type": "fixed"
+  },
+  {
+    "itemId": "weapon_epic_4",
+    "name": "Lançador de Nanobots",
+    "category": "Arma",
+    "rarity": "Épica",
+    "levelRequired": 13,
+    "price": 420,
+    "stats": {
+      "strength": 12,
+      "speed": 25,
+      "damage": 38,
+      "resistance": 20
+    },
+    "passive": "Nanobots desintegram armaduras",
+    "type": "fixed"
+  },
+  {
+    "itemId": "weapon_epic_5",
+    "name": "Shotgun Quântica",
+    "category": "Arma",
+    "rarity": "Épica",
+    "levelRequired": 11,
+    "price": 380,
+    "stats": {
+      "strength": 20,
+      "speed": 15,
+      "damage": 45,
+      "resistance": 12
+    },
+    "passive": "Tiros se dividem em múltiplos projetéis",
+    "type": "fixed"
+  },
+  {
+    "itemId": "weapon_epic_6",
+    "name": "Lâminas Mantis",
+    "category": "Arma",
+    "rarity": "Épica",
+    "levelRequired": 12,
+    "price": 410,
+    "stats": {
+      "strength": 30,
+      "speed": 35,
+      "damage": 32,
+      "resistance": 8
+    },
+    "passive": "Lâminas retráteis para ataques rápidos",
+    "type": "fixed"
+  },
+  {
+    "itemId": "weapon_epic_7",
+    "name": "Canhão de Íons",
+    "category": "Arma",
+    "rarity": "Épica",
+    "levelRequired": 14,
+    "price": 480,
+    "stats": {
+      "strength": 15,
+      "speed": 12,
+      "damage": 55,
+      "resistance": 15
+    },
+    "passive": "Disparo carregado causa dano massivo",
+    "type": "fixed"
+  },
+  {
+    "itemId": "weapon_legendary_1",
+    "name": "Widow Maker",
+    "category": "Arma",
+    "rarity": "Lendária",
+    "levelRequired": 15,
+    "price": 800,
+    "stats": {
+      "strength": 25,
+      "speed": 35,
+      "damage": 60,
+      "resistance": 20
+    },
+    "passive": "Tiros rastreiam alvos através de paredes",
+    "type": "fixed"
+  },
+  {
+    "itemId": "weapon_legendary_2",
+    "name": "Mjolnir Tech",
+    "category": "Arma",
+    "rarity": "Lendária",
+    "levelRequired": 16,
+    "price": 900,
+    "stats": {
+      "strength": 45,
+      "speed": 20,
+      "damage": 70,
+      "resistance": 30
+    },
+    "passive": "Impacto libera descarga elétrica em área",
+    "type": "fixed"
+  },
+  {
+    "itemId": "weapon_legendary_3",
+    "name": "Erebus Sniper",
+    "category": "Arma",
+    "rarity": "Lendária",
+    "levelRequired": 17,
+    "price": 950,
+    "stats": {
+      "strength": 20,
+      "speed": 25,
+      "damage": 85,
+      "resistance": 15
+    },
+    "passive": "Headshots eliminam instantaneamente inimigos comuns",
+    "type": "fixed"
+  },
+  {
+    "itemId": "weapon_legendary_4",
+    "name": "Excalibur Plasma",
+    "category": "Arma",
+    "rarity": "Lendária",
+    "levelRequired": 18,
+    "price": 1000,
+    "stats": {
+      "strength": 35,
+      "speed": 40,
+      "damage": 65,
+      "resistance": 25
+    },
+    "passive": "Lâmina de plasma atravessa múltiplos inimigos",
+    "type": "fixed"
+  },
+  {
+    "itemId": "weapon_legendary_5",
+    "name": "Hellfire Launcher",
+    "category": "Arma",
+    "rarity": "Lendária",
+    "levelRequired": 19,
+    "price": 1100,
+    "stats": {
+      "strength": 30,
+      "speed": 18,
+      "damage": 80,
+      "resistance": 28
+    },
+    "passive": "Mísseis teleguiados com rastro de fogo",
+    "type": "fixed"
+  },
+  {
+    "itemId": "weapon_mythic_1",
+    "name": "Ragnarok",
+    "category": "Arma",
+    "rarity": "Mítica",
+    "levelRequired": 20,
+    "price": 2000,
+    "stats": {
+      "strength": 50,
+      "speed": 45,
+      "damage": 100,
+      "resistance": 40
+    },
+    "passive": "Cada kill regenera HP e aumenta dano temporariamente",
+    "type": "fixed"
+  },
+  {
+    "itemId": "weapon_mythic_2",
+    "name": "Supernova Cannon",
+    "category": "Arma",
+    "rarity": "Mítica",
+    "levelRequired": 22,
+    "price": 2500,
+    "stats": {
+      "strength": 40,
+      "speed": 30,
+      "damage": 120,
+      "resistance": 35
+    },
+    "passive": "Disparo carregado cria buraco negro temporário",
+    "type": "fixed"
+  },
+  {
+    "itemId": "weapon_mythic_3",
+    "name": "Void Blade",
+    "category": "Arma",
+    "rarity": "Mítica",
+    "levelRequired": 21,
+    "price": 2200,
+    "stats": {
+      "strength": 60,
+      "speed": 55,
+      "damage": 95,
+      "resistance": 30
+    },
+    "passive": "Cortes abrem portais dimensionais que causam dano adicional",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sand_common_1",
+    "name": "Sandevistan MK1",
+    "category": "Sandevistan",
+    "rarity": "Comum",
+    "levelRequired": 3,
+    "price": 100,
+    "stats": {
+      "strength": 5,
+      "speed": 25,
+      "damage": 5,
+      "resistance": 5
+    },
+    "passive": "Acelera percepção de tempo por 3s",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sand_common_2",
+    "name": "Sandevistan Básico",
+    "category": "Sandevistan",
+    "rarity": "Comum",
+    "levelRequired": 4,
+    "price": 120,
+    "stats": {
+      "strength": 8,
+      "speed": 28,
+      "damage": 8,
+      "resistance": 6
+    },
+    "passive": "Acelera percepção de tempo por 3.5s",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sand_common_3",
+    "name": "Sandevistan Veloz",
+    "category": "Sandevistan",
+    "rarity": "Comum",
+    "levelRequired": 5,
+    "price": 140,
+    "stats": {
+      "strength": 10,
+      "speed": 30,
+      "damage": 10,
+      "resistance": 8
+    },
+    "passive": "Acelera percepção de tempo por 4s",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sand_common_4",
+    "name": "Sandevistan Sprint",
+    "category": "Sandevistan",
+    "rarity": "Comum",
+    "levelRequired": 4,
+    "price": 130,
+    "stats": {
+      "strength": 7,
+      "speed": 32,
+      "damage": 7,
+      "resistance": 7
+    },
+    "passive": "Aumenta velocidade de movimento durante efeito",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sand_common_5",
+    "name": "Sandevistan Reflexo",
+    "category": "Sandevistan",
+    "rarity": "Comum",
+    "levelRequired": 5,
+    "price": 150,
+    "stats": {
+      "strength": 9,
+      "speed": 35,
+      "damage": 9,
+      "resistance": 9
+    },
+    "passive": "Melhora esquiva durante efeito",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sand_common_6",
+    "name": "Sandevistan Ágil",
+    "category": "Sandevistan",
+    "rarity": "Comum",
+    "levelRequired": 6,
+    "price": 160,
+    "stats": {
+      "strength": 11,
+      "speed": 37,
+      "damage": 11,
+      "resistance": 10
+    },
+    "passive": "Acelera ataques corpo a corpo",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sand_common_7",
+    "name": "Sandevistan Rápido",
+    "category": "Sandevistan",
+    "rarity": "Comum",
+    "levelRequired": 5,
+    "price": 145,
+    "stats": {
+      "strength": 8,
+      "speed": 33,
+      "damage": 8,
+      "resistance": 8
+    },
+    "passive": "Reduz cooldown de habilidades",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sand_common_8",
+    "name": "Sandevistan Flash",
+    "category": "Sandevistan",
+    "rarity": "Comum",
+    "levelRequired": 6,
+    "price": 170,
+    "stats": {
+      "strength": 12,
+      "speed": 38,
+      "damage": 12,
+      "resistance": 11
+    },
+    "passive": "Permite dash rápido",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sand_common_9",
+    "name": "Sandevistan Turbo",
+    "category": "Sandevistan",
+    "rarity": "Comum",
+    "levelRequired": 7,
+    "price": 180,
+    "stats": {
+      "strength": 13,
+      "speed": 40,
+      "damage": 13,
+      "resistance": 12
+    },
+    "passive": "Aumenta cadência de tiro",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sand_common_10",
+    "name": "Sandevistan Iniciante",
+    "category": "Sandevistan",
+    "rarity": "Comum",
+    "levelRequired": 3,
+    "price": 110,
+    "stats": {
+      "strength": 6,
+      "speed": 26,
+      "damage": 6,
+      "resistance": 6
+    },
+    "passive": "Primeira ativação do combate dura 50% mais",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sand_rare_1",
+    "name": "Sandevistan MK2",
+    "category": "Sandevistan",
+    "rarity": "Rara",
+    "levelRequired": 8,
+    "price": 300,
+    "stats": {
+      "strength": 15,
+      "speed": 50,
+      "damage": 15,
+      "resistance": 15
+    },
+    "passive": "Acelera percepção de tempo por 5s, reduz cooldown",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sand_rare_2",
+    "name": "Sandevistan Aprimorado",
+    "category": "Sandevistan",
+    "rarity": "Rara",
+    "levelRequired": 9,
+    "price": 350,
+    "stats": {
+      "strength": 18,
+      "speed": 55,
+      "damage": 18,
+      "resistance": 18
+    },
+    "passive": "Slow motion mais intenso",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sand_rare_3",
+    "name": "Sandevistan Militar",
+    "category": "Sandevistan",
+    "rarity": "Rara",
+    "levelRequired": 10,
+    "price": 400,
+    "stats": {
+      "strength": 20,
+      "speed": 60,
+      "damage": 20,
+      "resistance": 20
+    },
+    "passive": "Pode ser usado duas vezes seguidas",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sand_rare_4",
+    "name": "Sandevistan Fantasma",
+    "category": "Sandevistan",
+    "rarity": "Rara",
+    "levelRequired": 9,
+    "price": 370,
+    "stats": {
+      "strength": 17,
+      "speed": 57,
+      "damage": 17,
+      "resistance": 19
+    },
+    "passive": "Fica invisível durante efeito",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sand_rare_5",
+    "name": "Sandevistan Berserker",
+    "category": "Sandevistan",
+    "rarity": "Rara",
+    "levelRequired": 10,
+    "price": 420,
+    "stats": {
+      "strength": 25,
+      "speed": 52,
+      "damage": 25,
+      "resistance": 15
+    },
+    "passive": "Aumenta dano crítico durante efeito",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sand_rare_6",
+    "name": "Sandevistan Ninja",
+    "category": "Sandevistan",
+    "rarity": "Rara",
+    "levelRequired": 11,
+    "price": 450,
+    "stats": {
+      "strength": 19,
+      "speed": 65,
+      "damage": 19,
+      "resistance": 17
+    },
+    "passive": "Passos silenciosos durante efeito",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sand_rare_7",
+    "name": "Sandevistan Fury",
+    "category": "Sandevistan",
+    "rarity": "Rara",
+    "levelRequired": 10,
+    "price": 410,
+    "stats": {
+      "strength": 22,
+      "speed": 58,
+      "damage": 22,
+      "resistance": 18
+    },
+    "passive": "Cada kill durante efeito estende duração",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sand_rare_8",
+    "name": "Sandevistan Matrix",
+    "category": "Sandevistan",
+    "rarity": "Rara",
+    "levelRequired": 12,
+    "price": 480,
+    "stats": {
+      "strength": 21,
+      "speed": 62,
+      "damage": 21,
+      "resistance": 21
+    },
+    "passive": "Pode esquivar de projéteis",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sand_epic_1",
+    "name": "Sandevistan MK3",
+    "category": "Sandevistan",
+    "rarity": "Épica",
+    "levelRequired": 13,
+    "price": 700,
+    "stats": {
+      "strength": 30,
+      "speed": 80,
+      "damage": 30,
+      "resistance": 30
+    },
+    "passive": "Slow motion extremo por 7s",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sand_epic_2",
+    "name": "Sandevistan Quantum",
+    "category": "Sandevistan",
+    "rarity": "Épica",
+    "levelRequired": 14,
+    "price": 800,
+    "stats": {
+      "strength": 35,
+      "speed": 90,
+      "damage": 35,
+      "resistance": 32
+    },
+    "passive": "Teleporte curta distância durante efeito",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sand_epic_3",
+    "name": "Sandevistan Cyber",
+    "category": "Sandevistan",
+    "rarity": "Épica",
+    "levelRequired": 15,
+    "price": 900,
+    "stats": {
+      "strength": 38,
+      "speed": 95,
+      "damage": 38,
+      "resistance": 35
+    },
+    "passive": "Todos os ataques são críticos durante efeito",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sand_epic_4",
+    "name": "Sandevistan Tempestade",
+    "category": "Sandevistan",
+    "rarity": "Épica",
+    "levelRequired": 14,
+    "price": 850,
+    "stats": {
+      "strength": 33,
+      "speed": 88,
+      "damage": 33,
+      "resistance": 33
+    },
+    "passive": "Cria after-images que atacam inimigos",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sand_epic_5",
+    "name": "Sandevistan Titan",
+    "category": "Sandevistan",
+    "rarity": "Épica",
+    "levelRequired": 16,
+    "price": 950,
+    "stats": {
+      "strength": 40,
+      "speed": 85,
+      "damage": 40,
+      "resistance": 40
+    },
+    "passive": "Não pode ser interrompido durante efeito",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sand_epic_6",
+    "name": "Sandevistan Assassino",
+    "category": "Sandevistan",
+    "rarity": "Épica",
+    "levelRequired": 15,
+    "price": 920,
+    "stats": {
+      "strength": 36,
+      "speed": 92,
+      "damage": 36,
+      "resistance": 31
+    },
+    "passive": "Ataques pelas costas eliminam instantaneamente",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sand_epic_7",
+    "name": "Sandevistan Divino",
+    "category": "Sandevistan",
+    "rarity": "Épica",
+    "levelRequired": 17,
+    "price": 1000,
+    "stats": {
+      "strength": 42,
+      "speed": 98,
+      "damage": 42,
+      "resistance": 38
+    },
+    "passive": "Regenera HP durante slow motion",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sand_legendary_1",
+    "name": "Sandevistan MK4",
+    "category": "Sandevistan",
+    "rarity": "Lendária",
+    "levelRequired": 18,
+    "price": 1500,
+    "stats": {
+      "strength": 50,
+      "speed": 120,
+      "damage": 50,
+      "resistance": 50
+    },
+    "passive": "Slow motion de 10s, permite ações impossíveis",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sand_legendary_2",
+    "name": "Sandevistan Arasaka",
+    "category": "Sandevistan",
+    "rarity": "Lendária",
+    "levelRequired": 19,
+    "price": 1700,
+    "stats": {
+      "strength": 55,
+      "speed": 130,
+      "damage": 55,
+      "resistance": 55
+    },
+    "passive": "Tecnologia corporativa de ponta, múltiplas ativações",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sand_legendary_3",
+    "name": "Sandevistan Militech",
+    "category": "Sandevistan",
+    "rarity": "Lendária",
+    "levelRequired": 20,
+    "price": 1900,
+    "stats": {
+      "strength": 60,
+      "speed": 140,
+      "damage": 60,
+      "resistance": 58
+    },
+    "passive": "Versão militar com recarga ultra rápida",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sand_legendary_4",
+    "name": "Sandevistan Netrunner",
+    "category": "Sandevistan",
+    "rarity": "Lendária",
+    "levelRequired": 19,
+    "price": 1800,
+    "stats": {
+      "strength": 52,
+      "speed": 135,
+      "damage": 52,
+      "resistance": 54
+    },
+    "passive": "Hackeia inimigos durante slow motion",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sand_legendary_5",
+    "name": "Sandevistan Cronos",
+    "category": "Sandevistan",
+    "rarity": "Lendária",
+    "levelRequired": 21,
+    "price": 2000,
+    "stats": {
+      "strength": 65,
+      "speed": 145,
+      "damage": 65,
+      "resistance": 60
+    },
+    "passive": "Manipula tempo, pode reverter dano recebido",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sand_mythic_1",
+    "name": "Sandevistan MK5 Omega",
+    "category": "Sandevistan",
+    "rarity": "Mítica",
+    "levelRequired": 22,
+    "price": 3000,
+    "stats": {
+      "strength": 80,
+      "speed": 180,
+      "damage": 80,
+      "resistance": 80
+    },
+    "passive": "Controle total do tempo, pode parar completamente por 5s",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sand_mythic_2",
+    "name": "Sandevistan Apocalipse",
+    "category": "Sandevistan",
+    "rarity": "Mítica",
+    "levelRequired": 24,
+    "price": 3500,
+    "stats": {
+      "strength": 90,
+      "speed": 200,
+      "damage": 90,
+      "resistance": 85
+    },
+    "passive": "Cria loop temporal, pode reviver uma vez por combate",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sand_mythic_3",
+    "name": "Sandevistan Infinito",
+    "category": "Sandevistan",
+    "rarity": "Mítica",
+    "levelRequired": 23,
+    "price": 3200,
+    "stats": {
+      "strength": 85,
+      "speed": 190,
+      "damage": 85,
+      "resistance": 82
+    },
+    "passive": "Sem cooldown, pode ser usado continuamente",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sword_common_1",
+    "name": "Katana Básica",
+    "category": "Espada",
+    "rarity": "Comum",
+    "levelRequired": 1,
+    "price": 60,
+    "stats": {
+      "strength": 12,
+      "speed": 18,
+      "damage": 20,
+      "resistance": 0
+    },
+    "passive": "Cortes rápidos e precisos",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sword_common_2",
+    "name": "Espada de Ferro",
+    "category": "Espada",
+    "rarity": "Comum",
+    "levelRequired": 1,
+    "price": 55,
+    "stats": {
+      "strength": 15,
+      "speed": 15,
+      "damage": 18,
+      "resistance": 2
+    },
+    "passive": "Durável e confiável",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sword_common_3",
+    "name": "Machete Urbano",
+    "category": "Espada",
+    "rarity": "Comum",
+    "levelRequired": 2,
+    "price": 70,
+    "stats": {
+      "strength": 18,
+      "speed": 12,
+      "damage": 22,
+      "resistance": 0
+    },
+    "passive": "Ideal para combate nas ruas",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sword_common_4",
+    "name": "Wakizashi",
+    "category": "Espada",
+    "rarity": "Comum",
+    "levelRequired": 2,
+    "price": 65,
+    "stats": {
+      "strength": 10,
+      "speed": 22,
+      "damage": 16,
+      "resistance": 0
+    },
+    "passive": "Lâmina curta ágil",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sword_common_5",
+    "name": "Gladius Digital",
+    "category": "Espada",
+    "rarity": "Comum",
+    "levelRequired": 3,
+    "price": 75,
+    "stats": {
+      "strength": 14,
+      "speed": 16,
+      "damage": 20,
+      "resistance": 3
+    },
+    "passive": "Espada romana modernizada",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sword_common_6",
+    "name": "Sabre de Choque",
+    "category": "Espada",
+    "rarity": "Comum",
+    "levelRequired": 3,
+    "price": 80,
+    "stats": {
+      "strength": 12,
+      "speed": 20,
+      "damage": 18,
+      "resistance": 0
+    },
+    "passive": "Libera pequenas descargas elétricas",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sword_common_7",
+    "name": "Cimitarra Tech",
+    "category": "Espada",
+    "rarity": "Comum",
+    "levelRequired": 4,
+    "price": 85,
+    "stats": {
+      "strength": 16,
+      "speed": 18,
+      "damage": 21,
+      "resistance": 0
+    },
+    "passive": "Lâmina curva para cortes profundos",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sword_common_8",
+    "name": "Dao Cyber",
+    "category": "Espada",
+    "rarity": "Comum",
+    "levelRequired": 4,
+    "price": 78,
+    "stats": {
+      "strength": 17,
+      "speed": 14,
+      "damage": 23,
+      "resistance": 2
+    },
+    "passive": "Sabre chinês aprimorado",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sword_common_9",
+    "name": "Espada Laser Mk1",
+    "category": "Espada",
+    "rarity": "Comum",
+    "levelRequired": 5,
+    "price": 90,
+    "stats": {
+      "strength": 10,
+      "speed": 25,
+      "damage": 19,
+      "resistance": 0
+    },
+    "passive": "Lâmina de luz de baixa potência",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sword_common_10",
+    "name": "Nodachi Iniciante",
+    "category": "Espada",
+    "rarity": "Comum",
+    "levelRequired": 5,
+    "price": 95,
+    "stats": {
+      "strength": 20,
+      "speed": 10,
+      "damage": 25,
+      "resistance": 0
+    },
+    "passive": "Espada grande e pesada",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sword_rare_1",
+    "name": "Katana Elétrica",
+    "category": "Espada",
+    "rarity": "Rara",
+    "levelRequired": 6,
+    "price": 200,
+    "stats": {
+      "strength": 20,
+      "speed": 30,
+      "damage": 35,
+      "resistance": 8
+    },
+    "passive": "Cortes liberam descargas elétricas",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sword_rare_2",
+    "name": "Lâmina Vibratória",
+    "category": "Espada",
+    "rarity": "Rara",
+    "levelRequired": 7,
+    "price": 220,
+    "stats": {
+      "strength": 25,
+      "speed": 28,
+      "damage": 38,
+      "resistance": 10
+    },
+    "passive": "Vibração ultrassônica corta armaduras",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sword_rare_3",
+    "name": "Sabre de Plasma",
+    "category": "Espada",
+    "rarity": "Rara",
+    "levelRequired": 8,
+    "price": 250,
+    "stats": {
+      "strength": 18,
+      "speed": 35,
+      "damage": 32,
+      "resistance": 5
+    },
+    "passive": "Lâmina de plasma corta quase tudo",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sword_rare_4",
+    "name": "Espada do Dragão",
+    "category": "Espada",
+    "rarity": "Rara",
+    "levelRequired": 7,
+    "price": 230,
+    "stats": {
+      "strength": 28,
+      "speed": 25,
+      "damage": 36,
+      "resistance": 12
+    },
+    "passive": "Ataques podem causar queimaduras",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sword_rare_5",
+    "name": "Katana Mono-Molecular",
+    "category": "Espada",
+    "rarity": "Rara",
+    "levelRequired": 9,
+    "price": 270,
+    "stats": {
+      "strength": 22,
+      "speed": 32,
+      "damage": 40,
+      "resistance": 8
+    },
+    "passive": "Lâmina afiada a nível molecular",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sword_rare_6",
+    "name": "Zweihänder Tech",
+    "category": "Espada",
+    "rarity": "Rara",
+    "levelRequired": 8,
+    "price": 240,
+    "stats": {
+      "strength": 35,
+      "speed": 18,
+      "damage": 42,
+      "resistance": 15
+    },
+    "passive": "Espada gigante com campo de força",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sword_rare_7",
+    "name": "Lâmina Fantasma",
+    "category": "Espada",
+    "rarity": "Rara",
+    "levelRequired": 9,
+    "price": 260,
+    "stats": {
+      "strength": 20,
+      "speed": 38,
+      "damage": 34,
+      "resistance": 6
+    },
+    "passive": "Pode atacar através de objetos sólidos",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sword_rare_8",
+    "name": "Scimitar Nano",
+    "category": "Espada",
+    "rarity": "Rara",
+    "levelRequired": 10,
+    "price": 280,
+    "stats": {
+      "strength": 24,
+      "speed": 33,
+      "damage": 37,
+      "resistance": 10
+    },
+    "passive": "Nanobots reparam a lâmina automaticamente",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sword_epic_1",
+    "name": "Murasama",
+    "category": "Espada",
+    "rarity": "Épica",
+    "levelRequired": 12,
+    "price": 500,
+    "stats": {
+      "strength": 35,
+      "speed": 50,
+      "damage": 55,
+      "resistance": 20
+    },
+    "passive": "Lendária katana com lâmina vermelha",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sword_epic_2",
+    "name": "Excalibur Cyber",
+    "category": "Espada",
+    "rarity": "Épica",
+    "levelRequired": 13,
+    "price": 550,
+    "stats": {
+      "strength": 40,
+      "speed": 45,
+      "damage": 60,
+      "resistance": 25
+    },
+    "passive": "Espada lendária com poder divino",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sword_epic_3",
+    "name": "Lâmina Quântica",
+    "category": "Espada",
+    "rarity": "Épica",
+    "levelRequired": 14,
+    "price": 600,
+    "stats": {
+      "strength": 30,
+      "speed": 55,
+      "damage": 52,
+      "resistance": 18
+    },
+    "passive": "Existe em múltiplas dimensões simultaneamente",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sword_epic_4",
+    "name": "Masamune Digital",
+    "category": "Espada",
+    "rarity": "Épica",
+    "levelRequired": 13,
+    "price": 570,
+    "stats": {
+      "strength": 38,
+      "speed": 48,
+      "damage": 58,
+      "resistance": 22
+    },
+    "passive": "Obra-prima forjada digitalmente",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sword_epic_5",
+    "name": "Kusanagi-no-Tsurugi",
+    "category": "Espada",
+    "rarity": "Épica",
+    "levelRequired": 15,
+    "price": 620,
+    "stats": {
+      "strength": 42,
+      "speed": 52,
+      "damage": 56,
+      "resistance": 24
+    },
+    "passive": "Espada sagrada que controla o vento",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sword_epic_6",
+    "name": "Flamberge Infernal",
+    "category": "Espada",
+    "rarity": "Épica",
+    "levelRequired": 14,
+    "price": 590,
+    "stats": {
+      "strength": 45,
+      "speed": 42,
+      "damage": 62,
+      "resistance": 28
+    },
+    "passive": "Lâmina ondulada em chamas perpétuas",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sword_epic_7",
+    "name": "Naginata Cyber",
+    "category": "Espada",
+    "rarity": "Épica",
+    "levelRequired": 16,
+    "price": 640,
+    "stats": {
+      "strength": 40,
+      "speed": 50,
+      "damage": 54,
+      "resistance": 26
+    },
+    "passive": "Lança-espada com alcance estendido",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sword_legendary_1",
+    "name": "Zangetsu",
+    "category": "Espada",
+    "rarity": "Lendária",
+    "levelRequired": 18,
+    "price": 1200,
+    "stats": {
+      "strength": 60,
+      "speed": 70,
+      "damage": 85,
+      "resistance": 35
+    },
+    "passive": "Libera ondas de energia cortante",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sword_legendary_2",
+    "name": "Durandal Quantum",
+    "category": "Espada",
+    "rarity": "Lendária",
+    "levelRequired": 19,
+    "price": 1350,
+    "stats": {
+      "strength": 65,
+      "speed": 68,
+      "damage": 90,
+      "resistance": 40
+    },
+    "passive": "Indestrutível, corta matéria escura",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sword_legendary_3",
+    "name": "Gram Celestial",
+    "category": "Espada",
+    "rarity": "Lendária",
+    "levelRequired": 20,
+    "price": 1500,
+    "stats": {
+      "strength": 70,
+      "speed": 65,
+      "damage": 95,
+      "resistance": 38
+    },
+    "passive": "Espada que matou Fafnir, queima dragões",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sword_legendary_4",
+    "name": "Tyrfing Tech",
+    "category": "Espada",
+    "rarity": "Lendária",
+    "levelRequired": 19,
+    "price": 1400,
+    "stats": {
+      "strength": 62,
+      "speed": 72,
+      "damage": 88,
+      "resistance": 36
+    },
+    "passive": "Nunca erra o alvo, sempre mata",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sword_legendary_5",
+    "name": "Ame-no-Habakiri",
+    "category": "Espada",
+    "rarity": "Lendária",
+    "levelRequired": 21,
+    "price": 1600,
+    "stats": {
+      "strength": 68,
+      "speed": 75,
+      "damage": 92,
+      "resistance": 42
+    },
+    "passive": "Mata serpentes e dragões instantaneamente",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sword_mythic_1",
+    "name": "Yamato",
+    "category": "Espada",
+    "rarity": "Mítica",
+    "levelRequired": 22,
+    "price": 2500,
+    "stats": {
+      "strength": 85,
+      "speed": 95,
+      "damage": 120,
+      "resistance": 50
+    },
+    "passive": "Corta o próprio espaço, abre portais dimensionais",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sword_mythic_2",
+    "name": "Rebellion Omega",
+    "category": "Espada",
+    "rarity": "Mítica",
+    "levelRequired": 24,
+    "price": 3000,
+    "stats": {
+      "strength": 95,
+      "speed": 90,
+      "damage": 130,
+      "resistance": 55
+    },
+    "passive": "Absorve poder demoníaco dos inimigos",
+    "type": "fixed"
+  },
+  {
+    "itemId": "sword_mythic_3",
+    "name": "Kusanagi Infinita",
+    "category": "Espada",
+    "rarity": "Mítica",
+    "levelRequired": 23,
+    "price": 2700,
+    "stats": {
+      "strength": 90,
+      "speed": 92,
+      "damage": 125,
+      "resistance": 52
+    },
+    "passive": "Controla todos os elementos, imortal",
+    "type": "fixed"
+  },
+  {
+    "itemId": "implant_common_1",
+    "name": "Chip de Memória Básico",
+    "category": "Implante",
+    "rarity": "Comum",
+    "levelRequired": 1,
+    "price": 40,
+    "stats": {
+      "strength": 0,
+      "speed": 5,
+      "damage": 0,
+      "resistance": 5
+    },
+    "passive": "Aumenta capacidade de aprendizado",
+    "type": "fixed"
+  },
+  {
+    "itemId": "implant_common_2",
+    "name": "Reforço Muscular Mk1",
+    "category": "Implante",
+    "rarity": "Comum",
+    "levelRequired": 1,
+    "price": 45,
+    "stats": {
+      "strength": 8,
+      "speed": 0,
+      "damage": 3,
+      "resistance": 0
+    },
+    "passive": "Fibras sintéticas nos músculos",
+    "type": "fixed",
+    "stackable": true
+  },
+  {
+    "itemId": "implant_common_3",
+    "name": "Acelerador Neural",
+    "category": "Implante",
+    "rarity": "Comum",
+    "levelRequired": 2,
+    "price": 50,
+    "stats": {
+      "strength": 0,
+      "speed": 10,
+      "damage": 0,
+      "resistance": 0
+    },
+    "passive": "Melhora tempo de reação",
+    "type": "fixed",
+    "stackable": true
+  },
+  {
+    "itemId": "implant_common_4",
+    "name": "Derme Reforçada",
+    "category": "Implante",
+    "rarity": "Comum",
+    "levelRequired": 2,
+    "price": 55,
+    "stats": {
+      "strength": 0,
+      "speed": 0,
+      "damage": 0,
+      "resistance": 10
+    },
+    "passive": "Pele mais resistente a danos",
+    "type": "fixed",
+    "stackable": true
+  },
+  {
+    "itemId": "implant_common_5",
+    "name": "Estimulante Adrenal",
+    "category": "Implante",
+    "rarity": "Comum",
+    "levelRequired": 3,
+    "price": 60,
+    "stats": {
+      "strength": 5,
+      "speed": 5,
+      "damage": 5,
+      "resistance": 0
+    },
+    "passive": "Libera adrenalina em combate",
+    "type": "fixed",
+    "stackable": true
+  },
+  {
+    "itemId": "implant_common_6",
+    "name": "Olhos Cyber Básicos",
+    "category": "Implante",
+    "rarity": "Comum",
+    "levelRequired": 3,
+    "price": 65,
+    "stats": {
+      "strength": 0,
+      "speed": 8,
+      "damage": 8,
+      "resistance": 0
+    },
+    "passive": "Visão aprimorada e mira assistida",
+    "type": "fixed",
+    "stackable": true
+  },
+  {
+    "itemId": "implant_common_7",
+    "name": "Ossos Reforçados",
+    "category": "Implante",
+    "rarity": "Comum",
+    "levelRequired": 4,
+    "price": 70,
+    "stats": {
+      "strength": 6,
+      "speed": 0,
+      "damage": 0,
+      "resistance": 8
+    },
+    "passive": "Esqueleto mais resistente",
+    "type": "fixed",
+    "stackable": true
+  },
+  {
+    "itemId": "implant_common_8",
+    "name": "Processador de Dor",
+    "category": "Implante",
+    "rarity": "Comum",
+    "levelRequired": 4,
+    "price": 75,
+    "stats": {
+      "strength": 0,
+      "speed": 0,
+      "damage": 0,
+      "resistance": 12
+    },
+    "passive": "Reduz sensação de dor",
+    "type": "fixed",
+    "stackable": true
+  },
+  {
+    "itemId": "implant_common_9",
+    "name": "Nanomedicina Básica",
+    "category": "Implante",
+    "rarity": "Comum",
+    "levelRequired": 5,
+    "price": 80,
+    "stats": {
+      "strength": 0,
+      "speed": 0,
+      "damage": 0,
+      "resistance": 15
+    },
+    "passive": "Regeneração lenta de HP",
+    "type": "fixed",
+    "stackable": true
+  },
+  {
+    "itemId": "implant_common_10",
+    "name": "Boost de Stamina",
+    "category": "Implante",
+    "rarity": "Comum",
+    "levelRequired": 5,
+    "price": 85,
+    "stats": {
+      "strength": 4,
+      "speed": 8,
+      "damage": 0,
+      "resistance": 4
+    },
+    "passive": "Aumenta resistência física",
+    "type": "fixed",
+    "stackable": true
+  },
+  {
+    "itemId": "implant_rare_1",
+    "name": "Processador Neural Mk2",
+    "category": "Implante",
+    "rarity": "Rara",
+    "levelRequired": 7,
+    "price": 180,
+    "stats": {
+      "strength": 0,
+      "speed": 20,
+      "damage": 15,
+      "resistance": 10
+    },
+    "passive": "Processa informações em tempo real",
+    "type": "fixed",
+    "stackable": true
+  },
+  {
+    "itemId": "implant_rare_2",
+    "name": "Coração Sintético",
+    "category": "Implante",
+    "rarity": "Rara",
+    "levelRequired": 8,
+    "price": 200,
+    "stats": {
+      "strength": 15,
+      "speed": 15,
+      "damage": 0,
+      "resistance": 20
+    },
+    "passive": "Nunca fica cansado",
+    "type": "fixed",
+    "stackable": true
+  },
+  {
+    "itemId": "implant_rare_3",
+    "name": "Pulmões Aprimorados",
+    "category": "Implante",
+    "rarity": "Rara",
+    "levelRequired": 8,
+    "price": 190,
+    "stats": {
+      "strength": 10,
+      "speed": 0,
+      "damage": 0,
+      "resistance": 25
+    },
+    "passive": "Imune a gases tóxicos",
+    "type": "fixed",
+    "stackable": true
+  },
+  {
+    "itemId": "implant_rare_4",
+    "name": "Tendões Sintéticos",
+    "category": "Implante",
+    "rarity": "Rara",
+    "levelRequired": 9,
+    "price": 210,
+    "stats": {
+      "strength": 20,
+      "speed": 18,
+      "damage": 12,
+      "resistance": 0
+    },
+    "passive": "Saltos e movimentos sobre-humanos",
+    "type": "fixed",
+    "stackable": true
+  },
+  {
+    "itemId": "implant_rare_5",
+    "name": "Chip de Combate",
+    "category": "Implante",
+    "rarity": "Rara",
+    "levelRequired": 9,
+    "price": 220,
+    "stats": {
+      "strength": 12,
+      "speed": 15,
+      "damage": 20,
+      "resistance": 8
+    },
+    "passive": "Conhecimento de artes marciais instalado",
+    "type": "fixed",
+    "stackable": true
+  },
+  {
+    "itemId": "implant_rare_6",
+    "name": "Subderme Blindada",
+    "category": "Implante",
+    "rarity": "Rara",
+    "levelRequired": 10,
+    "price": 230,
+    "stats": {
+      "strength": 0,
+      "speed": 0,
+      "damage": 0,
+      "resistance": 35
+    },
+    "passive": "Placa de kevlar sob a pele",
+    "type": "fixed",
+    "stackable": true
+  },
+  {
+    "itemId": "implant_rare_7",
+    "name": "Glândula de Adrenalina",
+    "category": "Implante",
+    "rarity": "Rara",
+    "levelRequired": 10,
+    "price": 240,
+    "stats": {
+      "strength": 18,
+      "speed": 22,
+      "damage": 15,
+      "resistance": 10
+    },
+    "passive": "Adrenalina constante em combate",
+    "type": "fixed",
+    "stackable": true
+  },
+  {
+    "itemId": "implant_rare_8",
+    "name": "Sistema Nervoso Tech",
+    "category": "Implante",
+    "rarity": "Rara",
+    "levelRequired": 11,
+    "price": 250,
+    "stats": {
+      "strength": 0,
+      "speed": 30,
+      "damage": 18,
+      "resistance": 12
+    },
+    "passive": "Reflexos sobre-humanos",
+    "type": "fixed",
+    "stackable": true
+  },
+  {
+    "itemId": "implant_epic_1",
+    "name": "Cérebro Quântico",
+    "category": "Implante",
+    "rarity": "Épica",
+    "levelRequired": 13,
+    "price": 450,
+    "stats": {
+      "strength": 0,
+      "speed": 40,
+      "damage": 35,
+      "resistance": 25
+    },
+    "passive": "Processa probabilidades futuras",
+    "type": "fixed",
+    "stackable": true
+  },
+  {
+    "itemId": "implant_epic_2",
+    "name": "Nanobots Militares",
+    "category": "Implante",
+    "rarity": "Épica",
+    "levelRequired": 14,
+    "price": 500,
+    "stats": {
+      "strength": 25,
+      "speed": 0,
+      "damage": 0,
+      "resistance": 50
+    },
+    "passive": "Regeneração rápida de ferimentos",
+    "type": "fixed",
+    "stackable": true
+  },
+  {
+    "itemId": "implant_epic_3",
+    "name": "Esqueleto de Titânio",
+    "category": "Implante",
+    "rarity": "Épica",
+    "levelRequired": 14,
+    "price": 480,
+    "stats": {
+      "strength": 35,
+      "speed": 0,
+      "damage": 20,
+      "resistance": 40
+    },
+    "passive": "Ossos indestrutíveis",
+    "type": "fixed",
+    "stackable": true
+  },
+  {
+    "itemId": "implant_epic_4",
+    "name": "Sangue Sintético",
+    "category": "Implante",
+    "rarity": "Épica",
+    "levelRequired": 15,
+    "price": 520,
+    "stats": {
+      "strength": 30,
+      "speed": 25,
+      "damage": 0,
+      "resistance": 35
+    },
+    "passive": "Imune a venenos e doenças",
+    "type": "fixed",
+    "stackable": true
+  },
+  {
+    "itemId": "implant_epic_5",
+    "name": "Olhos Kiroshi Mk3",
+    "category": "Implante",
+    "rarity": "Épica",
+    "levelRequired": 15,
+    "price": 540,
+    "stats": {
+      "strength": 0,
+      "speed": 35,
+      "damage": 40,
+      "resistance": 15
+    },
+    "passive": "Visão térmica, raio-x e zoom 20x",
+    "type": "fixed",
+    "stackable": true
+  },
+  {
+    "itemId": "implant_epic_6",
+    "name": "Reactor de Energia",
+    "category": "Implante",
+    "rarity": "Épica",
+    "levelRequired": 16,
+    "price": 560,
+    "stats": {
+      "strength": 40,
+      "speed": 30,
+      "damage": 30,
+      "resistance": 30
+    },
+    "passive": "Energia ilimitada para implantes",
+    "type": "fixed",
+    "stackable": true
+  },
+  {
+    "itemId": "implant_epic_7",
+    "name": "Módulo de Hacking",
+    "category": "Implante",
+    "rarity": "Épica",
+    "levelRequired": 16,
+    "price": 580,
+    "stats": {
+      "strength": 0,
+      "speed": 45,
+      "damage": 38,
+      "resistance": 20
+    },
+    "passive": "Hackeia implantes e dispositivos",
+    "type": "fixed",
+    "stackable": true
+  },
+  {
+    "itemId": "implant_legendary_1",
+    "name": "Projeto Cyber-Adam",
+    "category": "Implante",
+    "rarity": "Lendária",
+    "levelRequired": 18,
+    "price": 1000,
+    "stats": {
+      "strength": 50,
+      "speed": 50,
+      "damage": 50,
+      "resistance": 50
+    },
+    "passive": "Projeto secreto de supersoldado",
+    "type": "fixed",
+    "stackable": true
+  },
+  {
+    "itemId": "implant_legendary_2",
+    "name": "Nanomáquinas Armstrong",
+    "category": "Implante",
+    "rarity": "Lendária",
+    "levelRequired": 19,
+    "price": 1100,
+    "stats": {
+      "strength": 70,
+      "speed": 0,
+      "damage": 40,
+      "resistance": 60
+    },
+    "passive": "Endurecem em resposta a trauma físico",
+    "type": "fixed",
+    "stackable": true
+  },
+  {
+    "itemId": "implant_legendary_3",
+    "name": "Sistema Nervoso Raiden",
+    "category": "Implante",
+    "rarity": "Lendária",
+    "levelRequired": 20,
+    "price": 1200,
+    "stats": {
+      "strength": 45,
+      "speed": 75,
+      "damage": 55,
+      "resistance": 35
+    },
+    "passive": "Reflexos além da compreensão humana",
+    "type": "fixed",
+    "stackable": true
+  },
+  {
+    "itemId": "implant_legendary_4",
+    "name": "Pele Líquida T-1000",
+    "category": "Implante",
+    "rarity": "Lendária",
+    "levelRequired": 19,
+    "price": 1150,
+    "stats": {
+      "strength": 0,
+      "speed": 60,
+      "damage": 0,
+      "resistance": 80
+    },
+    "passive": "Regenera de qualquer ferimento",
+    "type": "fixed",
+    "stackable": true
+  },
+  {
+    "itemId": "implant_legendary_5",
+    "name": "Cérebro Cyber Completo",
+    "category": "Implante",
+    "rarity": "Lendária",
+    "levelRequired": 21,
+    "price": 1300,
+    "stats": {
+      "strength": 0,
+      "speed": 80,
+      "damage": 70,
+      "resistance": 40
+    },
+    "passive": "QI 300, memória perfeita, multitasking",
+    "type": "fixed",
+    "stackable": true
+  },
+  {
+    "itemId": "implant_mythic_1",
+    "name": "Projeto Deus Ex",
+    "category": "Implante",
+    "rarity": "Mítica",
+    "levelRequired": 22,
+    "price": 2200,
+    "stats": {
+      "strength": 80,
+      "speed": 80,
+      "damage": 80,
+      "resistance": 80
+    },
+    "passive": "Transforma humano em semi-deus",
+    "type": "fixed",
+    "stackable": true
+  },
+  {
+    "itemId": "implant_mythic_2",
+    "name": "Nanobots Infinity",
+    "category": "Implante",
+    "rarity": "Mítica",
+    "levelRequired": 24,
+    "price": 2600,
+    "stats": {
+      "strength": 70,
+      "speed": 70,
+      "damage": 70,
+      "resistance": 100
+    },
+    "passive": "Imortalidade, regeneração instantânea",
+    "type": "fixed",
+    "stackable": true
+  },
+  {
+    "itemId": "implant_mythic_3",
+    "name": "Singularidade Neural",
+    "category": "Implante",
+    "rarity": "Mítica",
+    "levelRequired": 23,
+    "price": 2400,
+    "stats": {
+      "strength": 60,
+      "speed": 100,
+      "damage": 90,
+      "resistance": 70
+    },
+    "passive": "Conecta a mente com a matrix universal",
+    "type": "fixed",
+    "stackable": true
+  },
+  {
+    "itemId": "helmet_common_1",
+    "name": "Capacete de Motoqueiro",
+    "category": "Cabeça",
+    "rarity": "Comum",
+    "levelRequired": 1,
+    "price": 50,
+    "stats": {
+      "strength": 0,
+      "speed": 0,
+      "damage": 0,
+      "resistance": 10
+    },
+    "passive": "Proteção básica para a cabeça",
+    "type": "fixed"
+  },
+  {
+    "itemId": "helmet_common_2",
+    "name": "Boné Tech",
+    "category": "Cabeça",
+    "rarity": "Comum",
+    "levelRequired": 1,
+    "price": 45,
+    "stats": {
+      "strength": 0,
+      "speed": 8,
+      "damage": 5,
+      "resistance": 3
+    },
+    "passive": "LED integrado para visão noturna",
+    "type": "fixed"
+  },
+  {
+    "itemId": "helmet_common_3",
+    "name": "Bandana Cyber",
+    "category": "Cabeça",
+    "rarity": "Comum",
+    "levelRequired": 2,
+    "price": 55,
+    "stats": {
+      "strength": 5,
+      "speed": 5,
+      "damage": 8,
+      "resistance": 0
+    },
+    "passive": "Aumento de foco em combate",
+    "type": "fixed"
+  },
+  {
+    "itemId": "helmet_common_4",
+    "name": "Óculos de Proteção",
+    "category": "Cabeça",
+    "rarity": "Comum",
+    "levelRequired": 2,
+    "price": 60,
+    "stats": {
+      "strength": 0,
+      "speed": 0,
+      "damage": 12,
+      "resistance": 5
+    },
+    "passive": "Protege contra clarões e poeira",
+    "type": "fixed"
+  },
+  {
+    "itemId": "helmet_common_5",
+    "name": "Máscara Simples",
+    "category": "Cabeça",
+    "rarity": "Comum",
+    "levelRequired": 3,
+    "price": 65,
+    "stats": {
+      "strength": 0,
+      "speed": 0,
+      "damage": 0,
+      "resistance": 15
+    },
+    "passive": "Filtro de ar básico",
+    "type": "fixed"
+  },
+  {
+    "itemId": "helmet_common_6",
+    "name": "Capacete Tático Mk1",
+    "category": "Cabeça",
+    "rarity": "Comum",
+    "levelRequired": 3,
+    "price": 70,
+    "stats": {
+      "strength": 0,
+      "speed": 0,
+      "damage": 10,
+      "resistance": 12
+    },
+    "passive": "Comunicação de rádio integrada",
+    "type": "fixed"
+  },
+  {
+    "itemId": "helmet_common_7",
+    "name": "Viseira HUD Básica",
+    "category": "Cabeça",
+    "rarity": "Comum",
+    "levelRequired": 4,
+    "price": 75,
+    "stats": {
+      "strength": 0,
+      "speed": 10,
+      "damage": 8,
+      "resistance": 0
+    },
+    "passive": "Display de informações básicas",
+    "type": "fixed"
+  },
+  {
+    "itemId": "helmet_common_8",
+    "name": "Capuz Urbano",
+    "category": "Cabeça",
+    "rarity": "Comum",
+    "levelRequired": 4,
+    "price": 68,
+    "stats": {
+      "strength": 0,
+      "speed": 12,
+      "damage": 6,
+      "resistance": 8
+    },
+    "passive": "Mantém identidade oculta",
+    "type": "fixed"
+  },
+  {
+    "itemId": "helmet_common_9",
+    "name": "Tiara Sensorial",
+    "category": "Cabeça",
+    "rarity": "Comum",
+    "levelRequired": 5,
+    "price": 80,
+    "stats": {
+      "strength": 0,
+      "speed": 15,
+      "damage": 10,
+      "resistance": 5
+    },
+    "passive": "Detecta movimentos ao redor",
+    "type": "fixed"
+  },
+  {
+    "itemId": "helmet_common_10",
+    "name": "Elmo de Kevlar",
+    "category": "Cabeça",
+    "rarity": "Comum",
+    "levelRequired": 5,
+    "price": 85,
+    "stats": {
+      "strength": 0,
+      "speed": 0,
+      "damage": 0,
+      "resistance": 18
+    },
+    "passive": "Proteção balística básica",
+    "type": "fixed"
+  },
+  {
+    "itemId": "helmet_rare_1",
+    "name": "Capacete Arasaka Mk2",
+    "category": "Cabeça",
+    "rarity": "Rara",
+    "levelRequired": 7,
+    "price": 200,
+    "stats": {
+      "strength": 0,
+      "speed": 15,
+      "damage": 20,
+      "resistance": 25
+    },
+    "passive": "Análise tática em tempo real",
+    "type": "fixed"
+  },
+  {
+    "itemId": "helmet_rare_2",
+    "name": "Máscara de Samurai",
+    "category": "Cabeça",
+    "rarity": "Rara",
+    "levelRequired": 8,
+    "price": 220,
+    "stats": {
+      "strength": 12,
+      "speed": 0,
+      "damage": 25,
+      "resistance": 20
+    },
+    "passive": "Intimida inimigos próximos",
+    "type": "fixed"
+  },
+  {
+    "itemId": "helmet_rare_3",
+    "name": "Viseira Térmica",
+    "category": "Cabeça",
+    "rarity": "Rara",
+    "levelRequired": 8,
+    "price": 210,
+    "stats": {
+      "strength": 0,
+      "speed": 20,
+      "damage": 28,
+      "resistance": 10
+    },
+    "passive": "Visão térmica avançada",
+    "type": "fixed"
+  },
+  {
+    "itemId": "helmet_rare_4",
+    "name": "Capacete Militech",
+    "category": "Cabeça",
+    "rarity": "Rara",
+    "levelRequired": 9,
+    "price": 230,
+    "stats": {
+      "strength": 0,
+      "speed": 10,
+      "damage": 22,
+      "resistance": 30
+    },
+    "passive": "Sistema de comunicação criptografado",
+    "type": "fixed"
+  },
+  {
+    "itemId": "helmet_rare_5",
+    "name": "Máscara Anti-Gas",
+    "category": "Cabeça",
+    "rarity": "Rara",
+    "levelRequired": 9,
+    "price": 215,
+    "stats": {
+      "strength": 0,
+      "speed": 0,
+      "damage": 0,
+      "resistance": 40
+    },
+    "passive": "Imunidade total a toxinas aéreas",
+    "type": "fixed"
+  },
+  {
+    "itemId": "helmet_rare_6",
+    "name": "HUD Tático V2",
+    "category": "Cabeça",
+    "rarity": "Rara",
+    "levelRequired": 10,
+    "price": 240,
+    "stats": {
+      "strength": 0,
+      "speed": 25,
+      "damage": 30,
+      "resistance": 15
+    },
+    "passive": "Marcação automática de alvos",
+    "type": "fixed"
+  },
+  {
+    "itemId": "helmet_rare_7",
+    "name": "Capacete Netrunner",
+    "category": "Cabeça",
+    "rarity": "Rara",
+    "levelRequired": 10,
+    "price": 250,
+    "stats": {
+      "strength": 0,
+      "speed": 30,
+      "damage": 25,
+      "resistance": 18
+    },
+    "passive": "Interface neural para hacking",
+    "type": "fixed"
+  },
+  {
+    "itemId": "helmet_rare_8",
+    "name": "Elmo Blindado",
+    "category": "Cabeça",
+    "rarity": "Rara",
+    "levelRequired": 11,
+    "price": 260,
+    "stats": {
+      "strength": 0,
+      "speed": 0,
+      "damage": 15,
+      "resistance": 45
+    },
+    "passive": "Blindagem de titânio",
+    "type": "fixed"
+  },
+  {
+    "itemId": "helmet_epic_1",
+    "name": "Máscara Psico",
+    "category": "Cabeça",
+    "rarity": "Épica",
+    "levelRequired": 13,
+    "price": 500,
+    "stats": {
+      "strength": 20,
+      "speed": 25,
+      "damage": 45,
+      "resistance": 30
+    },
+    "passive": "Causa medo em inimigos fracos",
+    "type": "fixed"
+  },
+  {
+    "itemId": "helmet_epic_2",
+    "name": "Capacete Trauma Team",
+    "category": "Cabeça",
+    "rarity": "Épica",
+    "levelRequired": 14,
+    "price": 550,
+    "stats": {
+      "strength": 0,
+      "speed": 35,
+      "damage": 40,
+      "resistance": 40
+    },
+    "passive": "Monitoramento vital constante",
+    "type": "fixed"
+  },
+  {
+    "itemId": "helmet_epic_3",
+    "name": "Viseira Quântica",
+    "category": "Cabeça",
+    "rarity": "Épica",
+    "levelRequired": 14,
+    "price": 520,
+    "stats": {
+      "strength": 0,
+      "speed": 40,
+      "damage": 50,
+      "resistance": 25
+    },
+    "passive": "Vê através de paredes",
+    "type": "fixed"
+  },
+  {
+    "itemId": "helmet_epic_4",
+    "name": "Máscara de Johnny Silverhand",
+    "category": "Cabeça",
+    "rarity": "Épica",
+    "levelRequired": 15,
+    "price": 580,
+    "stats": {
+      "strength": 30,
+      "speed": 30,
+      "damage": 35,
+      "resistance": 35
+    },
+    "passive": "Aura de rebeldia aumenta carisma",
+    "type": "fixed"
+  },
+  {
+    "itemId": "helmet_epic_5",
+    "name": "Elmo de Adam Smasher",
+    "category": "Cabeça",
+    "rarity": "Épica",
+    "levelRequired": 15,
+    "price": 600,
+    "stats": {
+      "strength": 25,
+      "speed": 0,
+      "damage": 48,
+      "resistance": 55
+    },
+    "passive": "Sistema de mira assistida por IA",
+    "type": "fixed"
+  },
+  {
+    "itemId": "helmet_epic_6",
+    "name": "Capacete Kang Tao",
+    "category": "Cabeça",
+    "rarity": "Épica",
+    "levelRequired": 16,
+    "price": 560,
+    "stats": {
+      "strength": 0,
+      "speed": 45,
+      "damage": 42,
+      "resistance": 38
+    },
+    "passive": "Smart targeting system",
+    "type": "fixed"
+  },
+  {
+    "itemId": "helmet_epic_7",
+    "name": "Máscara Oni Cibernética",
+    "category": "Cabeça",
+    "rarity": "Épica",
+    "levelRequired": 16,
+    "price": 590,
+    "stats": {
+      "strength": 35,
+      "speed": 35,
+      "damage": 40,
+      "resistance": 30
+    },
+    "passive": "Espírito do demônio aumenta força",
+    "type": "fixed"
+  },
+  {
+    "itemId": "helmet_legendary_1",
+    "name": "Capacete Dragoon",
+    "category": "Cabeça",
+    "rarity": "Lendária",
+    "levelRequired": 18,
+    "price": 1200,
+    "stats": {
+      "strength": 40,
+      "speed": 50,
+      "damage": 60,
+      "resistance": 60
+    },
+    "passive": "Sistema de combate militar avançado",
+    "type": "fixed"
+  },
+  {
+    "itemId": "helmet_legendary_2",
+    "name": "Máscara V Exclusiva",
+    "category": "Cabeça",
+    "rarity": "Lendária",
+    "levelRequired": 19,
+    "price": 1300,
+    "stats": {
+      "strength": 50,
+      "speed": 60,
+      "damage": 55,
+      "resistance": 50
+    },
+    "passive": "Lenda de Night City",
+    "type": "fixed"
+  },
+  {
+    "itemId": "helmet_legendary_3",
+    "name": "Elmo MaxTac",
+    "category": "Cabeça",
+    "rarity": "Lendária",
+    "levelRequired": 20,
+    "price": 1400,
+    "stats": {
+      "strength": 35,
+      "speed": 45,
+      "damage": 70,
+      "resistance": 65
+    },
+    "passive": "Detecção de cyberpsicose",
+    "type": "fixed"
+  },
+  {
+    "itemId": "helmet_legendary_4",
+    "name": "Viseira Alt Cunningham",
+    "category": "Cabeça",
+    "rarity": "Lendária",
+    "levelRequired": 19,
+    "price": 1350,
+    "stats": {
+      "strength": 0,
+      "speed": 75,
+      "damage": 68,
+      "resistance": 45
+    },
+    "passive": "Interface direta com a net",
+    "type": "fixed"
+  },
+  {
+    "itemId": "helmet_legendary_5",
+    "name": "Capacete Morgan Blackhand",
+    "category": "Cabeça",
+    "rarity": "Lendária",
+    "levelRequired": 21,
+    "price": 1500,
+    "stats": {
+      "strength": 55,
+      "speed": 55,
+      "damage": 65,
+      "resistance": 55
+    },
+    "passive": "Lenda da guerra corporativa",
+    "type": "fixed"
+  },
+  {
+    "itemId": "helmet_mythic_1",
+    "name": "Máscara do Bartmoss",
+    "category": "Cabeça",
+    "rarity": "Mítica",
+    "levelRequired": 22,
+    "price": 2500,
+    "stats": {
+      "strength": 0,
+      "speed": 100,
+      "damage": 90,
+      "resistance": 70
+    },
+    "passive": "Maior netrunner da história",
+    "type": "fixed"
+  },
+  {
+    "itemId": "helmet_mythic_2",
+    "name": "Elmo Zetatech Infinito",
+    "category": "Cabeça",
+    "rarity": "Mítica",
+    "levelRequired": 24,
+    "price": 3000,
+    "stats": {
+      "strength": 70,
+      "speed": 80,
+      "damage": 85,
+      "resistance": 90
+    },
+    "passive": "Tecnologia além do tempo",
+    "type": "fixed"
+  },
+  {
+    "itemId": "helmet_mythic_3",
+    "name": "Coroa do Imperador Cyber",
+    "category": "Cabeça",
+    "rarity": "Mítica",
+    "levelRequired": 23,
+    "price": 2700,
+    "stats": {
+      "strength": 80,
+      "speed": 75,
+      "damage": 80,
+      "resistance": 85
+    },
+    "passive": "Controla todas as máquinas ao redor",
+    "type": "fixed"
+  },
+  {
+    "itemId": "armor_common_1",
+    "name": "Jaqueta de Couro",
+    "category": "Armadura",
+    "rarity": "Comum",
+    "levelRequired": 1,
+    "price": 60,
+    "stats": {
+      "strength": 5,
+      "speed": 0,
+      "damage": 0,
+      "resistance": 10
+    },
+    "passive": "Proteção básica contra cortes",
+    "type": "fixed"
+  },
+  {
+    "itemId": "armor_common_2",
+    "name": "Colete Tático",
+    "category": "Armadura",
+    "rarity": "Comum",
+    "levelRequired": 1,
+    "price": 70,
+    "stats": {
+      "strength": 0,
+      "speed": 0,
+      "damage": 0,
+      "resistance": 15
+    },
+    "passive": "Bolsos para equipamento",
+    "type": "fixed"
+  },
+  {
+    "itemId": "armor_common_3",
+    "name": "Roupa Urbana Reforçada",
+    "category": "Armadura",
+    "rarity": "Comum",
+    "levelRequired": 2,
+    "price": 65,
+    "stats": {
+      "strength": 0,
+      "speed": 10,
+      "damage": 0,
+      "resistance": 8
+    },
+    "passive": "Leve e discreta",
+    "type": "fixed"
+  },
+  {
+    "itemId": "armor_common_4",
+    "name": "Uniforme Corpo",
+    "category": "Armadura",
+    "rarity": "Comum",
+    "levelRequired": 2,
+    "price": 75,
+    "stats": {
+      "strength": 8,
+      "speed": 5,
+      "damage": 0,
+      "resistance": 12
+    },
+    "passive": "Padrão da polícia corporativa",
+    "type": "fixed"
+  },
+  {
+    "itemId": "armor_common_5",
+    "name": "Camisa Balística",
+    "category": "Armadura",
+    "rarity": "Comum",
+    "levelRequired": 3,
+    "price": 80,
+    "stats": {
+      "strength": 0,
+      "speed": 0,
+      "damage": 0,
+      "resistance": 18
+    },
+    "passive": "Kevlar discreto",
+    "type": "fixed"
+  },
+  {
+    "itemId": "armor_common_6",
+    "name": "Armadura de Motoqueiro",
+    "category": "Armadura",
+    "rarity": "Comum",
+    "levelRequired": 3,
+    "price": 85,
+    "stats": {
+      "strength": 10,
+      "speed": 8,
+      "damage": 0,
+      "resistance": 15
+    },
+    "passive": "Proteção em acidentes",
+    "type": "fixed"
+  },
+  {
+    "itemId": "armor_common_7",
+    "name": "Jaqueta Blindada Leve",
+    "category": "Armadura",
+    "rarity": "Comum",
+    "levelRequired": 4,
+    "price": 90,
+    "stats": {
+      "strength": 0,
+      "speed": 12,
+      "damage": 0,
+      "resistance": 20
+    },
+    "passive": "Placas de cerâmica finas",
+    "type": "fixed"
+  },
+  {
+    "itemId": "armor_common_8",
+    "name": "Traje de Netrunner",
+    "category": "Armadura",
+    "rarity": "Comum",
+    "levelRequired": 4,
+    "price": 88,
+    "stats": {
+      "strength": 0,
+      "speed": 15,
+      "damage": 8,
+      "resistance": 10
+    },
+    "passive": "Conectores neurais integrados",
+    "type": "fixed"
+  },
+  {
+    "itemId": "armor_common_9",
+    "name": "Colete Anti-Balas Mk1",
+    "category": "Armadura",
+    "rarity": "Comum",
+    "levelRequired": 5,
+    "price": 95,
+    "stats": {
+      "strength": 0,
+      "speed": 0,
+      "damage": 0,
+      "resistance": 25
+    },
+    "passive": "Para calibres pequenos",
+    "type": "fixed"
+  },
+  {
+    "itemId": "armor_common_10",
+    "name": "Uniforme Militech Básico",
+    "category": "Armadura",
+    "rarity": "Comum",
+    "levelRequired": 5,
+    "price": 100,
+    "stats": {
+      "strength": 12,
+      "speed": 0,
+      "damage": 0,
+      "resistance": 22
+    },
+    "passive": "Padrão de segurança corporativa",
+    "type": "fixed"
+  },
+  {
+    "itemId": "armor_rare_1",
+    "name": "Armadura Arasaka Mk2",
+    "category": "Armadura",
+    "rarity": "Rara",
+    "levelRequired": 7,
+    "price": 250,
+    "stats": {
+      "strength": 15,
+      "speed": 10,
+      "damage": 0,
+      "resistance": 35
+    },
+    "passive": "Tecnologia japonesa avançada",
+    "type": "fixed"
+  },
+  {
+    "itemId": "armor_rare_2",
+    "name": "Exoesqueleto Leve",
+    "category": "Armadura",
+    "rarity": "Rara",
+    "levelRequired": 8,
+    "price": 280,
+    "stats": {
+      "strength": 25,
+      "speed": 15,
+      "damage": 0,
+      "resistance": 30
+    },
+    "passive": "Aumenta força física",
+    "type": "fixed"
+  },
+  {
+    "itemId": "armor_rare_3",
+    "name": "Traje Stealth",
+    "category": "Armadura",
+    "rarity": "Rara",
+    "levelRequired": 8,
+    "price": 270,
+    "stats": {
+      "strength": 0,
+      "speed": 30,
+      "damage": 15,
+      "resistance": 25
+    },
+    "passive": "Reduz ruído de movimentos",
+    "type": "fixed"
+  },
+  {
+    "itemId": "armor_rare_4",
+    "name": "Colete Trauma Team",
+    "category": "Armadura",
+    "rarity": "Rara",
+    "levelRequired": 9,
+    "price": 290,
+    "stats": {
+      "strength": 10,
+      "speed": 20,
+      "damage": 0,
+      "resistance": 40
+    },
+    "passive": "Nanomedicina integrada",
+    "type": "fixed"
+  },
+  {
+    "itemId": "armor_rare_5",
+    "name": "Armadura de Samurai",
+    "category": "Armadura",
+    "rarity": "Rara",
+    "levelRequired": 9,
+    "price": 300,
+    "stats": {
+      "strength": 20,
+      "speed": 18,
+      "damage": 12,
+      "resistance": 35
+    },
+    "passive": "Honra do guerreiro",
+    "type": "fixed"
+  },
+  {
+    "itemId": "armor_rare_6",
+    "name": "Traje Anti-Explosão",
+    "category": "Armadura",
+    "rarity": "Rara",
+    "levelRequired": 10,
+    "price": 310,
+    "stats": {
+      "strength": 0,
+      "speed": 0,
+      "damage": 0,
+      "resistance": 50
+    },
+    "passive": "Reduz 50% de dano explosivo",
+    "type": "fixed"
+  },
+  {
+    "itemId": "armor_rare_7",
+    "name": "Armadura Kang Tao",
+    "category": "Armadura",
+    "rarity": "Rara",
+    "levelRequired": 10,
+    "price": 320,
+    "stats": {
+      "strength": 18,
+      "speed": 22,
+      "damage": 10,
+      "resistance": 38
+    },
+    "passive": "Sistema de mira inteligente",
+    "type": "fixed"
+  },
+  {
+    "itemId": "armor_rare_8",
+    "name": "Colete MaxTac Padrão",
+    "category": "Armadura",
+    "rarity": "Rara",
+    "levelRequired": 11,
+    "price": 330,
+    "stats": {
+      "strength": 22,
+      "speed": 15,
+      "damage": 15,
+      "resistance": 42
+    },
+    "passive": "Usado por unidades de elite",
+    "type": "fixed"
+  },
+  {
+    "itemId": "armor_epic_1",
+    "name": "Exoesqueleto Pesado",
+    "category": "Armadura",
+    "rarity": "Épica",
+    "levelRequired": 13,
+    "price": 600,
+    "stats": {
+      "strength": 45,
+      "speed": 20,
+      "damage": 0,
+      "resistance": 55
+    },
+    "passive": "Servo-motores hidráulicos",
+    "type": "fixed"
+  },
+  {
+    "itemId": "armor_epic_2",
+    "name": "Armadura Óptica Ativa",
+    "category": "Armadura",
+    "rarity": "Épica",
+    "levelRequired": 14,
+    "price": 650,
+    "stats": {
+      "strength": 0,
+      "speed": 50,
+      "damage": 30,
+      "resistance": 45
+    },
+    "passive": "Camuflagem óptica parcial",
+    "type": "fixed"
+  },
+  {
+    "itemId": "armor_epic_3",
+    "name": "Traje de Adam Smasher",
+    "category": "Armadura",
+    "rarity": "Épica",
+    "levelRequired": 14,
+    "price": 680,
+    "stats": {
+      "strength": 50,
+      "speed": 0,
+      "damage": 35,
+      "resistance": 60
+    },
+    "passive": "Borg completo de combate",
+    "type": "fixed"
+  },
+  {
+    "itemId": "armor_epic_4",
+    "name": "Armadura de Titânio",
+    "category": "Armadura",
+    "rarity": "Épica",
+    "levelRequired": 15,
+    "price": 700,
+    "stats": {
+      "strength": 35,
+      "speed": 25,
+      "damage": 0,
+      "resistance": 65
+    },
+    "passive": "Liga de titânio-carbono",
+    "type": "fixed"
+  },
+  {
+    "itemId": "armor_epic_5",
+    "name": "Traje Tático V",
+    "category": "Armadura",
+    "rarity": "Épica",
+    "levelRequired": 15,
+    "price": 720,
+    "stats": {
+      "strength": 30,
+      "speed": 40,
+      "damage": 35,
+      "resistance": 50
+    },
+    "passive": "Personalizado para lendas",
+    "type": "fixed"
+  },
+  {
+    "itemId": "armor_epic_6",
+    "name": "Armadura Netwatch",
+    "category": "Armadura",
+    "rarity": "Épica",
+    "levelRequired": 16,
+    "price": 740,
+    "stats": {
+      "strength": 20,
+      "speed": 45,
+      "damage": 40,
+      "resistance": 48
+    },
+    "passive": "Firewall neural integrado",
+    "type": "fixed"
+  },
+  {
+    "itemId": "armor_epic_7",
+    "name": "Colete Energético",
+    "category": "Armadura",
+    "rarity": "Épica",
+    "levelRequired": 16,
+    "price": 760,
+    "stats": {
+      "strength": 40,
+      "speed": 35,
+      "damage": 25,
+      "resistance": 55
+    },
+    "passive": "Escudo de energia recarregável",
+    "type": "fixed"
+  },
+  {
+    "itemId": "armor_legendary_1",
+    "name": "Armadura Dragoon Completa",
+    "category": "Armadura",
+    "rarity": "Lendária",
+    "levelRequired": 18,
+    "price": 1400,
+    "stats": {
+      "strength": 60,
+      "speed": 50,
+      "damage": 40,
+      "resistance": 70
+    },
+    "passive": "Borg militar de última geração",
+    "type": "fixed"
+  },
+  {
+    "itemId": "armor_legendary_2",
+    "name": "Traje Thermoóptico",
+    "category": "Armadura",
+    "rarity": "Lendária",
+    "levelRequired": 19,
+    "price": 1500,
+    "stats": {
+      "strength": 30,
+      "speed": 75,
+      "damage": 55,
+      "resistance": 60
+    },
+    "passive": "Invisibilidade completa",
+    "type": "fixed"
+  },
+  {
+    "itemId": "armor_legendary_3",
+    "name": "Exoesqueleto Titan",
+    "category": "Armadura",
+    "rarity": "Lendária",
+    "levelRequired": 20,
+    "price": 1600,
+    "stats": {
+      "strength": 80,
+      "speed": 40,
+      "damage": 35,
+      "resistance": 75
+    },
+    "passive": "Força sobre-humana",
+    "type": "fixed"
+  },
+  {
+    "itemId": "armor_legendary_4",
+    "name": "Armadura de Morgan Blackhand",
+    "category": "Armadura",
+    "rarity": "Lendária",
+    "levelRequired": 19,
+    "price": 1550,
+    "stats": {
+      "strength": 55,
+      "speed": 60,
+      "damage": 50,
+      "resistance": 68
+    },
+    "passive": "Lenda viva da guerra",
+    "type": "fixed"
+  },
+  {
+    "itemId": "armor_legendary_5",
+    "name": "Traje Corpo Inteiro Cyber",
+    "category": "Armadura",
+    "rarity": "Lendária",
+    "levelRequired": 21,
+    "price": 1700,
+    "stats": {
+      "strength": 65,
+      "speed": 55,
+      "damage": 45,
+      "resistance": 72
+    },
+    "passive": "Fusão perfeita homem-máquina",
+    "type": "fixed"
+  },
+  {
+    "itemId": "armor_mythic_1",
+    "name": "Armadura Relic 2.0",
+    "category": "Armadura",
+    "rarity": "Mítica",
+    "levelRequired": 22,
+    "price": 3000,
+    "stats": {
+      "strength": 85,
+      "speed": 75,
+      "damage": 70,
+      "resistance": 90
+    },
+    "passive": "Tecnologia de ressurreição",
+    "type": "fixed"
+  },
+  {
+    "itemId": "armor_mythic_2",
+    "name": "Exoesqueleto Zetatech Omega",
+    "category": "Armadura",
+    "rarity": "Mítica",
+    "levelRequired": 24,
+    "price": 3500,
+    "stats": {
+      "strength": 100,
+      "speed": 60,
+      "damage": 65,
+      "resistance": 95
+    },
+    "passive": "Força de um tanque",
+    "type": "fixed"
+  },
+  {
+    "itemId": "armor_mythic_3",
+    "name": "Traje do Imperador Cyber",
+    "category": "Armadura",
+    "rarity": "Mítica",
+    "levelRequired": 23,
+    "price": 3200,
+    "stats": {
+      "strength": 80,
+      "speed": 85,
+      "damage": 75,
+      "resistance": 88
+    },
+    "passive": "Nanotecnologia auto-reparável",
+    "type": "fixed"
+  },
+  {
+    "itemId": "rotation_1",
+    "name": "Devastador Sombrio",
+    "category": "Arma",
+    "rarity": "Épica",
+    "levelRequired": 12,
+    "price": 600,
+    "stats": {
+      "strength": 28,
+      "speed": 32,
+      "damage": 48,
+      "resistance": 18
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Tiros criam campos de sombra",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_2",
+    "name": "Relâmpago Azul",
+    "category": "Arma",
+    "rarity": "Lendária",
+    "levelRequired": 16,
+    "price": 1200,
+    "stats": {
+      "strength": 32,
+      "speed": 42,
+      "damage": 72,
+      "resistance": 28
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Dispara raios que saltam entre inimigos",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_3",
+    "name": "Fênix Ardente",
+    "category": "Arma",
+    "rarity": "Mítica",
+    "levelRequired": 20,
+    "price": 2800,
+    "stats": {
+      "strength": 70,
+      "speed": 60,
+      "damage": 110,
+      "resistance": 50
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Renascer das cinzas uma vez por missão",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_4",
+    "name": "Veneno Viper",
+    "category": "Arma",
+    "rarity": "Rara",
+    "levelRequired": 9,
+    "price": 280,
+    "stats": {
+      "strength": 16,
+      "speed": 35,
+      "damage": 26,
+      "resistance": 14
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Ataques envenenam inimigos",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_5",
+    "name": "Gelo Eterno",
+    "category": "Arma",
+    "rarity": "Épica",
+    "levelRequired": 14,
+    "price": 720,
+    "stats": {
+      "strength": 24,
+      "speed": 28,
+      "damage": 44,
+      "resistance": 32
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Congela inimigos temporariamente",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_6",
+    "name": "Trovão Celestial",
+    "category": "Sandevistan",
+    "rarity": "Lendária",
+    "levelRequired": 18,
+    "price": 2100,
+    "stats": {
+      "strength": 58,
+      "speed": 155,
+      "damage": 58,
+      "resistance": 62
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Raios caem ao redor durante efeito",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_7",
+    "name": "Predador Noturno",
+    "category": "Arma",
+    "rarity": "Épica",
+    "levelRequired": 13,
+    "price": 680,
+    "stats": {
+      "strength": 30,
+      "speed": 38,
+      "damage": 46,
+      "resistance": 22
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Mais forte à noite",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_8",
+    "name": "Espectro Digital",
+    "category": "Sandevistan",
+    "rarity": "Mítica",
+    "levelRequired": 22,
+    "price": 3300,
+    "stats": {
+      "strength": 88,
+      "speed": 195,
+      "damage": 88,
+      "resistance": 88
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Entra no mundo digital durante slow motion",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_9",
+    "name": "Lâmina Neon",
+    "category": "Arma",
+    "rarity": "Épica",
+    "levelRequired": 12,
+    "price": 650,
+    "stats": {
+      "strength": 30,
+      "speed": 36,
+      "damage": 50,
+      "resistance": 20
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Corte que atravessa armaduras",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_10",
+    "name": "Pulso Cintilante",
+    "category": "Arma",
+    "rarity": "Épica",
+    "levelRequired": 13,
+    "price": 720,
+    "stats": {
+      "strength": 32,
+      "speed": 34,
+      "damage": 54,
+      "resistance": 22
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Golpes ricocheteiam",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_11",
+    "name": "Coração de Aço",
+    "category": "Arma",
+    "rarity": "Épica",
+    "levelRequired": 12,
+    "price": 700,
+    "stats": {
+      "strength": 34,
+      "speed": 30,
+      "damage": 56,
+      "resistance": 26
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Ganho de resistência a cada acerto",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_12",
+    "name": "Fio Lúcido",
+    "category": "Arma",
+    "rarity": "Épica",
+    "levelRequired": 11,
+    "price": 600,
+    "stats": {
+      "strength": 26,
+      "speed": 40,
+      "damage": 46,
+      "resistance": 18
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Aumenta velocidade ao esquivar",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_13",
+    "name": "Sombra Cortante",
+    "category": "Arma",
+    "rarity": "Épica",
+    "levelRequired": 13,
+    "price": 760,
+    "stats": {
+      "strength": 36,
+      "speed": 38,
+      "damage": 60,
+      "resistance": 24
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Ataques à distância deixam sombra",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_14",
+    "name": "Ressonância",
+    "category": "Arma",
+    "rarity": "Épica",
+    "levelRequired": 14,
+    "price": 800,
+    "stats": {
+      "strength": 30,
+      "speed": 32,
+      "damage": 66,
+      "resistance": 28
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Hits carregam dano adicional",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_15",
+    "name": "Vórtice",
+    "category": "Arma",
+    "rarity": "Épica",
+    "levelRequired": 13,
+    "price": 740,
+    "stats": {
+      "strength": 28,
+      "speed": 44,
+      "damage": 52,
+      "resistance": 22
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Cria mini-tornado ao acertar",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_16",
+    "name": "Olho de Marte",
+    "category": "Arma",
+    "rarity": "Épica",
+    "levelRequired": 15,
+    "price": 820,
+    "stats": {
+      "strength": 40,
+      "speed": 30,
+      "damage": 70,
+      "resistance": 30
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Penetração aumentada contra inimigos blindados",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_17",
+    "name": "Falcão Metálico",
+    "category": "Arma",
+    "rarity": "Épica",
+    "levelRequired": 12,
+    "price": 690,
+    "stats": {
+      "strength": 34,
+      "speed": 42,
+      "damage": 58,
+      "resistance": 20
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Aumenta precisão e crítico",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_18",
+    "name": "Corrente Quântica",
+    "category": "Arma",
+    "rarity": "Épica",
+    "levelRequired": 14,
+    "price": 780,
+    "stats": {
+      "strength": 36,
+      "speed": 34,
+      "damage": 64,
+      "resistance": 26
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Acertos energizam o usuário",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_19",
+    "name": "Aço Fantasma",
+    "category": "Arma",
+    "rarity": "Lendária",
+    "levelRequired": 17,
+    "price": 1400,
+    "stats": {
+      "strength": 50,
+      "speed": 40,
+      "damage": 90,
+      "resistance": 36
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Evita dano uma vez por combate",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_20",
+    "name": "Tempestade Carmesim",
+    "category": "Arma",
+    "rarity": "Lendária",
+    "levelRequired": 18,
+    "price": 1500,
+    "stats": {
+      "strength": 52,
+      "speed": 44,
+      "damage": 96,
+      "resistance": 38
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Golpe final causa explosão",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_21",
+    "name": "Guardião de Neon",
+    "category": "Arma",
+    "rarity": "Lendária",
+    "levelRequired": 16,
+    "price": 1320,
+    "stats": {
+      "strength": 48,
+      "speed": 36,
+      "damage": 88,
+      "resistance": 40
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Escudo energético ao bloquear",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_22",
+    "name": "Aríete Solar",
+    "category": "Arma",
+    "rarity": "Lendária",
+    "levelRequired": 17,
+    "price": 1450,
+    "stats": {
+      "strength": 56,
+      "speed": 30,
+      "damage": 100,
+      "resistance": 42
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Ataque carregado rompe defesas",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_23",
+    "name": "Eco Implacável",
+    "category": "Arma",
+    "rarity": "Lendária",
+    "levelRequired": 18,
+    "price": 1520,
+    "stats": {
+      "strength": 50,
+      "speed": 48,
+      "damage": 94,
+      "resistance": 36
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Acertos aumentam dano subsequente",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_24",
+    "name": "Abissal",
+    "category": "Arma",
+    "rarity": "Lendária",
+    "levelRequired": 19,
+    "price": 1700,
+    "stats": {
+      "strength": 60,
+      "speed": 34,
+      "damage": 110,
+      "resistance": 44
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Chance de causar medo",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_25",
+    "name": "Coruja Obsidiana",
+    "category": "Arma",
+    "rarity": "Mítica",
+    "levelRequired": 22,
+    "price": 3000,
+    "stats": {
+      "strength": 88,
+      "speed": 62,
+      "damage": 140,
+      "resistance": 60
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Habilidade ultimate que limpa inimigos",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_26",
+    "name": "Juízo Final",
+    "category": "Arma",
+    "rarity": "Mítica",
+    "levelRequired": 24,
+    "price": 3600,
+    "stats": {
+      "strength": 96,
+      "speed": 54,
+      "damage": 160,
+      "resistance": 68
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Dano massivo em área uma vez por missão",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_27",
+    "name": "Sussurro Estelar",
+    "category": "Arma",
+    "rarity": "Mítica",
+    "levelRequired": 25,
+    "price": 4200,
+    "stats": {
+      "strength": 104,
+      "speed": 70,
+      "damage": 180,
+      "resistance": 72
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Dobra tempo local por segundos",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_28",
+    "name": "Neurolink Prisma",
+    "category": "Implante",
+    "rarity": "Épica",
+    "levelRequired": 12,
+    "price": 700,
+    "stats": {
+      "strength": 8,
+      "speed": 60,
+      "damage": 12,
+      "resistance": 18
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Aumenta reação do usuário",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_29",
+    "name": "Circuito Vespertino",
+    "category": "Implante",
+    "rarity": "Épica",
+    "levelRequired": 13,
+    "price": 720,
+    "stats": {
+      "strength": 10,
+      "speed": 64,
+      "damage": 14,
+      "resistance": 20
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Boost de velocidade quando ferido",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_30",
+    "name": "Sintonizador de Pulsos",
+    "category": "Implante",
+    "rarity": "Épica",
+    "levelRequired": 12,
+    "price": 680,
+    "stats": {
+      "strength": 12,
+      "speed": 58,
+      "damage": 16,
+      "resistance": 16
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Melhora cadência de tiros",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_31",
+    "name": "Memória Fulgente",
+    "category": "Implante",
+    "rarity": "Épica",
+    "levelRequired": 11,
+    "price": 660,
+    "stats": {
+      "strength": 6,
+      "speed": 56,
+      "damage": 10,
+      "resistance": 14
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Regenera pequena energia a cada acerto",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_32",
+    "name": "Neurovigor",
+    "category": "Implante",
+    "rarity": "Épica",
+    "levelRequired": 13,
+    "price": 760,
+    "stats": {
+      "strength": 14,
+      "speed": 68,
+      "damage": 18,
+      "resistance": 22
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Aumenta dano crítico",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_33",
+    "name": "Onda Sináptica",
+    "category": "Implante",
+    "rarity": "Épica",
+    "levelRequired": 14,
+    "price": 800,
+    "stats": {
+      "strength": 10,
+      "speed": 72,
+      "damage": 20,
+      "resistance": 24
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Ativa pequena slow on hit",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_34",
+    "name": "Pulso Cerúleo",
+    "category": "Implante",
+    "rarity": "Épica",
+    "levelRequired": 12,
+    "price": 700,
+    "stats": {
+      "strength": 12,
+      "speed": 66,
+      "damage": 16,
+      "resistance": 18
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Aumenta penetração de projéteis",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_35",
+    "name": "Sinal de Cauda",
+    "category": "Implante",
+    "rarity": "Épica",
+    "levelRequired": 13,
+    "price": 730,
+    "stats": {
+      "strength": 8,
+      "speed": 70,
+      "damage": 12,
+      "resistance": 20
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Rastro que confunde inimigos",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_36",
+    "name": "Córtex Ondulante",
+    "category": "Implante",
+    "rarity": "Épica",
+    "levelRequired": 12,
+    "price": 690,
+    "stats": {
+      "strength": 14,
+      "speed": 64,
+      "damage": 18,
+      "resistance": 18
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Pequeno aumento de esquiva",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_37",
+    "name": "Ressonador Nerve",
+    "category": "Implante",
+    "rarity": "Épica",
+    "levelRequired": 14,
+    "price": 780,
+    "stats": {
+      "strength": 16,
+      "speed": 62,
+      "damage": 20,
+      "resistance": 20
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Amplifica efeitos de outros implantes",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_38",
+    "name": "Vetor Azul",
+    "category": "Implante",
+    "rarity": "Lendária",
+    "levelRequired": 17,
+    "price": 1600,
+    "stats": {
+      "strength": 20,
+      "speed": 92,
+      "damage": 28,
+      "resistance": 26
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Ativa burst de velocidade curto",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_39",
+    "name": "Catalisador Neon",
+    "category": "Implante",
+    "rarity": "Lendária",
+    "levelRequired": 18,
+    "price": 1700,
+    "stats": {
+      "strength": 24,
+      "speed": 88,
+      "damage": 30,
+      "resistance": 28
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Dano elemental extra",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_40",
+    "name": "Sopro Ferruginoso",
+    "category": "Implante",
+    "rarity": "Lendária",
+    "levelRequired": 16,
+    "price": 1480,
+    "stats": {
+      "strength": 22,
+      "speed": 86,
+      "damage": 26,
+      "resistance": 30
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Recupera vida em altas velocidades",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_41",
+    "name": "Rede Neural",
+    "category": "Implante",
+    "rarity": "Lendária",
+    "levelRequired": 17,
+    "price": 1550,
+    "stats": {
+      "strength": 26,
+      "speed": 84,
+      "damage": 32,
+      "resistance": 32
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Diminui cooldowns das habilidades",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_42",
+    "name": "Pulso Titânico",
+    "category": "Implante",
+    "rarity": "Lendária",
+    "levelRequired": 18,
+    "price": 1750,
+    "stats": {
+      "strength": 30,
+      "speed": 80,
+      "damage": 36,
+      "resistance": 34
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Aumenta dano contra elites",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_43",
+    "name": "Helix Supremo",
+    "category": "Implante",
+    "rarity": "Mítica",
+    "levelRequired": 22,
+    "price": 3200,
+    "stats": {
+      "strength": 40,
+      "speed": 120,
+      "damage": 48,
+      "resistance": 44
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Ativa modo sobre-humano",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_44",
+    "name": "Cortex Divino",
+    "category": "Implante",
+    "rarity": "Mítica",
+    "levelRequired": 24,
+    "price": 3800,
+    "stats": {
+      "strength": 44,
+      "speed": 132,
+      "damage": 52,
+      "resistance": 48
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Restaura recursos e aumenta tudo temporariamente",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_45",
+    "name": "Ápice Neural",
+    "category": "Implante",
+    "rarity": "Mítica",
+    "levelRequired": 25,
+    "price": 4200,
+    "stats": {
+      "strength": 48,
+      "speed": 140,
+      "damage": 56,
+      "resistance": 52
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Habilidade única de controle de tempo",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_46",
+    "name": "Katana Lúcida",
+    "category": "Espada",
+    "rarity": "Épica",
+    "levelRequired": 12,
+    "price": 640,
+    "stats": {
+      "strength": 28,
+      "speed": 44,
+      "damage": 52,
+      "resistance": 18
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Cortes rápidos em cadeia",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_47",
+    "name": "Alvorada",
+    "category": "Espada",
+    "rarity": "Épica",
+    "levelRequired": 13,
+    "price": 700,
+    "stats": {
+      "strength": 30,
+      "speed": 42,
+      "damage": 56,
+      "resistance": 20
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Golpe que clareia área",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_48",
+    "name": "Língua de Fogo",
+    "category": "Espada",
+    "rarity": "Épica",
+    "levelRequired": 12,
+    "price": 680,
+    "stats": {
+      "strength": 32,
+      "speed": 40,
+      "damage": 60,
+      "resistance": 22
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Incendeia inimigos",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_49",
+    "name": "Vento Cortante",
+    "category": "Espada",
+    "rarity": "Épica",
+    "levelRequired": 11,
+    "price": 620,
+    "stats": {
+      "strength": 26,
+      "speed": 46,
+      "damage": 48,
+      "resistance": 16
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Aumenta alcance por tempo curto",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_50",
+    "name": "Seda Titânica",
+    "category": "Espada",
+    "rarity": "Épica",
+    "levelRequired": 13,
+    "price": 740,
+    "stats": {
+      "strength": 34,
+      "speed": 44,
+      "damage": 62,
+      "resistance": 24
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Sangramento contínuo",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_51",
+    "name": "Lua Sangrenta",
+    "category": "Espada",
+    "rarity": "Épica",
+    "levelRequired": 14,
+    "price": 780,
+    "stats": {
+      "strength": 36,
+      "speed": 40,
+      "damage": 66,
+      "resistance": 26
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Regenera vida ao eliminar inimigos",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_52",
+    "name": "Eco da Lâmina",
+    "category": "Espada",
+    "rarity": "Épica",
+    "levelRequired": 13,
+    "price": 760,
+    "stats": {
+      "strength": 30,
+      "speed": 48,
+      "damage": 58,
+      "resistance": 22
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Dobra ataques consecutivos",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_53",
+    "name": "Penumbral",
+    "category": "Espada",
+    "rarity": "Épica",
+    "levelRequired": 14,
+    "price": 800,
+    "stats": {
+      "strength": 38,
+      "speed": 46,
+      "damage": 70,
+      "resistance": 28
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Invisibilidade breve pós-esquiva",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_54",
+    "name": "Cordão de Prata",
+    "category": "Espada",
+    "rarity": "Épica",
+    "levelRequired": 12,
+    "price": 700,
+    "stats": {
+      "strength": 32,
+      "speed": 50,
+      "damage": 60,
+      "resistance": 20
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Aumenta precisão em combos",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_55",
+    "name": "Fio de Vênus",
+    "category": "Espada",
+    "rarity": "Épica",
+    "levelRequired": 14,
+    "price": 820,
+    "stats": {
+      "strength": 36,
+      "speed": 48,
+      "damage": 68,
+      "resistance": 26
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Ataques ricocheteiam em múltiplos alvos",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_56",
+    "name": "Aço Lunar",
+    "category": "Espada",
+    "rarity": "Lendária",
+    "levelRequired": 17,
+    "price": 1500,
+    "stats": {
+      "strength": 54,
+      "speed": 56,
+      "damage": 102,
+      "resistance": 36
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Dano aumentado à noite",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_57",
+    "name": "Grifo Magnético",
+    "category": "Espada",
+    "rarity": "Lendária",
+    "levelRequired": 18,
+    "price": 1600,
+    "stats": {
+      "strength": 56,
+      "speed": 52,
+      "damage": 108,
+      "resistance": 38
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Puxa inimigos para perto",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_58",
+    "name": "Sirene Obsidiana",
+    "category": "Espada",
+    "rarity": "Lendária",
+    "levelRequired": 16,
+    "price": 1420,
+    "stats": {
+      "strength": 52,
+      "speed": 60,
+      "damage": 100,
+      "resistance": 34
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Causa confusão em inimigos atingidos",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_59",
+    "name": "Punho de Titã",
+    "category": "Espada",
+    "rarity": "Lendária",
+    "levelRequired": 17,
+    "price": 1550,
+    "stats": {
+      "strength": 60,
+      "speed": 48,
+      "damage": 112,
+      "resistance": 40
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Bônus de força em combos",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_60",
+    "name": "Soberana",
+    "category": "Espada",
+    "rarity": "Lendária",
+    "levelRequired": 18,
+    "price": 1680,
+    "stats": {
+      "strength": 62,
+      "speed": 50,
+      "damage": 118,
+      "resistance": 42
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Aumenta crítico contra bosses",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_61",
+    "name": "Coroa de Fulgor",
+    "category": "Espada",
+    "rarity": "Mítica",
+    "levelRequired": 22,
+    "price": 3400,
+    "stats": {
+      "strength": 90,
+      "speed": 78,
+      "damage": 150,
+      "resistance": 64
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Lâmina que define o campo de batalha",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_62",
+    "name": "Rasante Estelar",
+    "category": "Espada",
+    "rarity": "Mítica",
+    "levelRequired": 24,
+    "price": 3800,
+    "stats": {
+      "strength": 96,
+      "speed": 84,
+      "damage": 170,
+      "resistance": 68
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Salto e ataque massivo",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_63",
+    "name": "Lamento da Aurora",
+    "category": "Espada",
+    "rarity": "Mítica",
+    "levelRequired": 25,
+    "price": 4200,
+    "stats": {
+      "strength": 104,
+      "speed": 96,
+      "damage": 190,
+      "resistance": 72
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Habilidade que altera gravidade",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_64",
+    "name": "Sandevistan Prisma I",
+    "category": "Sandevistan",
+    "rarity": "Épica",
+    "levelRequired": 12,
+    "price": 900,
+    "stats": {
+      "strength": 20,
+      "speed": 120,
+      "damage": 22,
+      "resistance": 28
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Acelera o tempo localmente",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_65",
+    "name": "Sandevistan Prisma II",
+    "category": "Sandevistan",
+    "rarity": "Épica",
+    "levelRequired": 13,
+    "price": 920,
+    "stats": {
+      "strength": 22,
+      "speed": 128,
+      "damage": 24,
+      "resistance": 30
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Aumenta chance de crítico em slow",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_66",
+    "name": "Neon Slow",
+    "category": "Sandevistan",
+    "rarity": "Épica",
+    "levelRequired": 12,
+    "price": 880,
+    "stats": {
+      "strength": 18,
+      "speed": 132,
+      "damage": 20,
+      "resistance": 26
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Pequeno aumento de duração do slow",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_67",
+    "name": "Ritmo Cortante",
+    "category": "Sandevistan",
+    "rarity": "Épica",
+    "levelRequired": 11,
+    "price": 860,
+    "stats": {
+      "strength": 16,
+      "speed": 140,
+      "damage": 18,
+      "resistance": 24
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Ataques lentos causam efeito extra",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_68",
+    "name": "Pulsar Cinético",
+    "category": "Sandevistan",
+    "rarity": "Épica",
+    "levelRequired": 13,
+    "price": 940,
+    "stats": {
+      "strength": 24,
+      "speed": 136,
+      "damage": 26,
+      "resistance": 30
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Consome energia para dano extra",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_69",
+    "name": "Trama Temporal",
+    "category": "Sandevistan",
+    "rarity": "Épica",
+    "levelRequired": 14,
+    "price": 980,
+    "stats": {
+      "strength": 26,
+      "speed": 144,
+      "damage": 28,
+      "resistance": 32
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Pequena distorção que atordoa",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_70",
+    "name": "Eco Rápido",
+    "category": "Sandevistan",
+    "rarity": "Épica",
+    "levelRequired": 12,
+    "price": 900,
+    "stats": {
+      "strength": 20,
+      "speed": 148,
+      "damage": 24,
+      "resistance": 28
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Teleporta curto após ataque",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_71",
+    "name": "Matiz Veloz",
+    "category": "Sandevistan",
+    "rarity": "Épica",
+    "levelRequired": 13,
+    "price": 920,
+    "stats": {
+      "strength": 22,
+      "speed": 152,
+      "damage": 26,
+      "resistance": 30
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Aumenta esquiva em slow",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_72",
+    "name": "Corte Cronal",
+    "category": "Sandevistan",
+    "rarity": "Épica",
+    "levelRequired": 12,
+    "price": 890,
+    "stats": {
+      "strength": 24,
+      "speed": 156,
+      "damage": 28,
+      "resistance": 30
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Dano aumentado em velocidade",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_73",
+    "name": "Véu de Mercúrio",
+    "category": "Sandevistan",
+    "rarity": "Épica",
+    "levelRequired": 14,
+    "price": 1000,
+    "stats": {
+      "strength": 28,
+      "speed": 160,
+      "damage": 30,
+      "resistance": 34
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Invisibilidade breve em slow",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_74",
+    "name": "Espiral de Luz",
+    "category": "Sandevistan",
+    "rarity": "Lendária",
+    "levelRequired": 17,
+    "price": 2000,
+    "stats": {
+      "strength": 36,
+      "speed": 190,
+      "damage": 40,
+      "resistance": 44
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Slow prolongado e mais crítico",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_75",
+    "name": "Teto de Aço",
+    "category": "Sandevistan",
+    "rarity": "Lendária",
+    "levelRequired": 18,
+    "price": 2100,
+    "stats": {
+      "strength": 40,
+      "speed": 200,
+      "damage": 44,
+      "resistance": 48
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Dano massivo a alvos lentos",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_76",
+    "name": "Manto Hipersônico",
+    "category": "Sandevistan",
+    "rarity": "Lendária",
+    "levelRequired": 16,
+    "price": 1880,
+    "stats": {
+      "strength": 38,
+      "speed": 196,
+      "damage": 42,
+      "resistance": 46
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Recuperação de energia ao ativar",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_77",
+    "name": "Velocidade Absoluta",
+    "category": "Sandevistan",
+    "rarity": "Lendária",
+    "levelRequired": 17,
+    "price": 1950,
+    "stats": {
+      "strength": 44,
+      "speed": 210,
+      "damage": 48,
+      "resistance": 50
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Extremo aumento de velocidade por segundos",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_78",
+    "name": "Olho do Tempo",
+    "category": "Sandevistan",
+    "rarity": "Lendária",
+    "levelRequired": 18,
+    "price": 2200,
+    "stats": {
+      "strength": 46,
+      "speed": 220,
+      "damage": 50,
+      "resistance": 52
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Detecta inimigos ocultos durante slow",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_79",
+    "name": "Centelha Divina",
+    "category": "Sandevistan",
+    "rarity": "Mítica",
+    "levelRequired": 22,
+    "price": 4200,
+    "stats": {
+      "strength": 80,
+      "speed": 300,
+      "damage": 80,
+      "resistance": 70
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Slow infinito por breve duração com buffs",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_80",
+    "name": "Tempus Imperium",
+    "category": "Sandevistan",
+    "rarity": "Mítica",
+    "levelRequired": 24,
+    "price": 4800,
+    "stats": {
+      "strength": 88,
+      "speed": 330,
+      "damage": 88,
+      "resistance": 74
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Congela o tempo ao custo de recursos",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_81",
+    "name": "Cicatriz do Relógio",
+    "category": "Sandevistan",
+    "rarity": "Mítica",
+    "levelRequired": 25,
+    "price": 5200,
+    "stats": {
+      "strength": 96,
+      "speed": 360,
+      "damage": 96,
+      "resistance": 80
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Permite múltiplas ações instantâneas",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_82",
+    "name": "Visor Ônix",
+    "category": "Cabeça",
+    "rarity": "Épica",
+    "levelRequired": 12,
+    "price": 560,
+    "stats": {
+      "strength": 6,
+      "speed": 12,
+      "damage": 6,
+      "resistance": 40
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Aumenta visão de alvo",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_83",
+    "name": "Capacete Prisma",
+    "category": "Cabeça",
+    "rarity": "Épica",
+    "levelRequired": 13,
+    "price": 600,
+    "stats": {
+      "strength": 8,
+      "speed": 10,
+      "damage": 8,
+      "resistance": 44
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Reduz dano elemental",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_84",
+    "name": "Cúpula Solar",
+    "category": "Cabeça",
+    "rarity": "Épica",
+    "levelRequired": 12,
+    "price": 580,
+    "stats": {
+      "strength": 10,
+      "speed": 8,
+      "damage": 10,
+      "resistance": 48
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Regeneração de resistência",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_85",
+    "name": "Máscara Neutra",
+    "category": "Cabeça",
+    "rarity": "Épica",
+    "levelRequired": 11,
+    "price": 540,
+    "stats": {
+      "strength": 6,
+      "speed": 14,
+      "damage": 6,
+      "resistance": 36
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Reduz detecção por inimigos",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_86",
+    "name": "Halo Ferro",
+    "category": "Cabeça",
+    "rarity": "Épica",
+    "levelRequired": 13,
+    "price": 620,
+    "stats": {
+      "strength": 12,
+      "speed": 10,
+      "damage": 12,
+      "resistance": 50
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Pequeno escudo ao receber dano",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_87",
+    "name": "Olho de Vidro",
+    "category": "Cabeça",
+    "rarity": "Épica",
+    "levelRequired": 14,
+    "price": 660,
+    "stats": {
+      "strength": 8,
+      "speed": 12,
+      "damage": 8,
+      "resistance": 46
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Marca inimigos à distância",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_88",
+    "name": "Coroa de Latão",
+    "category": "Cabeça",
+    "rarity": "Épica",
+    "levelRequired": 12,
+    "price": 600,
+    "stats": {
+      "strength": 10,
+      "speed": 10,
+      "damage": 10,
+      "resistance": 48
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Aumento de moral e stats",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_89",
+    "name": "Máscara do Viajante",
+    "category": "Cabeça",
+    "rarity": "Épica",
+    "levelRequired": 13,
+    "price": 630,
+    "stats": {
+      "strength": 12,
+      "speed": 14,
+      "damage": 12,
+      "resistance": 50
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Reduz cooldown de habilidades",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_90",
+    "name": "Tampa Sílex",
+    "category": "Cabeça",
+    "rarity": "Épica",
+    "levelRequired": 12,
+    "price": 610,
+    "stats": {
+      "strength": 10,
+      "speed": 12,
+      "damage": 10,
+      "resistance": 49
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Mitiga dano crítico",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_91",
+    "name": "Helm do Vigia",
+    "category": "Cabeça",
+    "rarity": "Épica",
+    "levelRequired": 14,
+    "price": 680,
+    "stats": {
+      "strength": 14,
+      "speed": 12,
+      "damage": 14,
+      "resistance": 52
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Aumenta alcance de interação",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_92",
+    "name": "Casco Monarca",
+    "category": "Cabeça",
+    "rarity": "Lendária",
+    "levelRequired": 17,
+    "price": 1300,
+    "stats": {
+      "strength": 18,
+      "speed": 14,
+      "damage": 18,
+      "resistance": 72
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Absorve porcentagem de dano",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_93",
+    "name": "Visor Antártico",
+    "category": "Cabeça",
+    "rarity": "Lendária",
+    "levelRequired": 18,
+    "price": 1400,
+    "stats": {
+      "strength": 20,
+      "speed": 16,
+      "damage": 20,
+      "resistance": 76
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Imune a congelamento",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_94",
+    "name": "Máscara do Sábio",
+    "category": "Cabeça",
+    "rarity": "Lendária",
+    "levelRequired": 16,
+    "price": 1220,
+    "stats": {
+      "strength": 18,
+      "speed": 18,
+      "damage": 18,
+      "resistance": 70
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Aumenta XP ganho",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_95",
+    "name": "Cúpula de Titânio",
+    "category": "Cabeça",
+    "rarity": "Lendária",
+    "levelRequired": 17,
+    "price": 1350,
+    "stats": {
+      "strength": 22,
+      "speed": 16,
+      "damage": 22,
+      "resistance": 78
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Reduz explosões próximas",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_96",
+    "name": "Óculos Regente",
+    "category": "Cabeça",
+    "rarity": "Lendária",
+    "levelRequired": 18,
+    "price": 1480,
+    "stats": {
+      "strength": 24,
+      "speed": 18,
+      "damage": 24,
+      "resistance": 80
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Marca pontos fracos em inimigos",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_97",
+    "name": "Névoa Arcana",
+    "category": "Cabeça",
+    "rarity": "Mítica",
+    "levelRequired": 22,
+    "price": 3000,
+    "stats": {
+      "strength": 28,
+      "speed": 20,
+      "damage": 28,
+      "resistance": 100
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Imunidade a status negativos por poucos segundos",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_98",
+    "name": "Coroa do Crepúsculo",
+    "category": "Cabeça",
+    "rarity": "Mítica",
+    "levelRequired": 24,
+    "price": 3600,
+    "stats": {
+      "strength": 32,
+      "speed": 24,
+      "damage": 32,
+      "resistance": 110
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Grande aumento de resistência e visão",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_99",
+    "name": "Máscara do Temível",
+    "category": "Cabeça",
+    "rarity": "Mítica",
+    "levelRequired": 25,
+    "price": 4200,
+    "stats": {
+      "strength": 36,
+      "speed": 28,
+      "damage": 36,
+      "resistance": 120
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Redireciona dano recebido para projéteis próximos",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_100",
+    "name": "Peitoral Neón",
+    "category": "Armadura",
+    "rarity": "Épica",
+    "levelRequired": 12,
+    "price": 780,
+    "stats": {
+      "strength": 18,
+      "speed": 12,
+      "damage": 12,
+      "resistance": 60
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Reduz dano físico",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_101",
+    "name": "Couraça Prisma",
+    "category": "Armadura",
+    "rarity": "Épica",
+    "levelRequired": 13,
+    "price": 820,
+    "stats": {
+      "strength": 20,
+      "speed": 10,
+      "damage": 14,
+      "resistance": 64
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Aumenta resistência elemental",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_102",
+    "name": "Matriz de Placas",
+    "category": "Armadura",
+    "rarity": "Épica",
+    "levelRequired": 12,
+    "price": 800,
+    "stats": {
+      "strength": 22,
+      "speed": 8,
+      "damage": 16,
+      "resistance": 66
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Recupera parte da defesa ao bloquear",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_103",
+    "name": "Fibra Lunar",
+    "category": "Armadura",
+    "rarity": "Épica",
+    "levelRequired": 11,
+    "price": 760,
+    "stats": {
+      "strength": 16,
+      "speed": 14,
+      "damage": 10,
+      "resistance": 58
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Leve e resistente",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_104",
+    "name": "Sutura de Aço",
+    "category": "Armadura",
+    "rarity": "Épica",
+    "levelRequired": 13,
+    "price": 840,
+    "stats": {
+      "strength": 24,
+      "speed": 12,
+      "damage": 18,
+      "resistance": 70
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Diminui dano de perfuração",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_105",
+    "name": "Rede Energética",
+    "category": "Armadura",
+    "rarity": "Épica",
+    "levelRequired": 14,
+    "price": 880,
+    "stats": {
+      "strength": 20,
+      "speed": 12,
+      "damage": 16,
+      "resistance": 72
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Rebate parte do dano elemental",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_106",
+    "name": "Véu de Carapaça",
+    "category": "Armadura",
+    "rarity": "Épica",
+    "levelRequired": 12,
+    "price": 800,
+    "stats": {
+      "strength": 22,
+      "speed": 14,
+      "damage": 18,
+      "resistance": 74
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Reduz dano crítico",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_107",
+    "name": "Casca de Mercúrio",
+    "category": "Armadura",
+    "rarity": "Épica",
+    "levelRequired": 13,
+    "price": 830,
+    "stats": {
+      "strength": 24,
+      "speed": 10,
+      "damage": 20,
+      "resistance": 76
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Melhora resistência física e térmica",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_108",
+    "name": "Estribo Vento",
+    "category": "Armadura",
+    "rarity": "Épica",
+    "levelRequired": 12,
+    "price": 810,
+    "stats": {
+      "strength": 20,
+      "speed": 16,
+      "damage": 16,
+      "resistance": 72
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Leve aumento de velocidade ao correr",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_109",
+    "name": "Núcleo Reforçado",
+    "category": "Armadura",
+    "rarity": "Épica",
+    "levelRequired": 14,
+    "price": 880,
+    "stats": {
+      "strength": 26,
+      "speed": 12,
+      "damage": 20,
+      "resistance": 78
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Melhora estabilização contra empuxos",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_110",
+    "name": "Couraça de Guerra",
+    "category": "Armadura",
+    "rarity": "Lendária",
+    "levelRequired": 17,
+    "price": 1700,
+    "stats": {
+      "strength": 40,
+      "speed": 14,
+      "damage": 28,
+      "resistance": 110
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Diminui dano recebido de bosses",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_111",
+    "name": "Placas Titan",
+    "category": "Armadura",
+    "rarity": "Lendária",
+    "levelRequired": 18,
+    "price": 1800,
+    "stats": {
+      "strength": 44,
+      "speed": 12,
+      "damage": 30,
+      "resistance": 120
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Alta absorção de impacto",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_112",
+    "name": "Velo de Ferro",
+    "category": "Armadura",
+    "rarity": "Lendária",
+    "levelRequired": 16,
+    "price": 1520,
+    "stats": {
+      "strength": 38,
+      "speed": 16,
+      "damage": 26,
+      "resistance": 102
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Estabiliza tremores e explosões",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_113",
+    "name": "Fornalha de Aço",
+    "category": "Armadura",
+    "rarity": "Lendária",
+    "levelRequired": 17,
+    "price": 1650,
+    "stats": {
+      "strength": 42,
+      "speed": 14,
+      "damage": 32,
+      "resistance": 108
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Reduz dano de fogo",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_114",
+    "name": "Muralha Santificada",
+    "category": "Armadura",
+    "rarity": "Lendária",
+    "levelRequired": 18,
+    "price": 1850,
+    "stats": {
+      "strength": 46,
+      "speed": 12,
+      "damage": 34,
+      "resistance": 124
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Cria barreira temporária",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_115",
+    "name": "Armamento Supremo",
+    "category": "Armadura",
+    "rarity": "Mítica",
+    "levelRequired": 22,
+    "price": 3600,
+    "stats": {
+      "strength": 70,
+      "speed": 18,
+      "damage": 48,
+      "resistance": 180
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Ativa modo fortaleza",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_116",
+    "name": "Placas do Infinito",
+    "category": "Armadura",
+    "rarity": "Mítica",
+    "levelRequired": 24,
+    "price": 4200,
+    "stats": {
+      "strength": 76,
+      "speed": 20,
+      "damage": 52,
+      "resistance": 200
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Bulwark: absorve um ataque fatal",
+    "type": "rotation"
+  },
+  {
+    "itemId": "rotation_117",
+    "name": "Santuário de Titãs",
+    "category": "Armadura",
+    "rarity": "Mítica",
+    "levelRequired": 25,
+    "price": 4800,
+    "stats": {
+      "strength": 84,
+      "speed": 22,
+      "damage": 60,
+      "resistance": 220
+    },
+    "passive": "EXCLUSIVO DA ROTAÇÃO - Grande redução de dano e retaliação",
+    "type": "rotation"
+  }
+]

@@ -47,7 +47,7 @@ const OptionModal: React.FC<OptionModalProps> = ({ visible, option, onClose, onR
     if (option === 'Configurações') {
       return (
         <ScrollView style={styles.configContainer}>
-          <Text style={styles.configTitle}>CONFIGURAÇÕES DE ÁUDIO</Text>
+          <Text style={styles.configTitle}>CONFIGURAÇÕEs DE ÁUDIO</Text>
           <View style={styles.sliderContainer}>
             <Text style={styles.sliderLabel}>VOLUME MÚSICA: {Math.round(musicVolume * 100)}%</Text>
             <Slider
@@ -96,11 +96,11 @@ const OptionModal: React.FC<OptionModalProps> = ({ visible, option, onClose, onR
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
           <Text style={styles.title}>
-            {option === 'Configurações' ? 'CONFIGURAÇÕES' : option}
+            {option === 'Configurações' ? 'CONFIGURACOES' : option}
           </Text>
           {renderContent()}
           <TouchableOpacity style={styles.closeButton} onPress={handleClose}>
-            <Text style={styles.closeButtonText}>FECHAR</Text>
+            <Text style={styles.closeButtonText}>Voltar</Text>
           </TouchableOpacity>
         </View>
       </View>
