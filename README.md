@@ -24,8 +24,9 @@ Cada categoria possui três níveis de dificuldade, com recompensas progressivas
 - **Inventário e Equipamentos**: Gerencie e equipe itens que aumentam seus atributos (força, velocidade, dano, resistência)
 - **Rankings Competitivos**: Compare seu nível e riqueza com outros jogadores
 - **Modo Treino**: Pratique missões offline sem ganhar recompensas, apenas para aperfeiçoar suas habilidades
+- **Eventos Sazonais**: Missões exclusivas de Halloween (31/out) e Natal (25/dez) com +3 missões temáticas e itens especiais
 - **Estética Cyberpunk Imersiva**: Interface com efeitos visuais neon, glitch, animações fluidas, música atmosférica e feedback tátil
-- **Segurança Total**: Autenticação JWT, criptografia de senhas com bcrypt, autenticação biométrica e recuperação de senha via email
+- **Segurança Total**: Autenticação JWT, criptografia de senhas com bcrypt (mantendo case-sensitive), autenticação biométrica e recuperação de senha via email
 
 ## 🎯 Missão  
 Proporcionar uma experiência de jogo envolvente que mescle deslocamento físico ou virtual com desafios intelectuais, promovendo progressão, interação social e imersão em um universo cyberpunk, com suporte offline, segurança de dados e interface intuitiva.
@@ -118,23 +119,33 @@ cd backend
 npm install
 npm start
 ```
-A API estará disponível em `https://backend-psi-fawn-77.vercel.app` (ou `http://localhost:3000` para desenvolvimento local).  
+A API estará disponível em `https://backend-g451wjhg3-rossis-projects-70b0b590.vercel.app` (ou `http://localhost:3000` para desenvolvimento local).  
 
 ### Frontend Mobile (React Native)  
 ```bash
 cd cyberprojekt
 npm install
-npx expo start
+npx expo start --tunnel
 ```
+
+> **⚠️ IMPORTANTE**: Use sempre o modo `--tunnel` para garantir compatibilidade com mudanças de data/hora do dispositivo (necessário para testar eventos sazonais).
 
 ### Executar no Dispositivo  
 1. Instale o **Expo Go** no seu smartphone (Android/iOS).  
-2. Escaneie o QR code gerado pelo comando `npx expo start`.  
-3. Ou execute `npx expo run:android` / `npx expo run:ios` para builds nativas.  
+2. Aguarde a instalação do `@expo/ngrok` (primeira execução).  
+3. Escaneie o QR code gerado pelo comando `npx expo start --tunnel`.  
+4. Ou execute `npx expo run:android` / `npx expo run:ios` para builds nativas.
+
+### Testar Eventos Sazonais  
+Para testar missões de Halloween ou Natal:  
+1. Execute o app com `npx expo start --tunnel`  
+2. Mude a data do celular para **31 de outubro** (Halloween) ou **25 de dezembro** (Natal)  
+3. Recarregue o app (sacuda o celular → "Reload")  
+4. Abra o mapa e você verá **9 missões** (6 normais + 3 sazonais 🎃/🎄)  
 
 ## 📚 Documentação da API  
 A API REST será documentada com **Swagger/OpenAPI** (a ser implementado em Sprint 2):  
-- **Base URL**: `https://backend-psi-fawn-77.vercel.app/api` (ou `http://localhost:3000/api` localmente)  
+- **Base URL**: `https://backend-g451wjhg3-rossis-projects-70b0b590.vercel.app/api` (ou `http://localhost:3000/api` localmente)  
 
 ## 📁 Estrutura do Projeto  
 ```
@@ -146,7 +157,6 @@ CyberProjekt/
 │   │   ├── inventory.tsx        # Inventário de itens
 │   │   ├── profile.tsx          # Perfil do usuário
 │   │   ├── shop.tsx             # Loja de itens
-│   │   ├── training.tsx         # Modo treino offline
 │   │   └── _layout.tsx          # Layout das tabs
 │   ├── _layout.tsx              # Layout raiz
 │   ├── +not-found.tsx           # Tela de erro 404
@@ -163,10 +173,26 @@ CyberProjekt/
 │   ├── MissionSystem/           # Sistema de missões
 │   │   ├── index.tsx            # Lógica principal de missões
 │   │   ├── types.ts             # Tipos TypeScript
-│   │   └── missions/            # Missões por dificuldade
+│   │   └── missions/            # Missões por dificuldade e eventos
 │   │       ├── easy/            # Missões fáceis (code, logic, math)
+│   │       │   ├── index.ts     # Exportação de missões fáceis
+│   │       │   ├── codeMission.ts
+│   │       │   ├── logicMission.ts
+│   │       │   └── mathMission.ts
 │   │       ├── medium/          # Missões médias
-│   │       └── hard/            # Missões difíceis
+│   │       │   ├── index.ts
+│   │       │   ├── codeMission.ts
+│   │       │   ├── logicMission.ts
+│   │       │   └── mathMission.ts
+│   │       ├── hard/            # Missões difíceis
+│   │       │   ├── index.ts
+│   │       │   ├── codeMission.ts
+│   │       │   ├── logicMission.ts
+│   │       │   └── mathMission.ts
+│   │       └── seasonal/        # Missões sazonais (Halloween/Natal)
+│   │           ├── index.ts     # Detecção de eventos sazonais
+│   │           ├── halloween.ts # 3 missões de Halloween 🎃
+│   │           └── christmas.ts # 3 missões de Natal 🎄
 │   ├── OptionModal.tsx          # Modal de opções/configurações
 │   ├── OverlayContext.tsx       # Contexto de overlays/modais
 │   └── RankingModal.tsx         # Modal de rankings
@@ -188,14 +214,10 @@ CyberProjekt/
 │   ├── useImmersiveMode.ts      # Modo imersivo (fullscreen)
 │   └── useThemeColor.ts         # Utilitário de cores
 ├── scripts/ 
-│   ├── reset-project.js         # Script de reinicialização
-│   ├── buildItemsJson.ts        # Gerador de itens JSON
-│   ├── syncItems.ts             # Sincronização de itens
-│   ├── uploadItems.js           # Upload de itens para DB
-│   └── resetAndUploadItems.js   # Reset e upload de itens
+│   └── reset-project.js         # Script de reinicialização
 ├── services/
 │   ├── location.ts              # Serviço de geolocalização
-│   └── map.ts                   # Lógica do mapa
+│   └── map.ts                   # Lógica do mapa (geração de missões)
 ├── types/        
 │   └── index.ts                 # Definições TypeScript globais
 ├── app.json                     # Configuração Expo
