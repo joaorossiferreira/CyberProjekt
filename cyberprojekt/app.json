@@ -4,14 +4,10 @@
     "slug": "cyberprojekt",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "assetBundlePatterns": ["assets/**/*"],
+    "assetBundlePatterns": [
+      "assets/**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
@@ -19,15 +15,15 @@
       }
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
       "permissions": [
         "ACCESS_FINE_LOCATION",
         "ACCESS_COARSE_LOCATION",
         "USE_BIOMETRIC",
-        "USE_FINGERPRINT"
+        "USE_FINGERPRINT",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.USE_BIOMETRIC",
+        "android.permission.USE_FINGERPRINT"
       ],
       "package": "com.anonymous.cyberprojekt"
     },
@@ -46,6 +42,11 @@
       ],
       "expo-secure-store"
     ],
-    "scheme": "cyberprojekt"
+    "scheme": "cyberprojekt",
+    "extra": {
+      "eas": {
+        "projectId": "e1626de8-d919-4bf3-91b6-48d78b72b89b"
+      }
+    }
   }
 }
