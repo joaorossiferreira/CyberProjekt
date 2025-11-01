@@ -30,32 +30,38 @@ export default function Explore() {
 
   useEffect(() => {
     async function fetchLocationAndPlayMusic() {
-      console.log('explore.tsx: Montando tela e tocando música...');
-      const location = await getUserLocation();
-      setUserLocation(location);
-      if (location) {
-        const generatedItems = generateRandomItems(location, 5, items);
-        setItems(generatedItems);
-        await saveItems(generatedItems);
-      } else {
-        const cachedItems = await loadItems();
-        setItems(cachedItems);
-      }
-
-      // Só toca a música se não foi inicializada ainda
-      if (!musicInitialized.current) {
-        try {
-          await stopBackgroundMusic();
-          await playBackgroundMusic(require('../../assets/songs/map-theme.mp3'));
-          console.log('explore.tsx: Música do mapa iniciada');
-          musicInitialized.current = true;
-        } catch (error) {
-          console.error('Erro ao tocar música do mapa:', error);
+      try {
+        console.log('explore.tsx: Montando tela e tocando música...');
+        const location = await getUserLocation();
+        setUserLocation(location);
+        if (location) {
+          const generatedItems = generateRandomItems(location, 5, items);
+          console.log('explore.tsx: Items gerados:', generatedItems.length);
+          setItems(generatedItems);
+          await saveItems(generatedItems);
+        } else {
+          const cachedItems = await loadItems();
+          console.log('explore.tsx: Items do cache:', cachedItems.length);
+          setItems(cachedItems);
         }
-      }
 
-      const token = await AsyncStorage.getItem('userToken');
-      console.log('explore.tsx: Token inicial:', token);
+        // Só toca a música se não foi inicializada ainda
+        if (!musicInitialized.current) {
+          try {
+            await stopBackgroundMusic();
+            await playBackgroundMusic(require('../../assets/songs/map-theme.mp3'));
+            console.log('explore.tsx: Música do mapa iniciada');
+            musicInitialized.current = true;
+          } catch (error) {
+            console.error('Erro ao tocar música do mapa:', error);
+          }
+        }
+
+        const token = await AsyncStorage.getItem('userToken');
+        console.log('explore.tsx: Token inicial:', token);
+      } catch (error) {
+        console.error('❌ ERRO NO EXPLORE:', error);
+      }
     }
     fetchLocationAndPlayMusic();
 

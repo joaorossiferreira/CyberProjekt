@@ -17,13 +17,24 @@ const { width, height } = Dimensions.get('window');
 const BASE_URL = 'https://backend-psi-fawn-77.vercel.app';
 
 interface MissionScreenProps {
-  missionId: string;
-  itemId: string;
+  missionId?: string;
+  itemId?: string;
+  mission?: Mission; // Permite passar missão diretamente (modo treino)
+  trainingMode?: boolean; // Se true, não concede recompensas
   onClose: () => void;
-  onMissionComplete: (itemId: string) => void;
+  onComplete?: () => void; // Callback genérico para treino
+  onMissionComplete?: (itemId: string) => void; // Callback para missões normais
 }
 
-export default function MissionScreen({ missionId, itemId, onClose, onMissionComplete }: MissionScreenProps) {
+export default function MissionScreen({ 
+  missionId, 
+  itemId, 
+  mission: propMission,
+  trainingMode = false,
+  onClose, 
+  onComplete,
+  onMissionComplete 
+}: MissionScreenProps) {
   const [selectedAnswer, setSelectedAnswer] = useState<string>('');
   const [codeAnswer, setCodeAnswer] = useState<string>('');
   const [showResult, setShowResult] = useState(false);
@@ -34,9 +45,30 @@ export default function MissionScreen({ missionId, itemId, onClose, onMissionCom
   const { playUISound } = useAudio();
 
   useEffect(() => {
-    const allMissions = MissionSystem.getAllMissions();
-    const foundMission = allMissions.find(m => m.id === missionId);
-    setMission(foundMission || null);
+    // Se propMission foi passada (modo treino), usa ela diretamente
+    if (propMission) {
+      setMission(propMission);
+    } else if (missionId) {
+      // Busca a missão pelo ID (inclui missões normais E sazonais)
+      const allMissions = MissionSystem.getAllMissions();
+      let foundMission = allMissions.find(m => m.id === missionId);
+      
+      // Se não encontrou nas missões normais, procura nas sazonais
+      if (!foundMission) {
+        const seasonalMissions = MissionSystem.getSeasonalMissions();
+        if (seasonalMissions) {
+          foundMission = seasonalMissions.find(m => m.id === missionId);
+        }
+      }
+      
+      setMission(foundMission || null);
+    }
+
+    // No modo treino, não busca stats do servidor
+    if (trainingMode) {
+      setUserStats({ level: 0, currentExp: 0, gold: 0 }); // Stats fictícias para treino
+      return;
+    }
 
     const fetchUserStats = async () => {
       try {
@@ -64,7 +96,7 @@ export default function MissionScreen({ missionId, itemId, onClose, onMissionCom
       }
     };
     fetchUserStats();
-  }, [missionId]);
+  }, [missionId, propMission, trainingMode]);
 
   const handleSubmit = async () => {
     await playUISound();
@@ -88,7 +120,15 @@ export default function MissionScreen({ missionId, itemId, onClose, onMissionCom
 
     if (correct) {
       setTimeout(() => {
-        onMissionComplete(itemId);
+        if (trainingMode) {
+          // Modo treino: chama onComplete sem passar itemId
+          if (onComplete) onComplete();
+        } else {
+          // Modo normal: chama onMissionComplete com itemId
+          if (onMissionComplete && itemId) {
+            onMissionComplete(itemId);
+          }
+        }
         onClose();
       }, 1500);
     }
@@ -350,7 +390,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 22,
-    fontFamily: 'ChakraPetch',
+    fontFamily: 'ChakraPetch-Bold',
     color: '#fcee09',
     marginBottom: 8,
     textShadowColor: '#fcee09',

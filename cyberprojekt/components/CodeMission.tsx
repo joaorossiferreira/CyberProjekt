@@ -17,7 +17,11 @@ export default function CodeMissionCompact({ missionData, onAnswer }: CodeMissio
 
   useEffect(() => {
     if (missionData?.correctCode) {
-      const blocks = missionData.correctCode.split('\n').filter((line: string) => line.trim());
+      // Split into lines, remove inline comments (// ...) and empty lines
+      const blocks = missionData.correctCode
+        .split('\n')
+        .map((line: string) => line.replace(/\/\/.*$/, '').trim())
+        .filter((line: string) => line.length > 0);
       setAvailableBlocks([...blocks].sort(() => Math.random() - 0.5));
       setSolution([]);
     }
@@ -26,11 +30,15 @@ export default function CodeMissionCompact({ missionData, onAnswer }: CodeMissio
   const addToSolution = (block: string) => {
     const newSolution = [...solution, block];
     setSolution(newSolution);
-    setAvailableBlocks(prev => prev.filter(b => b !== block));
-    
-    if (newSolution.length === availableBlocks.length + solution.length) {
-      onAnswer(newSolution.join('\n'));
-    }
+
+    setAvailableBlocks(prev => {
+      const newAvailable = prev.filter(b => b !== block);
+      // if there are no more available blocks, submit the answer
+      if (newAvailable.length === 0) {
+        onAnswer(newSolution.join('\n'));
+      }
+      return newAvailable;
+    });
   };
 
   const removeFromSolution = (index: number) => {

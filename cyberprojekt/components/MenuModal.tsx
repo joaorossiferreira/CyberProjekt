@@ -31,6 +31,9 @@ const MenuModal: React.FC<MenuModalProps> = ({ visible, onClose, onOptionSelect 
     } else if (option === 'Perfil') {
       router.push('/profile');
       onClose();
+    } else if (option === 'Treino') {
+      router.push('/training');
+      onClose();
     } else {
       onOptionSelect(option);
       onClose();
@@ -53,7 +56,7 @@ const MenuModal: React.FC<MenuModalProps> = ({ visible, onClose, onOptionSelect 
     { label: '👤 PERFIL', value: 'Perfil' },
     { label: '🛒 LOJA', value: 'Loja' },
     { label: '🏆 RANKING', value: 'Ranking' },
-    { label: '📊 HISTÓRICO', value: 'Histórico' },
+    { label: '🎯 TREINO', value: 'Treino' },
     { label: '⚙️ CONFIGURAÇÕES', value: 'Configurações' },
   ];
 

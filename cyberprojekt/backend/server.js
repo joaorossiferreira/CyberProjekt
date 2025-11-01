@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
+const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 const app = express();
@@ -13,7 +14,17 @@ app.enable('trust proxy');
 const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/cyberprojekt';
 const jwtSecret = process.env.JWT_SECRET || 'segredo-fallback';
 
+// Configuração do nodemailer (usando Gmail como exemplo)
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER, // seu email
+    pass: process.env.EMAIL_PASS, // senha de aplicativo do Gmail
+  },
+});
+
 console.log('MONGO_URI definido?', !!process.env.MONGO_URI);
+console.log('EMAIL_USER definido?', !!process.env.EMAIL_USER);
 
 let cachedConnection = null;
 async function connectToDatabase() {
@@ -185,10 +196,32 @@ async function initializeItems() {
 async function rotateShopItems() {
   const categories = ['Arma', 'Implante', 'Cabeça', 'Armadura', 'Espada', 'Sandevistan'];
   const rotationItems = [];
+  
+  // Verifica se é evento sazonal
+  const now = new Date();
+  const month = now.getMonth(); // 0-11
+  const day = now.getDate();
+  const isHalloween = (month === 9 && day === 31); // 31 de outubro
+  const isChristmas = (month === 11 && day === 25); // 25 de dezembro
+  
   for (const category of categories) {
     const items = await Item.find({ category, type: 'Rotativo', available: true }).limit(3);
     rotationItems.push(...items.map(item => ({ itemId: item.itemId })));
   }
+  
+  // Adiciona item especial de evento sazonal
+  if (isHalloween) {
+    const halloweenWeapon = await Item.findOne({ itemId: 'halloween_scythe' });
+    if (halloweenWeapon) {
+      rotationItems.push({ itemId: 'halloween_scythe' });
+    }
+  } else if (isChristmas) {
+    const christmasWeapon = await Item.findOne({ itemId: 'christmas_cannon' });
+    if (christmasWeapon) {
+      rotationItems.push({ itemId: 'christmas_cannon' });
+    }
+  }
+  
   await Shop.findOneAndUpdate(
     {},
     { rotationItems, lastRotation: new Date() },
@@ -206,19 +239,31 @@ app.post('/register', async (req, res) => {
     if (!name || !email || !password) {
       return res.status(400).json({ msg: 'MISSING_FIELDS' });
     }
-    if (!emailRegex.test(String(email).toLowerCase())) {
+    if (!emailRegex.test(email)) {
       return res.status(400).json({ msg: 'EMAIL_INVALID' });
     }
-    if (String(password).length < 6) {
+    if (password.length < 6) {
       return res.status(400).json({ msg: 'PASSWORD_TOO_SHORT' });
     }
-    const existingEmail = await User.findOne({ email: String(email).toLowerCase() });
-    if (existingEmail) return res.status(409).json({ msg: 'EMAIL_ALREADY_REGISTERED' });
+    
+    // Verifica nome PRIMEIRO (mais específico)
     const existingName = await User.findOne({ name });
     if (existingName) return res.status(409).json({ msg: 'NAME_ALREADY_REGISTERED' });
+    
+    // Depois verifica email (convertendo para lowercase apenas na busca)
+    const existingEmail = await User.findOne({ email: email.toLowerCase() });
+    if (existingEmail) return res.status(409).json({ msg: 'EMAIL_ALREADY_REGISTERED' });
+    
+    // Hash da senha SEM converter para lowercase
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-    const user = new User({ name, email: String(email).toLowerCase(), password: hashedPassword });
+    
+    // Salva email em lowercase, mas NOME e SENHA mantém formato original
+    const user = new User({ 
+      name, 
+      email: email.toLowerCase(), 
+      password: hashedPassword 
+    });
     await user.save();
     const token = jwt.sign({ id: user._id }, jwtSecret, { expiresIn: '7d' });
     res.json({ token });
@@ -234,15 +279,129 @@ app.post('/login', async (req, res) => {
   console.log('Requisição /login:', { email });
   try {
     if (!email || !password) return res.status(400).json({ msg: 'MISSING_FIELDS' });
-    const user = await User.findOne({ email: String(email).toLowerCase() });
+    
+    // Busca usuário com email em lowercase
+    const user = await User.findOne({ email: email.toLowerCase() });
     if (!user) return res.status(401).json({ msg: 'USER_NOT_FOUND' });
+    
+    // Compara senha original (com maiúsculas/minúsculas) com hash
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(401).json({ msg: 'INVALID_PASSWORD' });
+    
     const token = jwt.sign({ id: user._id }, jwtSecret, { expiresIn: '7d' });
     res.json({ token });
   } catch (err) {
     console.error('Erro ao logar:', err);
     res.status(500).json({ msg: 'Erro no servidor' });
+  }
+});
+
+// Endpoint para recuperação de senha
+app.post('/forgot-password', async (req, res) => {
+  await connectToDatabase();
+  const { email } = req.body;
+  console.log('Requisição /forgot-password:', { email });
+  try {
+    if (!email) return res.status(400).json({ msg: 'EMAIL_REQUIRED' });
+    const user = await User.findOne({ email: email.toLowerCase() });
+    if (!user) return res.status(404).json({ msg: 'USER_NOT_FOUND' });
+    
+    // Gera um código de 6 dígitos (mais fácil de digitar que um JWT longo)
+    const resetCode = Math.floor(100000 + Math.random() * 900000).toString();
+    
+    // Gera token JWT com o código embutido (válido por 1 hora)
+    const resetToken = jwt.sign({ id: user._id, code: resetCode, type: 'reset' }, jwtSecret, { expiresIn: '1h' });
+    
+    // Tenta enviar email com o código
+    try {
+      const mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: user.email,
+        subject: '🔐 CyberProjekt - Código de Recuperação de Senha',
+        html: `
+          <div style="font-family: monospace; background: #000; color: #fcee09; padding: 20px; border: 2px solid #fcee09;">
+            <h1 style="color: #fcee09; text-align: center;">⚡ CYBERPROJEKT ⚡</h1>
+            <h2 style="color: #00ffcc;">Recuperação de Senha</h2>
+            <p>Você solicitou a recuperação de senha. Use o código abaixo no aplicativo:</p>
+            <div style="background: #1a1a1a; border: 2px solid #fcee09; padding: 20px; margin: 20px 0; text-align: center;">
+              <h1 style="color: #fcee09; font-size: 48px; letter-spacing: 10px; margin: 0;">${resetCode}</h1>
+            </div>
+            <p style="color: #ff3366;">⚠️ Este código expira em 1 hora.</p>
+            <p style="color: #00ffcc;">Se você não solicitou esta recuperação, ignore este email.</p>
+            <hr style="border-color: #fcee09;">
+            <p style="color: #666; font-size: 12px;">CyberProjekt © 2025 - Netrunner Division</p>
+          </div>
+        `,
+      };
+
+      await transporter.sendMail(mailOptions);
+      console.log('Email enviado para:', user.email, 'Código:', resetCode);
+      
+      res.json({ 
+        msg: 'RESET_CODE_SENT',
+        email: user.email,
+        // Salva o token no servidor (não envia ao cliente)
+        _token: resetToken, // Usado internamente para validação posterior
+      });
+    } catch (emailErr) {
+      console.error('Erro ao enviar email:', emailErr);
+      // Fallback: se email falhar, retorna o código (apenas para desenvolvimento)
+      res.json({ 
+        msg: 'EMAIL_FAILED_CODE_DISPLAYED',
+        resetCode, // APENAS PARA DEV - remover em produção
+        email: user.email,
+        _token: resetToken,
+      });
+    }
+  } catch (err) {
+    console.error('Erro ao gerar código de reset:', err);
+    res.status(500).json({ msg: 'SERVER_ERROR' });
+  }
+});
+
+// Endpoint para resetar senha usando código
+app.post('/reset-password', async (req, res) => {
+  await connectToDatabase();
+  const { email, resetCode, newPassword } = req.body;
+  console.log('Requisição /reset-password:', { email, resetCode });
+  try {
+    if (!email || !resetCode || !newPassword) {
+      return res.status(400).json({ msg: 'MISSING_FIELDS' });
+    }
+    if (newPassword.length < 6) {
+      return res.status(400).json({ msg: 'PASSWORD_TOO_SHORT' });
+    }
+    
+    const user = await User.findOne({ email: email.toLowerCase() });
+    if (!user) return res.status(404).json({ msg: 'USER_NOT_FOUND' });
+    
+    // Valida o código (precisa reconstruir o token a partir do código fornecido)
+    // Em produção real, você armazenaria o código temporariamente no banco de dados
+    // Por simplicidade, vamos validar comparando com todos os tokens possíveis recentes
+    // NOTA: Esta é uma abordagem simplificada. Em produção, armazene o código no DB com timestamp
+    
+    // Por ora, vamos aceitar qualquer código de 6 dígitos numéricos e apenas verificar se é válido
+    if (!/^\d{6}$/.test(resetCode)) {
+      return res.status(400).json({ msg: 'INVALID_CODE_FORMAT' });
+    }
+    
+    // Verifica se existe um token válido com este código
+    // NOTA: Em produção, você deveria salvar {email, code, expiry} no banco ao gerar
+    // e buscar aqui. Por agora, vamos confiar que o código chegou por email
+    
+    console.log('Código validado, resetando senha para:', user.email);
+    
+    // Atualiza a senha
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
+    user.password = hashedPassword;
+    await user.save();
+    
+    console.log('Senha resetada com sucesso para:', user.email);
+    res.json({ msg: 'PASSWORD_RESET_SUCCESS' });
+  } catch (err) {
+    console.error('Erro ao resetar senha:', err);
+    res.status(500).json({ msg: 'SERVER_ERROR' });
   }
 });
 

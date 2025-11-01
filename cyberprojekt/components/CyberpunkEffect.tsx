@@ -371,6 +371,11 @@ export const CyberpunkEffect: React.FC = () => {
   const [musicVolume, setMusicVolume] = useState(0.5);
   const [uiSoundVolume, setUiSoundVolume] = useState(0.5);
   const [audioInitialized, setAudioInitialized] = useState(false);
+  const [forgotPasswordModal, setForgotPasswordModal] = useState(false);
+  const [resetEmail, setResetEmail] = useState('');
+  const [resetToken, setResetToken] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [resetStep, setResetStep] = useState<'email' | 'code' | 'password'>('email');
 
   // Ativa modo imersivo também na tela de missão
   useImmersiveMode(true);
@@ -836,6 +841,103 @@ export const CyberpunkEffect: React.FC = () => {
     };
   }, [showToast, setSuppressOverlay]);
 
+  const handleForgotPassword = async () => {
+    await playClickSound();
+    
+    if (resetStep === 'email') {
+      const trimmedEmail = resetEmail.toLowerCase().trim();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      
+      if (!trimmedEmail) {
+        showToastNotification('EMAIL OBRIGATÓRIO');
+        return;
+      }
+      if (!emailRegex.test(trimmedEmail)) {
+        showToastNotification('EMAIL INVÁLIDO');
+        return;
+      }
+      
+      try {
+        const res = await fetch(`${BASE_URL}/forgot-password`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: trimmedEmail }),
+        });
+        const data = await res.json();
+        
+        if (res.ok) {
+          if (data.msg === 'EMAIL_FAILED_CODE_DISPLAYED') {
+            // Fallback: se email falhou, mostra o código (apenas para dev)
+            showToastNotification(`CÓDIGO (DEV): ${data.resetCode}`);
+          } else {
+            showToastNotification('CÓDIGO ENVIADO! VERIFIQUE SEU EMAIL');
+          }
+          // Avança para o passo de inserir o código
+          setResetStep('code');
+        } else {
+          const msg = data?.msg || '';
+          if (msg.includes('NOT_FOUND')) {
+            showToastNotification('EMAIL NÃO CADASTRADO');
+          } else {
+            showToastNotification('ERRO AO SOLICITAR RESET');
+          }
+        }
+      } catch {
+        showToastNotification('ERRO DE CONEXÃO');
+      }
+    } else if (resetStep === 'code') {
+      // Valida o código de 6 dígitos
+      if (!resetToken || !/^\d{6}$/.test(resetToken)) {
+        showToastNotification('CÓDIGO INVÁLIDO: 6 DÍGITOS NUMÉRICOS');
+        return;
+      }
+      // Código válido, avança para nova senha
+      setResetStep('password');
+    } else if (resetStep === 'password') {
+      if (!newPassword || newPassword.length < 6) {
+        showToastNotification('SENHA FRACA: MÍNIMO 6 CARACTERES');
+        return;
+      }
+      if (!resetToken || !/^\d{6}$/.test(resetToken)) {
+        showToastNotification('CÓDIGO INVÁLIDO');
+        return;
+      }
+      
+      try {
+        const res = await fetch(`${BASE_URL}/reset-password`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            email: resetEmail,
+            resetCode: resetToken, 
+            newPassword 
+          }),
+        });
+        const data = await res.json();
+        
+        if (res.ok) {
+          showToastNotification('SENHA ALTERADA COM SUCESSO!');
+          setForgotPasswordModal(false);
+          setResetStep('email');
+          setResetEmail('');
+          setResetToken('');
+          setNewPassword('');
+        } else {
+          const msg = data?.msg || '';
+          if (msg.includes('EXPIRED')) {
+            showToastNotification('TOKEN EXPIRADO');
+          } else if (msg.includes('INVALID')) {
+            showToastNotification('TOKEN INVÁLIDO');
+          } else {
+            showToastNotification('ERRO AO RESETAR SENHA');
+          }
+        }
+      } catch {
+        showToastNotification('ERRO DE CONEXÃO');
+      }
+    }
+  };
+
   const handleSubmit = async () => {
     await playClickSound();
     fullScreenGlitch();
@@ -1245,6 +1347,24 @@ export const CyberpunkEffect: React.FC = () => {
               />
 
             </>
+            {!isRegister && (
+              <TouchableOpacity
+                hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
+                onPress={async () => {
+                  await playClickSound();
+                  setForgotPasswordModal(true);
+                  setResetStep('email');
+                  setResetEmail('');
+                  setResetToken('');
+                  setNewPassword('');
+                }}
+                style={{ alignSelf: 'flex-end', marginTop: 5, marginBottom: 10 }}
+              >
+                <Text style={[CyberpunkStyles.switchText, { color: '#ff3366', fontSize: 11 }]}>
+                  Esqueci minha senha
+                </Text>
+              </TouchableOpacity>
+            )}
             <Animated.View
               style={[
                 CyberpunkStyles.button,
@@ -1455,6 +1575,116 @@ export const CyberpunkEffect: React.FC = () => {
             </Animated.View>
           </Animated.View>
         </TouchableOpacity>
+      </Modal>
+      {/* Modal de Recuperação de Senha */}
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={forgotPasswordModal}
+        onRequestClose={() => setForgotPasswordModal(false)}
+      >
+        <View style={CyberpunkStyles.modalContainer}>
+          <Animated.View style={[CyberpunkStyles.modalContent, { transform: [{ scale: modalScale }], padding: 20 }]}>
+            {modalParticles.map(particle => (
+              <View
+                key={particle.id}
+                style={[
+                  CyberpunkStyles.modalParticle,
+                  {
+                    left: particle.x,
+                    top: particle.y,
+                    width: particle.size * 2,
+                    height: particle.size * 2,
+                    backgroundColor: particle.color,
+                    opacity: particle.opacity,
+                    borderRadius: particle.size,
+                  },
+                ]}
+              />
+            ))}
+            <TouchableOpacity
+              style={CyberpunkStyles.closeButton}
+              onPress={async () => {
+                await playClickSound();
+                setForgotPasswordModal(false);
+                setResetStep('email');
+              }}
+            >
+              <Ionicons name="close-outline" size={24} color="#fcee09" />
+            </TouchableOpacity>
+            <Animated.Text
+              style={[CyberpunkStyles.modalTitle, { transform: [{ translateX: glitchTranslateX }, { translateY: glitchTranslateY }], marginBottom: 20 }]}
+            >
+              RECUPERAR SENHA
+            </Animated.Text>
+            
+            {resetStep === 'email' && (
+              <>
+                <Text style={CyberpunkStyles.promptText}>
+                  Digite seu email cadastrado:
+                </Text>
+                <TextInput
+                  style={CyberpunkStyles.input}
+                  placeholder="EMAIL"
+                  value={resetEmail}
+                  onChangeText={text => setResetEmail(text.toLowerCase().trim())}
+                  keyboardType="email-address"
+                  autoCapitalize="none"
+                  placeholderTextColor="#fcee0944"
+                  returnKeyType="done"
+                  onSubmitEditing={handleForgotPassword}
+                />
+              </>
+            )}
+            
+            {resetStep === 'code' && (
+              <>
+                <Text style={CyberpunkStyles.promptText}>
+                  Digite o código de 6 dígitos que foi enviado para {resetEmail}:
+                </Text>
+                <TextInput
+                  style={CyberpunkStyles.input}
+                  placeholder="000000"
+                  value={resetToken}
+                  onChangeText={setResetToken}
+                  keyboardType="number-pad"
+                  maxLength={6}
+                  placeholderTextColor="#fcee0944"
+                  returnKeyType="done"
+                  onSubmitEditing={handleForgotPassword}
+                  autoCapitalize="none"
+                />
+              </>
+            )}
+            
+            {resetStep === 'password' && (
+              <>
+                <Text style={CyberpunkStyles.promptText}>
+                  Código validado! Digite sua nova senha:
+                </Text>
+                <TextInput
+                  style={CyberpunkStyles.input}
+                  placeholder="NOVA SENHA"
+                  value={newPassword}
+                  onChangeText={setNewPassword}
+                  secureTextEntry
+                  placeholderTextColor="#fcee0944"
+                  returnKeyType="done"
+                  onSubmitEditing={handleForgotPassword}
+                  autoCapitalize="none"
+                />
+              </>
+            )}
+            
+            <Animated.View style={[CyberpunkStyles.button, { transform: [{ scale: buttonScale }], marginTop: 10 }]}>
+              <Pressable onPress={handleForgotPassword}>
+                <Text style={CyberpunkStyles.buttonText}>
+                  {resetStep === 'email' ? 'ENVIAR CÓDIGO' : resetStep === 'code' ? 'VALIDAR CÓDIGO' : 'RESETAR SENHA'}
+                </Text>
+              </Pressable>
+            </Animated.View>
+          </Animated.View>
+        </View>
       </Modal>
       {/* TOAST: usar Modal transparente para ficar acima dos overlays de outros Modals */}
       {/** Toast Modal: usar overFullScreen e tornar visível somente quando showToast === true. */}
