@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   View, 
   Text, 
@@ -14,6 +14,13 @@ interface CodeMissionProps {
 export default function CodeMissionCompact({ missionData, onAnswer }: CodeMissionProps) {
   const [availableBlocks, setAvailableBlocks] = useState<string[]>([]);
   const [solution, setSolution] = useState<string[]>([]);
+  const [shouldSubmit, setShouldSubmit] = useState(false);
+  const onAnswerRef = useRef(onAnswer);
+
+  // Keep onAnswer ref updated
+  useEffect(() => {
+    onAnswerRef.current = onAnswer;
+  }, [onAnswer]);
 
   useEffect(() => {
     if (missionData?.correctCode) {
@@ -22,23 +29,43 @@ export default function CodeMissionCompact({ missionData, onAnswer }: CodeMissio
         .split('\n')
         .map((line: string) => line.replace(/\/\/.*$/, '').trim())
         .filter((line: string) => line.length > 0);
+      
+      console.log('📦 CodeMission: correctCode =', missionData.correctCode);
+      console.log('📦 CodeMission: blocks =', blocks);
+      
       setAvailableBlocks([...blocks].sort(() => Math.random() - 0.5));
       setSolution([]);
+      setShouldSubmit(false);
     }
   }, [missionData]);
+
+  // Submit answer when all blocks are used
+  useEffect(() => {
+    if (shouldSubmit && availableBlocks.length === 0 && solution.length > 0) {
+      const userAnswer = solution.join('\n');
+      const expectedAnswer = missionData?.correctCode?.trim() || '';
+      
+      console.log('✅ Submitting answer:');
+      console.log('User answer:', JSON.stringify(userAnswer));
+      console.log('Expected:', JSON.stringify(expectedAnswer));
+      console.log('Match:', userAnswer === expectedAnswer);
+      
+      onAnswerRef.current(userAnswer);
+      setShouldSubmit(false);
+    }
+  }, [shouldSubmit, availableBlocks, solution, missionData]);
 
   const addToSolution = (block: string) => {
     const newSolution = [...solution, block];
     setSolution(newSolution);
-
-    setAvailableBlocks(prev => {
-      const newAvailable = prev.filter(b => b !== block);
-      // if there are no more available blocks, submit the answer
-      if (newAvailable.length === 0) {
-        onAnswer(newSolution.join('\n'));
-      }
-      return newAvailable;
-    });
+    
+    const newAvailable = availableBlocks.filter(b => b !== block);
+    setAvailableBlocks(newAvailable);
+    
+    // Mark for submission if this was the last block
+    if (newAvailable.length === 0) {
+      setShouldSubmit(true);
+    }
   };
 
   const removeFromSolution = (index: number) => {
@@ -46,12 +73,14 @@ export default function CodeMissionCompact({ missionData, onAnswer }: CodeMissio
     const newSolution = solution.filter((_, i) => i !== index);
     setSolution(newSolution);
     setAvailableBlocks(prev => [...prev, block]);
+    setShouldSubmit(false); // Cancel submission if user removes a block
   };
 
   const resetAll = () => {
     const allBlocks = [...solution, ...availableBlocks];
     setAvailableBlocks([...allBlocks].sort(() => Math.random() - 0.5));
     setSolution([]);
+    setShouldSubmit(false);
   };
 
   return (

@@ -5,9 +5,6 @@ import { MissionSystem } from '../components/MissionSystem';
 // ARMAZENA QUAIS MISSÕES JÁ FORAM GERADAS RECENTEMENTE
 let recentlyGeneratedMissions: string[] = [];
 
-// CONTADOR DE MISSÕES SAZONAIS SPAWNED (MÁXIMO 3)
-let seasonalMissionsSpawned = 0;
-
 export function generateRandomItems(center: Coords, count: number, currentItems: Item[]): Item[] {
   const items: Item[] = [];
   
@@ -63,32 +60,39 @@ export function generateRandomItems(center: Coords, count: number, currentItems:
 
   // GERA MISSÕES SAZONAIS EXTRAS (+3 SE EVENTO ATIVO)
   if (hasSeasonalEvent && seasonalMissions) {
-    // CALCULA QUANTAS MISSÕES SAZONAIS ADICIONAR (MÁXIMO 3 TOTAL)
-    const seasonalToAdd = Math.min(3 - seasonalMissionsSpawned, 3);
+    // CONTA QUANTAS MISSÕES SAZONAIS JÁ EXISTEM NO MAPA
+    const currentSeasonalItems = currentItems.filter(item => item.id.startsWith('seasonal-'));
+    const seasonalToAdd = Math.min(3 - currentSeasonalItems.length, seasonalMissions.length);
     
-    console.log(`🎃 Spawning Seasonal: ToAdd=${seasonalToAdd}, AlreadySpawned=${seasonalMissionsSpawned}`);
+    console.log(`🎃 Spawning Seasonal: ToAdd=${seasonalToAdd}, CurrentOnMap=${currentSeasonalItems.length}, Total=${seasonalMissions.length}`);
     
+    // ADICIONA CADA MISSÃO SAZONAL (TODAS AS 3: logic, code, math)
     for (let i = 0; i < seasonalToAdd; i++) {
       const offsetLat = (Math.random() - 0.5) * 0.001;
       const offsetLng = (Math.random() - 0.5) * 0.001;
       
-      const randomMission = seasonalMissions[Math.floor(Math.random() * seasonalMissions.length)];
+      // Calcula qual missão adicionar baseado no que já existe
+      const missionIndex = currentSeasonalItems.length + i;
+      const seasonalMission = seasonalMissions[missionIndex];
       
-      console.log(`🎃 Adding seasonal mission: ${randomMission.title}`);
+      if (!seasonalMission) {
+        console.log(`⚠️ Missão sazonal índice ${missionIndex} não encontrada!`);
+        continue;
+      }
+      
+      console.log(`🎃 Adding seasonal mission [${missionIndex}]: ${seasonalMission.title}`);
       
       items.push({
         id: `seasonal-${Date.now()}-${i}`,
-        name: randomMission.title, // USA O TÍTULO DA MISSÃO (COM EMOJI)
+        name: seasonalMission.title, // USA O TÍTULO DA MISSÃO (COM EMOJI)
         coords: {
           latitude: center.latitude + offsetLat,
           longitude: center.longitude + offsetLng,
         },
-        mission: randomMission,
+        mission: seasonalMission,
         createdAt: Date.now(),
         expiresAt: Date.now() + (2 * 60 * 1000) // 2 MINUTOS
       });
-      
-      seasonalMissionsSpawned++;
     }
   }
 
@@ -110,11 +114,6 @@ export function removeExpiredItems(items: Item[]): Item[] {
   expiredItems.forEach(item => {
     if (item.mission?.id) {
       recentlyGeneratedMissions = recentlyGeneratedMissions.filter(id => id !== item.mission!.id);
-      
-      // SE FOR MISSÃO SAZONAL, DECREMENTA O CONTADOR
-      if (item.id.startsWith('seasonal-')) {
-        seasonalMissionsSpawned = Math.max(0, seasonalMissionsSpawned - 1);
-      }
     }
   });
   
@@ -128,9 +127,4 @@ export async function saveItems(items: Item[]) {
 export async function loadItems(): Promise<Item[]> {
   const items = await AsyncStorage.getItem('mapItems');
   return items ? JSON.parse(items) : [];
-}
-
-// RESETA O CONTADOR DE MISSÕES SAZONAIS (CHAMAR QUANDO EVENTO TERMINAR)
-export function resetSeasonalMissionsCounter() {
-  seasonalMissionsSpawned = 0;
 }
