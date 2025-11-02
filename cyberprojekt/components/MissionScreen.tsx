@@ -108,7 +108,22 @@ export default function MissionScreen({
         correct = mission.data.answer === Number(selectedAnswer);
         break;
       case 'code':
-        correct = codeAnswer.trim() === mission.data.correctCode.trim();
+        // Normalize both codes: remove all whitespace differences
+        const normalizeCode = (code: string) => {
+          return code
+            .split('\n')
+            .map(line => line.trim())
+            .filter(line => line.length > 0)
+            .join('\n');
+        };
+        const userCode = normalizeCode(codeAnswer);
+        const expectedCode = normalizeCode(mission.data.correctCode);
+        
+        console.log('🔍 Code Comparison:');
+        console.log('User:', JSON.stringify(userCode));
+        console.log('Expected:', JSON.stringify(expectedCode));
+        
+        correct = userCode === expectedCode;
         break;
       case 'logic':
         correct = mission.data.answer === selectedAnswer;

@@ -24,7 +24,11 @@ Cada categoria possui três níveis de dificuldade, com recompensas progressivas
 - **Inventário e Equipamentos**: Gerencie e equipe itens que aumentam seus atributos (força, velocidade, dano, resistência)
 - **Rankings Competitivos**: Compare seu nível e riqueza com outros jogadores
 - **Modo Treino**: Pratique missões offline sem ganhar recompensas, apenas para aperfeiçoar suas habilidades
-- **Eventos Sazonais**: Missões exclusivas de Halloween (31/out) e Natal (25/dez) com +3 missões temáticas e itens especiais
+- **Eventos Sazonais**: Missões exclusivas de Halloween (31/out) e Natal (25/dez) com +3 missões temáticas por evento
+  - 🎃 Halloween: Missões com tema de bruxas, fantasmas e poções
+  - 🎄 Natal: Missões com tema de Papai Noel, renas e presentes
+  - Modo DEBUG disponível para testar eventos sem alterar data do dispositivo
+- **Missões Drag-n-Drop**: Desafios de código interativos onde você organiza blocos de código na ordem correta
 - **Estética Cyberpunk Imersiva**: Interface com efeitos visuais neon, glitch, animações fluidas, música atmosférica e feedback tátil
 - **Segurança Total**: Autenticação JWT, criptografia de senhas com bcrypt (mantendo case-sensitive), autenticação biométrica e recuperação de senha via email
 
@@ -125,23 +129,43 @@ A API estará disponível em `https://backend-g451wjhg3-rossis-projects-70b0b590
 ```bash
 cd cyberprojekt
 npm install
-npx expo start --tunnel
+npx expo start
 ```
 
-> **⚠️ IMPORTANTE**: Use sempre o modo `--tunnel` para garantir compatibilidade com mudanças de data/hora do dispositivo (necessário para testar eventos sazonais).
+> **💡 DICA**: Para desenvolvimento normal, use `npx expo start` (modo LAN). O modo `--tunnel` só é necessário se você precisar acessar de redes diferentes ou testar mudando a data/hora do dispositivo.
 
 ### Executar no Dispositivo  
 1. Instale o **Expo Go** no seu smartphone (Android/iOS).  
-2. Aguarde a instalação do `@expo/ngrok` (primeira execução).  
-3. Escaneie o QR code gerado pelo comando `npx expo start --tunnel`.  
-4. Ou execute `npx expo run:android` / `npx expo run:ios` para builds nativas.
+2. Escaneie o QR code gerado pelo comando `npx expo start`.  
+3. **Se aparecer "Using development build"**, pressione `s` no terminal para alternar para modo **Expo Go**.
+4. Ou execute `npx expo run:android` / `npx expo run:ios` para builds nativas (APK customizado).
 
 ### Testar Eventos Sazonais  
-Para testar missões de Halloween ou Natal:  
-1. Execute o app com `npx expo start --tunnel`  
-2. Mude a data do celular para **31 de outubro** (Halloween) ou **25 de dezembro** (Natal)  
-3. Recarregue o app (sacuda o celular → "Reload")  
-4. Abra o mapa e você verá **9 missões** (6 normais + 3 sazonais 🎃/🎄)  
+
+**🔧 Modo DEBUG (Recomendado):**  
+Teste eventos sazonais SEM mudar a data do celular (evita problemas de SSL/JWT):
+
+1. Abra o arquivo `components/MissionSystem/missions/seasonal/index.ts`
+2. Na linha 7, altere a constante `DEBUG_FORCE_EVENT`:
+   ```typescript
+   // Para testar Halloween:
+   const DEBUG_FORCE_EVENT: 'halloween' | 'christmas' | null = 'halloween';
+   
+   // Para testar Natal:
+   const DEBUG_FORCE_EVENT: 'halloween' | 'christmas' | null = 'christmas';
+   
+   // Para desativar (modo normal):
+   const DEBUG_FORCE_EVENT: 'halloween' | 'christmas' | null = null;
+   ```
+3. Salve o arquivo (app recarrega automaticamente)
+4. Abra o mapa e verá **9 missões** (6 normais + 3 sazonais 🎃/🎄)
+
+**📅 Modo Real (Produção):**  
+Os eventos são ativados automaticamente nas datas:
+- **Halloween**: 31 de outubro  
+- **Natal**: 25 de dezembro  
+
+Cada evento adiciona **+3 missões temáticas** ao mapa (1 lógica, 1 código, 1 matemática).  
 
 ## 📚 Documentação da API  
 A API REST será documentada com **Swagger/OpenAPI** (a ser implementado em Sprint 2):  
