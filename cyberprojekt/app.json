@@ -1,15 +1,18 @@
 {
   "expo": {
-    "name": "CyberProjekt",
+    "name": "CYBERPROJEKT: NETRUNNER",
     "slug": "cyberprojekt",
     "version": "1.0.0",
     "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
     "userInterfaceStyle": "light",
     "assetBundlePatterns": [
       "assets/**/*"
     ],
     "ios": {
       "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.cyberprojekt",
+      "icon": "./assets/images/icon.png",
       "infoPlist": {
         "NSFaceIDUsageDescription": "Permitir autenticação com Face ID."
       }
@@ -25,7 +28,12 @@
         "android.permission.USE_BIOMETRIC",
         "android.permission.USE_FINGERPRINT"
       ],
-      "package": "com.anonymous.cyberprojekt"
+      "package": "com.anonymous.cyberprojekt",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#0a0e27"
+      },
+      "icon": "./assets/images/icon.png"
     },
     "web": {
       "favicon": "./assets/favicon.png",
