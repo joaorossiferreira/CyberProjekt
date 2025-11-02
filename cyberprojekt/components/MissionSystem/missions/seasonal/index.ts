@@ -6,7 +6,7 @@ export { halloweenMissions, christmasMissions };
 // 🔧 DEBUG MODE: Simula data sem mudar o relógio do celular
 // Altere para testar eventos sazonais sem problemas de SSL/JWT
 // Valores: null (desativado), 'halloween', 'christmas'
-const DEBUG_FORCE_EVENT: 'halloween' | 'christmas' | null = 'halloween';
+const DEBUG_FORCE_EVENT: 'halloween' | 'christmas' | null = null;
 
 // Verifica se é Halloween (31 de outubro)
 export function isHalloween(): boolean {
