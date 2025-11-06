@@ -1,19 +1,31 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Coords, Item } from '../types';
 import { MissionSystem } from '../components/MissionSystem';
+import { generateEnemy } from './battle';
 
 // ARMAZENA QUAIS MISSÕES JÁ FORAM GERADAS RECENTEMENTE
 let recentlyGeneratedMissions: string[] = [];
 
-export function generateRandomItems(center: Coords, count: number, currentItems: Item[]): Item[] {
+export function generateRandomItems(
+  center: Coords, 
+  count: number, 
+  currentItems: Item[],
+  playerLevel: number = 1 // NOVO: Nível do jogador para gerar inimigos
+): Item[] {
   const items: Item[] = [];
   
   // MISSÕES NORMAIS: SEMPRE 6
   const maxNormalItems = 6;
   
-  // CONTA QUANTAS MISSÕES NORMAIS JÁ EXISTEM
-  const currentNormalItems = currentItems.filter(item => !item.id.startsWith('seasonal-'));
+  // INIMIGOS: SEMPRE 3 (Easy, Medium, Hard)
+  const maxEnemies = 3;
+  
+  // CONTA QUANTAS MISSÕES NORMAIS E INIMIGOS JÁ EXISTEM
+  const currentNormalItems = currentItems.filter(item => !item.id.startsWith('seasonal-') && !item.id.startsWith('enemy-'));
+  const currentEnemies = currentItems.filter(item => item.id.startsWith('enemy-'));
+  
   const normalItemsToGenerate = Math.min(count, maxNormalItems - currentNormalItems.length);
+  const enemiesToGenerate = maxEnemies - currentEnemies.length;
 
   // VERIFICA SE HÁ EVENTO SAZONAL ATIVO
   const seasonalMissions = MissionSystem.getSeasonalMissions();
@@ -96,7 +108,38 @@ export function generateRandomItems(center: Coords, count: number, currentItems:
     }
   }
 
-  console.log(`✅ Total items generated: ${items.length}`);
+  // GERA INIMIGOS (SEMPRE 3: Easy, Medium, Hard)
+  console.log(`⚔️ Spawning Enemies: ToAdd=${enemiesToGenerate}, CurrentOnMap=${currentEnemies.length}`);
+  
+  if (enemiesToGenerate > 0) {
+    const difficulties: ('easy' | 'medium' | 'hard')[] = ['easy', 'medium', 'hard'];
+    for (let i = 0; i < enemiesToGenerate; i++) {
+      const offsetLat = (Math.random() - 0.5) * 0.001;
+      const offsetLng = (Math.random() - 0.5) * 0.001;
+      
+      // Determina qual dificuldade adicionar baseado no total que já existe
+      const difficultyIndex = currentEnemies.length + i;
+      const difficulty = difficulties[difficultyIndex % 3]; // Garante rotação entre easy/medium/hard
+      const enemy = generateEnemy(playerLevel, difficulty, false);
+      
+      console.log(`⚔️ Adding enemy [${difficulty}]: ${enemy.name} Lvl ${enemy.level}`);
+      
+      items.push({
+        id: `enemy-${Date.now()}-${i}`,
+        name: `⚔️ ${enemy.name}`,
+        icon: `enemy_${difficulty}`, // USA ÍCONE ESPECÍFICO: enemy_easy, enemy_medium, enemy_hard
+        coords: {
+          latitude: center.latitude + offsetLat,
+          longitude: center.longitude + offsetLng,
+        },
+        enemy: enemy,
+        createdAt: Date.now(),
+        expiresAt: Date.now() + (2 * 60 * 1000) // 2 MINUTOS
+      });
+    }
+  }
+
+  console.log(`✅ Total items generated: ${items.length} (Missions: ${normalItemsToGenerate + (seasonalMissions?.length || 0)}, Enemies: ${enemiesToGenerate})`);
   return items;
 }
 

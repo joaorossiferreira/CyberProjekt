@@ -377,7 +377,7 @@ export default function ShopScreen() {
                       <Text style={styles.modalStatValue}>{selectedItem.stats.speed}</Text>
                     </View>
                     <View style={styles.modalStatRow}>
-                      <Text style={styles.modalStatLabel}>⚔️ Dano:</Text>
+                      <Text style={styles.modalStatLabel}>🧠 Inteligência:</Text>
                       <Text style={styles.modalStatValue}>{selectedItem.stats.damage}</Text>
                     </View>
                     <View style={styles.modalStatRow}>

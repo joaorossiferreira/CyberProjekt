@@ -1,9 +1,9 @@
 #!/bin/bash
-cd "/mnt/c/Users/João/Desktop/projeto/cyberprojekt"
+cd /mnt/c/Users/João/Desktop/projeto/cyberprojekt
 echo "Removendo pasta android antiga..."
 rm -rf android
 echo "Executando expo prebuild..."
-npx expo prebuild --platform android --clean
+npx expo prebuild --platform android
 echo "Atualizando local.properties..."
 cd android
 echo "sdk.dir=$HOME/Android/Sdk" > local.properties
