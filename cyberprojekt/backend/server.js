@@ -421,24 +421,53 @@ app.post('/verify', async (req, res) => {
 });
 
 app.post('/update-progress', verifyToken, async (req, res) => {
-  const { exp, gold } = req.body;
+  const { exp, gold, itemDrop } = req.body; // itemDrop é opcional (battle drops)
   if (!exp || !gold) return res.status(400).json({ msg: 'MISSING_FIELDS' });
   try {
     const user = await User.findById(req.userId);
     if (!user) return res.status(404).json({ msg: 'USER_NOT_FOUND' });
+    
+    const oldLevel = user.level;
     user.gold += gold;
     user.currentExp += exp;
+    
+    let leveledUp = false;
     while (user.currentExp >= calculateXpToNextLevel(user.level)) {
       user.currentExp -= calculateXpToNextLevel(user.level);
       user.level += 1;
+      leveledUp = true;
       if (user.level >= 50) {
         user.level = 50;
         user.currentExp = 0;
         break;
       }
     }
+    
+    // Se houver item dropado na batalha, adicionar ao inventário
+    let droppedItemDetails = null;
+    if (itemDrop) {
+      const item = await Item.findOne({ itemId: itemDrop.itemId });
+      if (item) {
+        user.inventory.push({ itemId: itemDrop.itemId, equipped: false });
+        droppedItemDetails = {
+          name: item.name,
+          rarity: item.rarity,
+          category: item.category,
+        };
+        console.log(`⚔️ Item dropado: ${item.name} (${item.rarity}) para usuário ${user.name}`);
+      }
+    }
+    
     await user.save();
-    res.json({ level: user.level, currentExp: user.currentExp, gold: user.gold });
+    
+    res.json({ 
+      level: user.level, 
+      currentExp: user.currentExp, 
+      gold: user.gold,
+      leveledUp,
+      oldLevel,
+      droppedItem: droppedItemDetails,
+    });
   } catch (err) {
     console.error('Erro ao atualizar progresso:', err);
     res.status(500).json({ msg: 'Erro no servidor' });
@@ -448,6 +477,77 @@ app.post('/update-progress', verifyToken, async (req, res) => {
 function calculateXpToNextLevel(currentLevel) {
   return 50 * currentLevel;
 }
+
+// 🎯 Endpoint para obter item aleatório de drop (batalhas)
+app.post('/battle/get-drop', verifyToken, async (req, res) => {
+  const { tier, bossDifficulty } = req.body;
+  if (!tier || !bossDifficulty) return res.status(400).json({ msg: 'MISSING_FIELDS' });
+  
+  try {
+    // Define chance de drop baseado na dificuldade
+    const dropChances = {
+      easy: 100, // TESTE: 100% (MUDAR PARA 20 DEPOIS)
+      medium: 50,
+      hard: 100,
+    };
+    
+    const dropChance = dropChances[bossDifficulty] || 0;
+    const roll = Math.random() * 100;
+    
+    if (roll > dropChance) {
+      // Não dropou item
+      return res.json({ dropped: false });
+    }
+    
+    // Define raridades possíveis baseado na dificuldade
+    let possibleRarities = [];
+    if (bossDifficulty === 'easy') {
+      possibleRarities = ['Comum', 'Rara'];
+    } else if (bossDifficulty === 'medium') {
+      possibleRarities = ['Rara', 'Épica'];
+    } else if (bossDifficulty === 'hard') {
+      possibleRarities = ['Épica', 'Lendária', 'Mítica'];
+    }
+    
+    // Busca itens das raridades possíveis
+    const tierItems = await Item.find({ rarity: { $in: possibleRarities } });
+    
+    if (tierItems.length === 0) {
+      // Se não encontrou itens nas raridades específicas, busca qualquer Comum
+      const commonItems = await Item.find({ rarity: 'Comum' });
+      if (commonItems.length === 0) {
+        return res.json({ dropped: false });
+      }
+      const randomItem = commonItems[Math.floor(Math.random() * commonItems.length)];
+      return res.json({ 
+        dropped: true, 
+        item: {
+          itemId: randomItem.itemId,
+          name: randomItem.name,
+          rarity: randomItem.rarity,
+          category: randomItem.category,
+          stats: randomItem.stats,
+        }
+      });
+    }
+    
+    const randomItem = tierItems[Math.floor(Math.random() * tierItems.length)];
+    
+    res.json({ 
+      dropped: true, 
+      item: {
+        itemId: randomItem.itemId,
+        name: randomItem.name,
+        rarity: randomItem.rarity,
+        category: randomItem.category,
+        stats: randomItem.stats,
+      }
+    });
+  } catch (err) {
+    console.error('Erro ao processar drop:', err);
+    res.status(500).json({ msg: 'Erro no servidor' });
+  }
+});
 
 app.get('/rankings/level', async (req, res) => {
   try {
@@ -686,8 +786,19 @@ app.get('/inventory/:userId', verifyToken, async (req, res) => {
   try {
     const user = await User.findById(req.userId);
     if (!user) return res.status(404).json({ msg: 'Usuário não encontrado' });
+    
     const inventoryItems = await Item.find({ itemId: { $in: user.inventory.map(i => i.itemId) } });
-    res.json(inventoryItems);
+    
+    // Adiciona o campo 'equipped' de user.inventory em cada item
+    const inventoryWithEquipped = inventoryItems.map(item => {
+      const userItem = user.inventory.find(i => i.itemId === item.itemId);
+      return {
+        ...item.toObject(),
+        equipped: userItem?.equipped || false
+      };
+    });
+    
+    res.json(inventoryWithEquipped);
   } catch (err) {
     console.error('Erro ao buscar inventário:', err);
     res.status(500).json({ msg: 'Erro no servidor' });
@@ -713,6 +824,26 @@ app.post('/inventory/equip', verifyToken, async (req, res) => {
     res.json({ message: 'Item equipado com sucesso' });
   } catch (err) {
     console.error('Erro ao equipar item:', err);
+    res.status(500).json({ msg: 'Erro no servidor' });
+  }
+});
+
+app.patch('/users/:userId/unequip/:itemId', verifyToken, async (req, res) => {
+  const { itemId } = req.params;
+  try {
+    const user = await User.findById(req.userId);
+    if (!user) return res.status(404).json({ msg: 'Usuário não encontrado' });
+
+    const inventoryItem = user.inventory.find(i => i.itemId === itemId);
+    if (inventoryItem) {
+      inventoryItem.equipped = false;
+    }
+
+    user.equippedItems = user.equippedItems.filter(i => i.itemId !== itemId);
+    await user.save();
+    res.json({ message: 'Item desequipado com sucesso' });
+  } catch (err) {
+    console.error('Erro ao desequipar item:', err);
     res.status(500).json({ msg: 'Erro no servidor' });
   }
 });

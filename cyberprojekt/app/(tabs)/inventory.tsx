@@ -27,6 +27,8 @@ interface InventoryItem {
 
 export default function InventoryScreen() {
   const [inventory, setInventory] = useState<InventoryItem[]>([]);
+  const [categoryFilter, setCategoryFilter] = useState<string>('Todos');
+  const [rarityFilter, setRarityFilter] = useState<string>('Todos');
   const { playUISound } = useAudio();
   const router = useRouter();
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -113,14 +115,60 @@ export default function InventoryScreen() {
     }
   };
 
+  const handleUnequip = async (item: InventoryItem) => {
+    try {
+      const token = await AsyncStorage.getItem('userToken');
+      const decoded: any = jwtDecode(token!);
+      const userId = decoded.id;
+      const response = await fetch(`${BASE_URL}/users/${userId}/unequip/${item.itemId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      });
+      const data = await response.json();
+      if (data.message) {
+        setInventory(inventory.map(i =>
+          i.itemId === item.itemId ? { ...i, equipped: false } : i
+        ));
+        await playUISound();
+      } else {
+        alert(data.msg);
+      }
+    } catch (err) {
+      console.error('Erro ao desequipar item:', err);
+      alert('Erro ao desequipar item.');
+    }
+  };
+
   const getRarityColor = (rarity: string): string => {
     switch (rarity?.toLowerCase()) {
-      case 'legendary': return '#fcee09';
-      case 'epic': return '#d4be00';
-      case 'rare': return '#a69200';
-      case 'uncommon': return '#786900';
-      default: return '#4a4100';
+      case 'mythic':
+      case 'mítica':
+      case 'mitica': return '#ff0066'; // Rosa/Vermelho neon
+      case 'legendary':
+      case 'lendária':
+      case 'lendaria': return '#ff9900'; // Laranja
+      case 'epic':
+      case 'épica':
+      case 'epica': return '#9d00ff'; // Roxo
+      case 'rare':
+      case 'rara': return '#00ccff'; // Azul ciano
+      case 'common':
+      case 'comum': return '#888888'; // Cinza
+      default: return '#888888';
     }
+  };
+
+  const getFilteredInventory = () => {
+    return inventory.filter(item => {
+      // Filtro de categoria
+      const categoryMatch = categoryFilter === 'Todos' || item.category === categoryFilter;
+      
+      // Filtro de raridade (normaliza para comparação)
+      const normalizeRarity = (r: string) => r?.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      const rarityMatch = rarityFilter === 'Todos' || normalizeRarity(item.rarity) === normalizeRarity(rarityFilter);
+      
+      return categoryMatch && rarityMatch;
+    });
   };
 
   const renderItem = ({ item }: { item: InventoryItem }) => (
@@ -159,7 +207,7 @@ export default function InventoryScreen() {
             <Text style={styles.statValue}>{item.stats.speed}</Text>
           </View>
           <View style={styles.statRow}>
-            <Text style={styles.statLabel}>⚔️ Dano:</Text>
+            <Text style={styles.statLabel}>🧠 Inteligência:</Text>
             <Text style={styles.statValue}>{item.stats.damage}</Text>
           </View>
           <View style={styles.statRow}>
@@ -170,19 +218,23 @@ export default function InventoryScreen() {
         
         <Text style={styles.passiveText}>✨ {item.passive}</Text>
         
-        <TouchableOpacity
-          style={[
-            styles.equipButton, 
-            { backgroundColor: item.equipped ? '#00ffcc' : '#fcee09' }
-          ]}
-          onPress={() => handleEquip(item)}
-          disabled={item.equipped}
-          activeOpacity={0.8}
-        >
-          <Text style={styles.equipButtonText}>
-            {item.equipped ? '✓ EQUIPADO' : 'EQUIPAR'}
-          </Text>
-        </TouchableOpacity>
+        {item.equipped ? (
+          <TouchableOpacity
+            style={[styles.equipButton, { backgroundColor: '#ff4444' }]}
+            onPress={() => handleUnequip(item)}
+            activeOpacity={0.8}
+          >
+            <Text style={styles.equipButtonText}>DESEQUIPAR</Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            style={[styles.equipButton, { backgroundColor: '#fcee09' }]}
+            onPress={() => handleEquip(item)}
+            activeOpacity={0.8}
+          >
+            <Text style={styles.equipButtonText}>EQUIPAR</Text>
+          </TouchableOpacity>
+        )}
       </View>
     </Animated.View>
   );
@@ -190,8 +242,64 @@ export default function InventoryScreen() {
   return (
     <View style={[styles.container, { backgroundColor: '#000' }]}>
       <View style={styles.header}>
-        <Text style={styles.title}>⚡ INVENTÁRIO ⚡</Text>
-        <Text style={styles.subtitle}>{inventory.length} itens</Text>
+        <Text style={styles.title}>⚡ INVENTARIO ⚡</Text>
+        <Text style={styles.subtitle}>{getFilteredInventory().length} / {inventory.length} itens</Text>
+        
+        {/* Filtros de Categoria */}
+        <View style={styles.filterSection}>
+          <Text style={styles.filterLabel}>CATEGORIA:</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterScroll}>
+            {['Todos', 'Arma', 'Espada', 'Armadura', 'Cabeça', 'Implante', 'Sandevistan'].map(cat => (
+              <TouchableOpacity
+                key={cat}
+                style={[
+                  styles.filterButton,
+                  categoryFilter === cat && styles.filterButtonActive
+                ]}
+                onPress={async () => {
+                  await playUISound();
+                  setCategoryFilter(cat);
+                }}
+                activeOpacity={0.8}
+              >
+                <Text style={[
+                  styles.filterButtonText,
+                  categoryFilter === cat && styles.filterButtonTextActive
+                ]}>
+                  {cat}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </View>
+
+        {/* Filtros de Raridade */}
+        <View style={styles.filterSection}>
+          <Text style={styles.filterLabel}>RARIDADE:</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterScroll}>
+            {['Todos', 'Comum', 'Rara', 'Épica', 'Lendária', 'Mítica'].map(rar => (
+              <TouchableOpacity
+                key={rar}
+                style={[
+                  styles.filterButton,
+                  rarityFilter === rar && styles.filterButtonActive
+                ]}
+                onPress={async () => {
+                  await playUISound();
+                  setRarityFilter(rar);
+                }}
+                activeOpacity={0.8}
+              >
+                <Text style={[
+                  styles.filterButtonText,
+                  rarityFilter === rar && styles.filterButtonTextActive
+                ]}>
+                  {rar}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </View>
       </View>
       
       <ScrollView 
@@ -199,13 +307,15 @@ export default function InventoryScreen() {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        {inventory.length === 0 ? (
+        {getFilteredInventory().length === 0 ? (
           <View style={styles.emptyContainer}>
             <Text style={styles.emptyText}>📦</Text>
-            <Text style={styles.emptySubtext}>Nenhum item no inventário</Text>
+            <Text style={styles.emptySubtext}>
+              {inventory.length === 0 ? 'Nenhum item no inventário' : 'Nenhum item com esses filtros'}
+            </Text>
           </View>
         ) : (
-          inventory.map(item => (
+          getFilteredInventory().map(item => (
             <View key={item.itemId}>{renderItem({ item })}</View>
           ))
         )}
@@ -240,7 +350,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.8)',
   },
   title: {
-    fontSize: 28,
+    fontSize: 24,
     fontFamily: 'Cyberpunk',
     color: '#fcee09',
     textAlign: 'center',
@@ -256,6 +366,40 @@ const styles = StyleSheet.create({
     fontFamily: 'ChakraPetch-Regular',
     color: '#fcee09',
     textAlign: 'center',
+    marginBottom: 16,
+  },
+  filterSection: {
+    marginTop: 12,
+  },
+  filterLabel: {
+    fontSize: 12,
+    fontFamily: 'ChakraPetch-Bold',
+    color: '#fcee09',
+    marginBottom: 8,
+    letterSpacing: 1,
+  },
+  filterScroll: {
+    marginBottom: 8,
+  },
+  filterButton: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    marginRight: 8,
+    borderWidth: 2,
+    borderColor: '#fcee09',
+    backgroundColor: 'transparent',
+  },
+  filterButtonActive: {
+    backgroundColor: '#fcee09',
+  },
+  filterButtonText: {
+    fontSize: 12,
+    fontFamily: 'ChakraPetch-Bold',
+    color: '#fcee09',
+    textTransform: 'uppercase',
+  },
+  filterButtonTextActive: {
+    color: '#000',
   },
   scrollView: {
     flex: 1,

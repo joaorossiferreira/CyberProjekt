@@ -56,6 +56,7 @@ const MenuModal: React.FC<MenuModalProps> = ({ visible, onClose, onOptionSelect 
     { label: '👤 PERFIL', value: 'Perfil' },
     { label: '🛒 LOJA', value: 'Loja' },
     { label: '🏆 RANKING', value: 'Ranking' },
+    { label: '👹 BOSS ARENA', value: 'BossArena' },
     { label: '🎯 TREINO', value: 'Treino' },
     { label: '⚙️ CONFIGURAÇÕES', value: 'Configurações' },
   ];

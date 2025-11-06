@@ -99,15 +99,44 @@ export default function ProfileScreen() {
 
   const getRarityColor = (rarity: string) => {
     switch (rarity.toLowerCase()) {
+      case 'mythic':
+      case 'mítica':
+      case 'mitica': return '#ff0066'; // Rosa/Vermelho neon
       case 'legendary':
-      case 'lendário': return '#fcee09';
+      case 'lendária':
+      case 'lendaria': return '#ff9900'; // Laranja
       case 'epic':
-      case 'épico': return '#fcee09';
+      case 'épica':
+      case 'epica': return '#9d00ff'; // Roxo
       case 'rare':
-      case 'raro': return '#fcee09';
-      case 'uncommon':
-      case 'incomum': return '#fcee09';
-      default: return '#fcee09';
+      case 'rara': return '#00ccff'; // Azul ciano
+      case 'common':
+      case 'comum': return '#888888'; // Cinza
+      default: return '#888888';
+    }
+  };
+
+  const handleUnequip = async (item: Item) => {
+    try {
+      const token = await AsyncStorage.getItem('userToken');
+      const decoded: any = jwtDecode(token!);
+      const userId = decoded.id;
+      const response = await fetch(`${BASE_URL}/users/${userId}/unequip/${item.itemId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      });
+      const data = await response.json();
+      if (data.message) {
+        setEquippedItems(equippedItems.filter(i => i.itemId !== item.itemId));
+        await playUISound();
+        // Recarrega o perfil para atualizar stats
+        await fetchProfile(token!);
+      } else {
+        alert(data.msg);
+      }
+    } catch (err) {
+      console.error('Erro ao desequipar item:', err);
+      alert('Erro ao desequipar item.');
     }
   };
 
@@ -147,7 +176,7 @@ export default function ProfileScreen() {
             <Text style={styles.statValue}>{item.stats.speed}</Text>
           </View>
           <View style={styles.statRow}>
-            <Text style={styles.statLabel}>⚔️ Dano:</Text>
+            <Text style={styles.statLabel}>🧠 Inteligência:</Text>
             <Text style={styles.statValue}>{item.stats.damage}</Text>
           </View>
           <View style={styles.statRow}>
@@ -157,6 +186,14 @@ export default function ProfileScreen() {
         </View>
         
         <Text style={styles.passiveText}>✨ {item.passive}</Text>
+        
+        <TouchableOpacity
+          style={[styles.unequipButton, { backgroundColor: '#ff4444' }]}
+          onPress={() => handleUnequip(item)}
+          activeOpacity={0.8}
+        >
+          <Text style={styles.unequipButtonText}>DESEQUIPAR</Text>
+        </TouchableOpacity>
       </View>
     </Animated.View>
   );
@@ -208,7 +245,7 @@ export default function ProfileScreen() {
                 <Text style={styles.statValue}>{profile.stats.speed}</Text>
               </View>
               <View style={styles.statRow}>
-                <Text style={styles.statLabel}>⚔️ Dano:</Text>
+                <Text style={styles.statLabel}>🧠 Inteligência:</Text>
                 <Text style={styles.statValue}>{profile.stats.damage}</Text>
               </View>
               <View style={styles.statRow}>
@@ -437,6 +474,20 @@ const styles = StyleSheet.create({
     color: '#fcee09',
     fontStyle: 'italic',
     opacity: 0.8,
+    marginBottom: 12,
+  },
+  unequipButton: {
+    padding: 12,
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: '#000',
+  },
+  unequipButtonText: {
+    fontSize: 16,
+    fontFamily: 'ChakraPetch-Bold',
+    color: '#000',
+    letterSpacing: 1,
+    textTransform: 'uppercase',
   },
   backButton: {
     position: 'absolute',
