@@ -62,20 +62,22 @@ export default function Explore() {
         const location = await getUserLocation();
         setUserLocation(location);
         if (location) {
-          // FORÇA LIMPEZA DO CACHE - REMOVA DEPOIS DE TESTAR!
-          await AsyncStorage.removeItem('mapItems');
-          console.log('explore.tsx: 🔥 Cache limpo! Gerando novos itens...');
+          // Carrega itens do cache ou gera novos
+          const cachedItems = await loadItems();
+          const validItems = cachedItems.filter(item => !item.expiresAt || item.expiresAt > Date.now());
           
-          // GERA TODOS OS ITENS DE UMA VEZ (6 MISSÕES + 3 INIMIGOS = 9)
-          const generatedItems = generateRandomItems(location, 9, [], playerLevel);
-          console.log('explore.tsx: Items gerados:', generatedItems.length);
-          console.log('explore.tsx: Inimigos gerados:', generatedItems.filter(i => i.enemy).map(i => ({ id: i.id, icon: i.icon, name: i.name })));
-          setItems(generatedItems);
-          await saveItems(generatedItems);
+          if (validItems.length < 9) {
+            // Gera itens faltantes
+            const generatedItems = generateRandomItems(location, 9 - validItems.length, validItems, playerLevel);
+            const allItems = [...validItems, ...generatedItems];
+            setItems(allItems);
+            await saveItems(allItems);
+          } else {
+            setItems(validItems);
+          }
         } else {
           const cachedItems = await loadItems();
           const validItems = cachedItems.filter(item => !item.expiresAt || item.expiresAt > Date.now());
-          console.log('explore.tsx: Items válidos do cache:', validItems.length);
           setItems(validItems);
         }
 
@@ -84,7 +86,6 @@ export default function Explore() {
           try {
             await stopBackgroundMusic();
             await playBackgroundMusic(require('../../assets/songs/map-theme.mp3'));
-            console.log('explore.tsx: Música do mapa iniciada');
             musicInitialized.current = true;
           } catch (error) {
             console.error('Erro ao tocar música do mapa:', error);
@@ -118,7 +119,6 @@ export default function Explore() {
       // Remove itens expirados primeiro
       setItems(prevItems => {
         const validItems = prevItems.filter(item => !item.expiresAt || item.expiresAt > Date.now());
-        console.log(`🔄 Intervalo: Total=${prevItems.length}, Válidos=${validItems.length}, Inimigos=${validItems.filter(i => i.id.startsWith('enemy-')).length}`);
         
         if (validItems.length < 9) { // 6 missões + 3 inimigos
           // GERA QUANTOS ITENS FALTAREM ATÉ COMPLETAR 9
@@ -126,7 +126,6 @@ export default function Explore() {
           const newItems = generateRandomItems(userLocation, itemsNeeded, validItems, playerLevel);
           const allItems = [...validItems, ...newItems];
           saveItems(allItems);
-          console.log(`🔄 Adicionados ${newItems.length} novos itens. Total agora: ${allItems.length}`);
           return allItems;
         }
         return validItems;
